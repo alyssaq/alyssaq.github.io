@@ -1,1 +1,1 @@
-<alyssaq.github.io/alyssaq>
+<http://alyssaq.github.io/alyssaq>
