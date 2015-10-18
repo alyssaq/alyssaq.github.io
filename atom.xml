@@ -213,7 +213,7 @@ Out[5]: True
     <link href="alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/"/>
     <id>alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/</id>
     <published>2015-01-13T19:30:00.000Z</published>
-    <updated>2015-10-18T08:46:22.000Z</updated>
+    <updated>2015-10-18T13:12:44.000Z</updated>
     <content type="html"><![CDATA[<h4 id="How_do_we_find_the_major_and_minor_axes_of_a_blob?">How do we find the major and minor axes of a blob?</h4><p>We look at using 2 popular methods to obtain the same result:</p>
 <ol>
 <li>Covariance matrix and eigenvectors, eigenvalues (partial PCA).</li>
@@ -285,7 +285,7 @@ plt.show()
 
 <p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/blob_axes-eigens_plot.png"><br></p>
 
-<p><strong>7) Bonus!</strong> We vertically-align the blob based on the major axis via a linear transformation. An <a href="scriptogr.am/alyssa/post/visualising-matrices-and-affine-transformations-with-python#rotating">anti-clockwise rotating transformation matrix</a> has the general form:<br>$\begin{bmatrix}<br>cos \theta &amp; -sin \theta \\<br>sin \theta &amp; cos \theta<br>\end{bmatrix}$.</p>
+<p><strong>7) Bonus!</strong> We vertically-align the blob based on the major axis via a linear transformation. An <a href="scriptogr.am/alyssa/post/visualising-matrices-and-affine-transformations-with-python#rotating">anti-clockwise rotating transformation matrix</a> has the general form: $\begin{bmatrix}<br>cos \theta &amp; -sin \theta \\<br>sin \theta &amp; cos \theta<br>\end{bmatrix}$.</p>
 <p>To do this:</p>
 <ol>
 <li>Calculate $\theta$ using the eigenvector of the major axis to the y-axis</li>
@@ -306,7 +306,9 @@ plt.plot(x_points, y_points, 'g.')
 <p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/blob_axes-transformed_plot.png"><br></p>
 
 <h2 id="2-_Raw_image_moments">2. Raw image moments</h2><p>We can obtain the same axes and orientation of a blob with <a href="http://en.wikipedia.org/wiki/Image_moment#Raw_moments" target="_blank" rel="external">raw image moments and central moments</a>. Special thanks to this <a href="http://stackoverflow.com/questions/9005659/compute-eigenvectors-of-image-in-python" target="_blank" rel="external">stack overflow answer</a>.</p>
-<p>The calculation of a raw image moment is given by the equation:<br>$$<br>M<em>{ij} = \sum\limits</em>{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)<br>$$ where $x$ and $y$ are indices to the data and $I(x, y)$ is the grey-level intensity value at that index. The codification of that equation:</p>
+<p>The calculation of a raw image moment is given by the equation: </p>
+<p>$$<br>M<em>{ij}  = \sum\limits</em>{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)<br>$$</p>
+<p>where $x$ and $y$ are indices to the data and $I(x, y)$ is the grey-level intensity value at that index. The codification of that equation:</p>
 <pre><code class="language-python">
 def raw_moment(data, i_order, j_order):
   nrows, ncols = data.shape
@@ -452,12 +454,12 @@ Out[3]: True
     <link href="alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/"/>
     <id>alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/</id>
     <published>2015-01-01T18:00:00.000Z</published>
-    <updated>2015-10-18T09:01:15.000Z</updated>
+    <updated>2015-10-18T12:18:40.000Z</updated>
     <content type="html"><![CDATA[<p>Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). </p>
 <p>There is an assumed knowledge of the core mathematical concepts in matrices and vectors. If a refresher is needed, I highly recommend <a href="https://www.khanacademy.org/math/precalculus" target="_blank" rel="external">Khan Academy’s Precalculus</a> course.</p>
 <p>I also recommend <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank" rel="external">Khan Academy’s Linear Algebra</a> course for further learning. </p>
 <h2 id="Linear_vs_Affine_transform">Linear vs Affine transform</h2><p>Quick distinction. Linear transformations are fixed around the origin (scaling, rotating, skewing). Affine transformations are a linear function followed by a translation.</p>
-<h2 id="Visualising_a_matrix">Visualising a matrix</h2><p>Points in 2D space can be written as (3, 13), (5, 15). A set of 2D vectors can be written in a matrix as<br>$\begin{bmatrix}<br>3 &amp; 5 \\<br>13 &amp; 15<br>\end{bmatrix}$<br>with each column representing a data point.<br>So, a matrix, say $P$ =<br>$\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$ consists of 4 points. Lets plot it in Python.</p>
+<h2 id="Visualising_a_matrix">Visualising a matrix</h2><p>Points in 2D space can be written as (3, 13), (5, 15). A set of 2D vectors can be written in a matrix as $\begin{bmatrix}<br>3 &amp; 5 \\<br>13 &amp; 15<br>\end{bmatrix}$ with each column representing a data point.<br>So, matrix $P$ = $\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$ consists of 4 points. Lets plot it in Python.</p>
 <p>First, the libraries:</p>
 <pre><code class="language-python">
 import numpy as np
@@ -492,10 +494,10 @@ plt.axes().set_aspect('equal')
 plt.show()
 </code></pre>
 
-<p>And our matrix $P$ =<br>$\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$ can be visualised as the corners of a square. Remember to view the lines as a bunch of points.</p>
+<p>And our matrix $P$ = $\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$ can be visualised as the corners of a square. Remember to view the lines as a bunch of points.</p>
 <p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/matrix-plot.png"><br></p>
 
-<h2 id="Identity_matrix">Identity matrix</h2><p>Multiplying a matrix with the identity matrix does nothing to the matrix. That is, $\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}<br>\begin{bmatrix} 3 \\ 13 \end{bmatrix} = \begin{bmatrix} 3 \\ 13 \end{bmatrix}$. Each column in the indentity matrix are called <a href="http://en.wikipedia.org/wiki/Basis_%28linear_algebra%29" target="_blank" rel="external"><em>basis vectors</em></a> (linearly independent and equations solve for 0). These will be super useful in deriving and visualising the transformation matrices.</p>
+<h2 id="Identity_matrix">Identity matrix</h2><p>Multiplying a matrix with the identity matrix does nothing to the matrix.<br>That is, $\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}<br>\begin{bmatrix} 3 \\ 13 \end{bmatrix} = \begin{bmatrix} 3 \\ 13 \end{bmatrix}$. Each column in the indentity matrix are called <a href="http://en.wikipedia.org/wiki/Basis_%28linear_algebra%29" target="_blank" rel="external"><em>basis vectors</em></a> (linearly independent and equations solve for 0). These will be super useful in deriving and visualising the transformation matrices.</p>
 <h2 id="Scaling">Scaling</h2><p><img src="https://alyssaq.github.io/blog/images/matrix-scaling.png" style="float:left"><br>Lets say we want to scale our points by 2. The plot on the left shows the identity matrix in black and our end goal in red. Heres the <a href="https://gist.github.com/alyssaq/90d5f116250c443cd928#file-plot_matrix_scaling-py" target="_blank" rel="external">github gist</a> for the plot. The first vector along the <em>x</em>-axis, $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ has to be multipled by 2 to get to $\begin{bmatrix} 2 \\ 0 \end{bmatrix}$. The same is applied to the second vector along the <em>y</em>-axis.  Our end matrix is $\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{bmatrix}$. </p>
 <p>To generalise, we can multiply a matrix by $\begin{bmatrix} k1 &amp; 0 \\ 0 &amp; k2 \end{bmatrix}$ to achieve scaling in 2D space. $k1$ and $k2$ can be the same or different to obtain different scalings in the different dimensions.</p>
 <p><img src="https://alyssaq.github.io/blog/images/matrix-scaling-result.png" style="float:right"></p>
@@ -526,7 +528,7 @@ translated_matrix = A*P
         [  <span class="number">1.</span>  ,   <span class="number">1.</span>  ,   <span class="number">1.</span>  ,   <span class="number">1.</span>  ]])
 </code></pre><p><img src="https://alyssaq.github.io/blog/images/matrix-translating-result.png"></p>
 <h2 id="Transformation_matrix">Transformation matrix</h2><p>Heres a summary of the transformation matrices (courtesy of <a href="http://en.wikipedia.org/wiki/Transformation_matrix" target="_blank" rel="external">wikipedia</a>). Notice that a 2x2 linear transformation matrix becomes a 3x3 transformation matrix by padding it with 0s and a 1 at the bottom-right corner. </p>
-<p>So, for vectors in 3D ($\mathbb{R}^3$) space, its <em>linear</em> transformation matrix is 3x3 and its <em>affine</em> transformation matrix (usually called without the affine) is 4x4 and so on for higher dimensions.<br><img src="http://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg"></p>
+<p>So, for vectors in 3D ($\mathbb{R}^3$) space, its <em>linear</em> transformation matrix is 3x3 and its <em>affine</em> transformation matrix (usually called without the affine) is 4x4 and so on for higher dimensions.<br><img src="//upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg"></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision technique]]>
