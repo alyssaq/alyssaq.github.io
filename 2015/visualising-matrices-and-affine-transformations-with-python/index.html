@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Visualising Matrices and Affine Transformations With Python | Alyssa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). 
+There is an assumed knowl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Visualising Matrices and Affine Transformations With Python">
+<meta property="og:url" content="alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/index.html">
+<meta property="og:site_name" content="Alyssa">
+<meta property="og:description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). 
+There is an assumed knowl">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-plot.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-scaling.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-scaling-result.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-reflection-result.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-skewing-result.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-rotating.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-rotating-result.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-translating-result.png">
+<meta property="og:image" content="http://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg">
+<meta property="og:updated_time" content="2015-10-18T09:01:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Visualising Matrices and Affine Transformations With Python">
+<meta name="twitter:description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). 
+There is an assumed knowl">
+  
+  
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+  
+    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+  
+  
+
+
+  
+    <style type="text/css">
+      .logo { background-image:url(https://s.gravatar.com/avatar/68dd6178c6868bff37f7c2e196201ff8?s=80); }
+    </style>
+  
+
+  
+    <link href='//fonts.useso.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+</head>
+
+<body>
+  <div id="wrap">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div class="container">
+      <div class="container-inner">
+        <div id="header-title">
+          <h1 class="logo-wrap">
+            <a href="/" class="logo"></a>
+          </h1>
+          
+            <h2 class="subtitle-wrap">
+              <p class="subtitle">Alyssa Quek</p>
+            </h2>
+          
+        </div>
+        <div id="header-inner" class="nav-container">
+          <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+          <div class="nav-container-inner">
+            <ul id="main-nav">
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/">Home</a></li>
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/about/index.html">About</a></li>
+              
+            </ul>
+            <nav id="sub-nav">
+              <div id="search-form-wrap">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="container">
+      <div class="main-body container-inner">
+        <div class="main-body-inner">
+          <section id="main">
+            <div class="main-body-header">
+
+              <h1 class="header"><a class="page-title-link" href="/categories/data-science/">data science</a></h1>
+            </div>
+            <div class="main-body-content">
+              
+  <article id="post-visualising-matrices-and-affine-transformations-with-python" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+      <!--  -->
+      
+        <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      Visualising Matrices and Affine Transformations With Python
+    </h1>
+  
+
+        </header>
+      
+      
+        <p class="article-byline">
+          <a href="/2015/visualising-matrices-and-affine-transformations-with-python/" class="article-date">
+  <time datetime="2015-01-01T18:00:00.000Z" itemprop="datePublished">02-Jan-2015</time>
+</a>
+        </p>
+      
+      <div class="article-entry" itemprop="articleBody">
+        <p>Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). </p>
+<p>There is an assumed knowledge of the core mathematical concepts in matrices and vectors. If a refresher is needed, I highly recommend <a href="https://www.khanacademy.org/math/precalculus" target="_blank" rel="external">Khan Academy’s Precalculus</a> course.</p>
+<p>I also recommend <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank" rel="external">Khan Academy’s Linear Algebra</a> course for further learning. </p>
+<h2 id="Linear_vs_Affine_transform">Linear vs Affine transform</h2><p>Quick distinction. Linear transformations are fixed around the origin (scaling, rotating, skewing). Affine transformations are a linear function followed by a translation.</p>
+<h2 id="Visualising_a_matrix">Visualising a matrix</h2><p>Points in 2D space can be written as (3, 13), (5, 15). A set of 2D vectors can be written in a matrix as<br>$\begin{bmatrix}<br>3 &amp; 5 \\<br>13 &amp; 15<br>\end{bmatrix}$<br>with each column representing a data point.<br>So, a matrix, say $P$ =<br>$\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$ consists of 4 points. Lets plot it in Python.</p>
+<p>First, the libraries:</p>
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+</code></pre>
+
+<p>I’m going to draw a line between the points but you should picture the line as a row of many points. Heres the function to plot the matrix that will be reused throughout this post:</p>
+<pre><code class="language-python">
+def plot_points(matrix, ls='--', lw=1.2, colors=None):
+  x_points, y_points = matrix
+  size = len(x_points)
+  colors = ['red', 'blue', 'orange', 'green'] if not None else colors
+  for i in range(size):
+    plt.plot(x_points[i], y_points[i], color=colors[i], marker='o')
+    plt.plot([x_points[i], x_points[(i+1) % size]], 
+             [y_points[i], y_points[(i+1) % size]], 
+             color=colors[i], 
+             linestyle=ls, linewidth=lw)
+</code></pre>
+
+<p>Now, we plot our matrix, $P$.</p>
+<pre><code class="language-python">
+x_points = np.array([0, 0, 20, 20])
+y_points = np.array([0, 20, 20, 0])
+matrix = np.array([x_points, y_points])
+colors = ['red', 'blue', 'orange', 'green']
+size = len(x_points)
+plot_points(matrix, colors)
+plt.ylim([-5,25])
+plt.xlim([-5,25])
+plt.axes().set_aspect('equal')
+plt.show()
+</code></pre>
+
+<p>And our matrix $P$ =<br>$\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$ can be visualised as the corners of a square. Remember to view the lines as a bunch of points.</p>
+<p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/matrix-plot.png"><br></p>
+
+<h2 id="Identity_matrix">Identity matrix</h2><p>Multiplying a matrix with the identity matrix does nothing to the matrix. That is, $\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}<br>\begin{bmatrix} 3 \\ 13 \end{bmatrix} = \begin{bmatrix} 3 \\ 13 \end{bmatrix}$. Each column in the indentity matrix are called <a href="http://en.wikipedia.org/wiki/Basis_%28linear_algebra%29" target="_blank" rel="external"><em>basis vectors</em></a> (linearly independent and equations solve for 0). These will be super useful in deriving and visualising the transformation matrices.</p>
+<h2 id="Scaling">Scaling</h2><p><img src="https://alyssaq.github.io/blog/images/matrix-scaling.png" style="float:left"><br>Lets say we want to scale our points by 2. The plot on the left shows the identity matrix in black and our end goal in red. Heres the <a href="https://gist.github.com/alyssaq/90d5f116250c443cd928#file-plot_matrix_scaling-py" target="_blank" rel="external">github gist</a> for the plot. The first vector along the <em>x</em>-axis, $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ has to be multipled by 2 to get to $\begin{bmatrix} 2 \\ 0 \end{bmatrix}$. The same is applied to the second vector along the <em>y</em>-axis.  Our end matrix is $\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{bmatrix}$. </p>
+<p>To generalise, we can multiply a matrix by $\begin{bmatrix} k1 &amp; 0 \\ 0 &amp; k2 \end{bmatrix}$ to achieve scaling in 2D space. $k1$ and $k2$ can be the same or different to obtain different scalings in the different dimensions.</p>
+<p><img src="https://alyssaq.github.io/blog/images/matrix-scaling-result.png" style="float:right"></p>
+<p>Lets try scaling our matrix $P$ by multiplying it with the matrix:<br>$\begin{bmatrix}<br>1.5 &amp; 0 \\<br>0 &amp; 2<br>\end{bmatrix}$  As expected, we can see that the original square (dashed lines) has been scaled by 1.5 in the positive <em>x</em> direction and scaled by 2 in the positive <em>y</em> direction.</p>
+<p>The resultant matrix is:<br>$\begin{bmatrix}<br>1.5 &amp; 0 \\<br>0 &amp; 2<br>\end{bmatrix} \times<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix} =<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 30 &amp; 30\\<br>0 &amp; 40 &amp; 40 &amp; 0<br>\end{bmatrix}$</p>
+<h2 id="Reflecting">Reflecting</h2><p>We can reflect the points along the <em>y</em>-axis by multiplying all <em>x</em> coordinates by -1. So, $(1, 1)$ becomes $(-1, 1)$. That means we can multiply a matrix by $\begin{bmatrix}<br>-1 &amp; 0 \\<br>0 &amp; 1<br>\end{bmatrix}$ and it’ll mirror along the <em>y</em>-axis. And the visuals!</p>
+<p style="text-align:center"><img src="https://alyssaq.github.io/blog/images/matrix-reflection-result.png"></p> 
+
+<h2 id="Skewing">Skewing</h2><p>Lets skew the identity matrix by +50%. The vector along the <em>x</em>-axis stays the same while the vector along the <em>y</em>-axis shifts <em>k</em> = 0.5 to the right. Our resultant matrix is now $\begin{bmatrix}<br>1 &amp; 0.5 \\<br>0 &amp; 1<br>\end{bmatrix}$ and a skewing transformation matrix can be generalised as $\begin{bmatrix}<br>1 &amp; k \\<br>0 &amp; 1<br>\end{bmatrix}$.</p>
+<p>So, doing<br>$\begin{bmatrix}<br>1 &amp; 0.5 \\<br>0 &amp; 1<br>\end{bmatrix} \times<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$<br>will skew $P$ by 50%.</p>
+<p style="text-align:center"><img src="https://alyssaq.github.io/blog/images/matrix-skewing-result.png"></p> 
+
+<h2 id="Rotating"><a name="rotating"></a> Rotating</h2><p><img src="https://alyssaq.github.io/blog/images/matrix-rotating.png" style="float:left"><br>My favourite linear transformation. Using the trusty <a href="http://www.mathsisfun.com/algebra/sohcahtoa.html" target="_blank" rel="external"><em>SOH CAH TOA</em></a> acronym, we can see that<br>(1, 0) on the <em>x</em>-axis lands on $(cos \theta, sin \theta)$ and<br>(0, 1) on the <em>y</em>-axis lands on $(-sin \theta, cos \theta)$ when rotated by positive $\theta$. </p>
+<p>Thus, our rotating transformation matrix has the general form: $\begin{bmatrix}<br>cos \theta &amp; -sin \theta \\<br>sin \theta &amp; cos \theta<br>\end{bmatrix}$. </p>
+<p>Lets plot $P$ when it is rotated by $-30^\circ$. Note the change in negative $sin$ for clockwise rotation. Our matrices involved in this transformation are:</p>
+<p>$\begin{bmatrix}<br>0.866 &amp; 0.5 \\<br>-0.5 &amp; 0.866<br>\end{bmatrix} \times<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix} =<br>\begin{bmatrix}<br>0 &amp; 10 &amp; 27.32 &amp; 17.32\\<br>0 &amp; 17.32 &amp; 7.32 &amp; -10<br>\end{bmatrix}$<br><img src="https://alyssaq.github.io/blog/images/matrix-rotating-result.png"></p>
+<h2 id="Translating">Translating</h2><p>Lastly, the affine transform to translate a matrix. To do this, we need to represent a 2-vector $(x, y)$ to a 3-vector $(x, y, 1)$. A translation matrix has the form $\begin{bmatrix}<br>1 &amp; 0 &amp; t1 \\<br>0 &amp; 1 &amp; t2 \\<br>0 &amp; 0 &amp; 1<br>\end{bmatrix}$ where $t1$ and $t2$ translates a vector in the <em>x</em> and <em>y</em> direction. Lets translate $P$ to the left by 75% and downwards by 25%. Unlike the linear transformations where the scalars are multipliers, the affine scalars specify the distance to be translated.</p>
+<p>$\begin{bmatrix}<br>1 &amp; 0 &amp; -15 \\<br>0 &amp; 1 &amp; -5 \\<br>0 &amp; 0 &amp; 1<br>\end{bmatrix} \times<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0 \\<br>1 &amp; 1 &amp; 1 &amp; 1<br>\end{bmatrix}$</p>
+<pre><code class="language-python">
+A = np.matrix([[1, 0, -0.75*20], [0, 1, -0.25*20], [0, 0, 1]]) 
+P = np.matrix([[0, 0, 20, 20], [0, 20, 20, 0], [1, 1, 1, 1]])   
+translated_matrix = A*P 
+</code></pre>
+
+<p>translated_matrix:</p>
+<pre><code>matrix([[ -<span class="number">0.75</span>,  -<span class="number">0.75</span>,  <span class="number">19.25</span>,  <span class="number">19.25</span>],
+        [ -<span class="number">0.25</span>,  <span class="number">19.75</span>,  <span class="number">19.75</span>,  -<span class="number">0.25</span>],
+        [  <span class="number">1.</span>  ,   <span class="number">1.</span>  ,   <span class="number">1.</span>  ,   <span class="number">1.</span>  ]])
+</code></pre><p><img src="https://alyssaq.github.io/blog/images/matrix-translating-result.png"></p>
+<h2 id="Transformation_matrix">Transformation matrix</h2><p>Heres a summary of the transformation matrices (courtesy of <a href="http://en.wikipedia.org/wiki/Transformation_matrix" target="_blank" rel="external">wikipedia</a>). Notice that a 2x2 linear transformation matrix becomes a 3x3 transformation matrix by padding it with 0s and a 1 at the bottom-right corner. </p>
+<p>So, for vectors in 3D ($\mathbb{R}^3$) space, its <em>linear</em> transformation matrix is 3x3 and its <em>affine</em> transformation matrix (usually called without the affine) is 4x4 and so on for higher dimensions.<br><img src="http://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg"></p>
+
+      </div>
+      <footer class="article-footer">
+        <a data-url="alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/" data-id="cifwbblyb000zbeif48cgb44v" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-algebra/">linear algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+      </footer>
+    </div>
+  </article>
+  
+  
+
+            </div>
+          </section>
+          <aside id="sidebar">
+  <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+  <div class="sidebar-top">
+    <p>follow:</p>
+    <ul class="social-links">
+      
+        <li><a class="social-tooltip" title="twitter" href="https://twitter.com/alyssaquek" target="_blank"><i class="icon fa fa-twitter"></i></a></li>
+      
+        <li><a class="social-tooltip" title="facebook" href="https://www.facebook.com/alyssaq" target="_blank"><i class="icon fa fa-facebook"></i></a></li>
+      
+        <li><a class="social-tooltip" title="linkedin" href="https://linkedin.com/in/alyssaq" target="_blank"><i class="icon fa fa-linkedin"></i></a></li>
+      
+        <li><a class="social-tooltip" title="github" href="https://github.com/alyssaq" target="_blank"><i class="icon fa fa-github"></i></a></li>
+      
+        <li><a class="social-tooltip" title="rss" href="/atom.xml" target="_blank"><i class="icon fa fa-rss"></i></a></li>
+      
+    </ul>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/understanding-eigenvectors-and-eigenvalues-visually/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <p class="article-nav-title">
+        
+          Understanding Eigenvectors and Eigenvalues Visually
+        
+      </p>
+      <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+  
+  
+    <a href="/2015/2015/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <p class="article-nav-title">2015</p>
+      <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+    </a>
+  
+</nav>
+
+  
+  <div class="widgets-container">
+    
+      
+  <div class="widget-wrap">
+    <h3 class="widget-title">recents</h3>
+    <div class="widget">
+      <ul id="recent-post" class="no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/tech/">tech</a></p>
+              <p class="item-title"><a href="/2015/deploy_gzip_site_s3/" class="title">Site Deployment With Gzipped Assets to AWS S3 Using CircleCI</a></p>
+              <p class="item-date"><time datetime="2015-04-16T10:02:00.000Z" itemprop="datePublished">16-Apr-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/stuff/">stuff</a></p>
+              <p class="item-title"><a href="/2015/face-morpher-talk-at-foss-asia/" class="title">Face Morpher Talk at FOSS Asia</a></p>
+              <p class="item-date"><time datetime="2015-03-14T11:08:00.000Z" itemprop="datePublished">14-Mar-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/singular-value-decomposition-visualisation/" class="title">Singular Value Decomposition (SVD) Visualisation</a></p>
+              <p class="item-date"><time datetime="2015-02-23T19:03:00.000Z" itemprop="datePublished">24-Feb-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/computing-the-axes-or-orientation-of-a-blob/" class="title">Computing the Axes or Orientation of a Blob</a></p>
+              <p class="item-date"><time datetime="2015-01-13T19:30:00.000Z" itemprop="datePublished">14-Jan-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/understanding-eigenvectors-and-eigenvalues-visually/" class="title">Understanding Eigenvectors and Eigenvalues Visually</a></p>
+              <p class="item-date"><time datetime="2015-01-07T07:30:00.000Z" itemprop="datePublished">07-Jan-2015</time></p>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/data-science/">data science</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/stuff/">stuff</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/api/">api</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/automation/">automation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computer-vision/">computer vision</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dropbox/">dropbox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linear-algebra/">linear algebra</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multithreading/">multithreading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/numpy/">numpy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opencv/">opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/">pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/queue/">queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ready-player-one/">ready_player_one</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-float">
+    <h3 class="widget-title">tag cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/automation/" style="font-size: 12.5px;">automation</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/computer-vision/" style="font-size: 17.5px;">computer vision</a> <a href="/tags/dropbox/" style="font-size: 10px;">dropbox</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear algebra</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/markdown/" style="font-size: 12.5px;">markdown</a> <a href="/tags/math/" style="font-size: 12.5px;">math</a> <a href="/tags/multithreading/" style="font-size: 10px;">multithreading</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/numpy/" style="font-size: 10px;">numpy</a> <a href="/tags/opencv/" style="font-size: 10px;">opencv</a> <a href="/tags/pandas/" style="font-size: 10px;">pandas</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/ready-player-one/" style="font-size: 10px;">ready_player_one</a>
+    </div>
+  </div>
+
+
+    
+  </div>
+</aside>
+        </div>
+      </div>
+    </div>
+    <footer id="footer">
+  
+  <div class="container">
+    <div class="container-inner">
+      <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+      <div class="credit">
+        <h1 class="logo-wrap">
+          <a href="/" class="logo"></a>
+        </h1>
+        <p>&copy; 2015 Alyssa Quek</p>
+        <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+    
+
+
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+
+
+
+
+  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
+  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+
+
+<script src="/js/html-patch.js" type="text/javascript"></script>
+<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/prism.min.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

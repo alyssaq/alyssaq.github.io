@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Understanding Hough Transform With Python | Alyssa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="The Hough transform (Duda and Hart, 1972), which started out as a technique to detect lines in image, has been generalised and extended to detect curves in 2D and 3D.
+Here, we understand how an image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Understanding Hough Transform With Python">
+<meta property="og:url" content="alyssaq.github.io/2014/understanding-hough-transform/index.html">
+<meta property="og:site_name" content="Alyssa">
+<meta property="og:description" content="The Hough transform (Duda and Hart, 1972), which started out as a technique to detect lines in image, has been generalised and extended to detect curves in 2D and 3D.
+Here, we understand how an image">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/hough-cartesian_equation.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/hough-mb_parameter_space.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/hough-2point_transform.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/hough-final_transformed.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/hough_deriving-rho.png">
+<meta property="og:updated_time" content="2015-10-18T08:45:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Understanding Hough Transform With Python">
+<meta name="twitter:description" content="The Hough transform (Duda and Hart, 1972), which started out as a technique to detect lines in image, has been generalised and extended to detect curves in 2D and 3D.
+Here, we understand how an image">
+  
+  
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+  
+    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+  
+  
+
+
+  
+    <style type="text/css">
+      .logo { background-image:url(https://s.gravatar.com/avatar/68dd6178c6868bff37f7c2e196201ff8?s=80); }
+    </style>
+  
+
+  
+    <link href='//fonts.useso.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+</head>
+
+<body>
+  <div id="wrap">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div class="container">
+      <div class="container-inner">
+        <div id="header-title">
+          <h1 class="logo-wrap">
+            <a href="/" class="logo"></a>
+          </h1>
+          
+            <h2 class="subtitle-wrap">
+              <p class="subtitle">Alyssa Quek</p>
+            </h2>
+          
+        </div>
+        <div id="header-inner" class="nav-container">
+          <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+          <div class="nav-container-inner">
+            <ul id="main-nav">
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/">Home</a></li>
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/about/index.html">About</a></li>
+              
+            </ul>
+            <nav id="sub-nav">
+              <div id="search-form-wrap">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="container">
+      <div class="main-body container-inner">
+        <div class="main-body-inner">
+          <section id="main">
+            <div class="main-body-header">
+
+              <h1 class="header"><a class="page-title-link" href="/categories/data-science/">data science</a></h1>
+            </div>
+            <div class="main-body-content">
+              
+  <article id="post-understanding-hough-transform" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+      <!--  -->
+      
+        <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      Understanding Hough Transform With Python
+    </h1>
+  
+
+        </header>
+      
+      
+        <p class="article-byline">
+          <a href="/2014/understanding-hough-transform/" class="article-date">
+  <time datetime="2014-12-14T10:18:00.000Z" itemprop="datePublished">14-Dec-2014</time>
+</a>
+        </p>
+      
+      <div class="article-entry" itemprop="articleBody">
+        <p>The Hough transform <a href="http://www.ai.sri.com/pubs/files/tn036-duda71.pdf" target="_blank" rel="external">(Duda and Hart, 1972)</a>, which started out as a technique to detect lines in image, has been generalised and extended to detect curves in 2D and 3D.</p>
+<p>Here, we understand how an image is transformed into the hough space for line detection and implement it in Python.</p>
+<h2 id="How_it_works_-_gradient-intercept_parameter_space">How it works - gradient-intercept parameter space</h2><p>A line in Cartesian form has the equation:<br><img src="https://alyssaq.github.io/blog/images/hough-cartesian_equation.png" style="float:right"></p>
+<pre><code>y = mx + b
+
+<span class="keyword">where</span>:    
+m = gradient <span class="keyword">or</span> slope <span class="keyword">of</span> <span class="keyword">the</span> line (rise/<span class="command">run</span>)   
+b = y-intercept
+</code></pre><p>Given a set of edge points or a binary image indicating edges, we want to find as many lines that connect these points in image space.</p>
+<p>Say we have 2 edge points ($x_1, y_1$) and ($x_2, y_2$). For each edge point at various gradient values ($m$=-0.5, 1.0, 1.5, etc), we calculate the corresponding $b$ values. The image below shows the various lines through an edge point in image space and the plot of these lines in parameter space. Points which are collinear in the cartesian image space will intersect at a point in $m$-$b$ parameter space.</p>
+<p><img src="https://alyssaq.github.io/blog/images/hough-mb_parameter_space.png" alt="mb_space"></p>
+<p><strong>All points on a line in image space intersect at a common point in parameter space. This common point ($m$, $b$) represents the line in image space.</strong></p>
+<p>Unfortunately, the slope, $m$, is undefined when the line is vertical (division by 0!).<br>To overcome this, we use another parameter space, the hough space.</p>
+<h2 id="How_it_works_-_angle-distance_parameter_space">How it works - angle-distance parameter space</h2><p>A line in Polar coordinate system has the equation:</p>
+<pre><code>ρ = x <span class="built_in">cos</span> θ + y <span class="built_in">sin</span> θ
+
+where:
+ρ (rho) = distance <span class="built_in">from</span> origin <span class="built_in">to</span> <span class="operator">the</span> <span class="built_in">line</span>. [-max_dist <span class="built_in">to</span> max_dist]. 
+          max_dist is <span class="operator">the</span> diagonal <span class="built_in">length</span> <span class="operator">of</span> <span class="operator">the</span> image.  
+θ = angle <span class="built_in">from</span> origin <span class="built_in">to</span> <span class="operator">the</span> <span class="built_in">line</span>. [-<span class="number">90</span>° <span class="built_in">to</span> <span class="number">90</span>°]
+</code></pre><p>If you’re interested in how $\rho$ is derived, I’ve laid out the maths at the bottom <a href="#rho">extras section: deriving rho</a>.</p>
+<p>To explain the hough transform, I’ll use a simple example. I’ve created an input binary image of size 30 x 30 pixels with points at (5, 25) and (20, 10) shown below. The image is transformed to the hough space by calculating $\rho$ with a point at each angle from $-90^\circ$ to $90^\circ$ (negative angles are anti-clockwise starting horizontally from the origin and positive angles are clockwise).  The points in hough space make a sinusoidal curve. </p>
+<p><img src="https://alyssaq.github.io/blog/images/hough-2point_transform.png" style="float:left"></p>
+<p>The value of $\rho$ at various angles for the 2 edge points:</p>
+<table>
+<thead>
+<tr>
+<th>point</th>
+<th style="text-align:center">$-90^\circ$</th>
+<th style="text-align:center">$-45^\circ$</th>
+<th style="text-align:center">$0^\circ$</th>
+<th style="text-align:center">$45^\circ$</th>
+<th style="text-align:center">$90^\circ$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(5, 25)</td>
+<td style="text-align:center">-25</td>
+<td style="text-align:center">-14</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">21</td>
+<td style="text-align:center">25</td>
+</tr>
+<tr>
+<td>(20, 10)</td>
+<td style="text-align:center">-10</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">21</td>
+<td style="text-align:center">10</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://alyssaq.github.io/blog/images/hough-final_transformed.png" style="float:right"><br>We see that the curves in hough space intersect at $45^\circ$ with $\rho=21$.<br>Curves generated by collinear points in the image space intersect in peaks $(\rho, \theta)$ in the Hough transform space. The more curves intersect at a point, the more “votes” a line in image space will receive. We’ll see this in the next implementation section.</p>
+<h2 id="Algorithm_steps">Algorithm steps</h2><ol>
+<li><strong>Corner or edge detection</strong>. (E.g. using <a href="http://scikit-image.org/docs/dev/auto_examples/plot_canny.html" target="_blank" rel="external">canny</a>, <a href="http://scikit-image.org/docs/dev/api/skimage.filter.html?highlight=sobel#sobel" target="_blank" rel="external">sobel</a>, <a href="http://scikit-image.org/docs/dev/api/skimage.filter.html?highlight=sobel#threshold-adaptive" target="_blank" rel="external">adaptive thresholding</a>). The resultant binary/grey image will have 0s indicating non-edges and 1s or above indicating edges. This is our input image.</li>
+<li><strong>Rho range and Theta range creation</strong>. $\rho$ ranges from -max_dist to max_dist where max_dist is the diagonal length of the input image. $\theta$ ranges from $-90^\circ$ to $90^\circ$. You can have more or less bins in the ranges to tradeoff accuracy, space and speed. E.g. Every third angle in $-90^\circ$ to $90^\circ$ to reduce from 180 to 60 values.</li>
+<li><strong>Hough accumulator</strong> of $\theta$ vs $\rho$. It is a 2D array with the number of rows equal to the number of $\rho$ values and the number of columns equal to the number of $\theta$ values.</li>
+<li><strong>Voting in the accumulator</strong>. For each edge point and for each $\theta$ value, find the nearest $\rho$ value and increment that index in the accumulator. Each element tells how many points/pixels contributed “votes” for potential line candidates with parameters $(\rho, \theta)$.</li>
+<li><strong>Peak finding</strong>. Local maxima in the accumulator indicates the parameters of the most prominent lines in the input image. Peaks can be found most easily by applying a threshold or a relative threshold (values equal to or greater than some fixed percentage of the global maximum value).</li>
+</ol>
+<h2 id="Code_Time">Code Time</h2><p>Full code on <a href="https://github.com/alyssaq/hough_transform" target="_blank" rel="external"><i class="fa fa-github-alt"></i> github</a></p>
+<pre class="line-numbers"><code class="language-python">
+import numpy as np
+
+def hough_line(img):
+  # Rho and Theta ranges
+  thetas = np.deg2rad(np.arange(-90.0, 90.0))
+  width, height = img.shape
+  diag_len = np.ceil(np.sqrt(width * width + height * height))   # max_dist
+  rhos = np.linspace(-diag_len, diag_len, diag_len * 2.0)
+
+  # Cache some resuable values
+  cos_t = np.cos(thetas)
+  sin_t = np.sin(thetas)
+  num_thetas = len(thetas)
+
+  # Hough accumulator array of theta vs rho
+  accumulator = np.zeros((2 * diag_len, num_thetas), dtype=np.uint64)
+  y_idxs, x_idxs = np.nonzero(img)  # (row, col) indexes to edges
+
+  # Vote in the hough accumulator
+  for i in range(len(x_idxs)):
+    x = x_idxs[i]
+    y = y_idxs[i]
+
+    for t_idx in range(num_thetas):
+      # Calculate rho. diag_len is added for a positive index
+      rho = round(x * cos_t[t_idx] + y * sin_t[t_idx]) + diag_len
+      accumulator[rho, t_idx] += 1
+
+  return accumulator, thetas, rhos 
+</code></pre>
+
+
+<p>Usage:</p>
+<pre class="line-numbers"><code class="language-python">
+# Create binary image and call hough_line
+image = np.zeros((50,50))
+image[10:40, 10:40] = np.eye(30)
+accumulator, thetas, rhos = hough_line(image)
+
+# Easiest peak finding based on max votes
+idx = np.argmax(accumulator)
+rho = rhos[idx / accumulator.shape[1]]
+theta = thetas[idx % accumulator.shape[1]]
+print "rho={0:.2f}, theta={1:.0f}".format(rho, np.rad2deg(theta))
+</code></pre>
+
+<pre><code>rho=<span class="number">0.50</span>, theta=-<span class="number">45</span>
+</code></pre><p>Hough transform (and the faster probabilistic version) is available in <a href="http://docs.opencv.org/doc/tutorials/imgproc/imgtrans/hough_lines/hough_lines.html" target="_blank" rel="external">openCV</a> and <a href="http://scikit-image.org/docs/dev/auto_examples/plot_line_hough_transform.html" target="_blank" rel="external">scikit-image</a>.</p>
+<h2 id="Extensions">Extensions</h2><p>Hough transform can be extended to detect circles of the equation<br>$r^2 = (x − a)^2 + (y − b)^2$ in the parameter space, $\rho = (a, b, r)$.<br>Furthermore, it can be generalized to detect arbitrary shapes <a href="http://comp-eng.binus.ac.id/files/2012/04/D.H.-Ballard-Generalizing-the-Hough-Transform-to-Detect-Arbitrary-Shapes1.pdf" target="_blank" rel="external">(D. H. Ballard, 1981)</a>.</p>
+<p>Another approach is the Progressive Probabilistic Hough Transform <a href="http://cmp.felk.cvut.cz/~matas/papers/matas-bmvc98.pdf" target="_blank" rel="external">(Galamhos et al, 1999)</a>. The algorithm uses  random subsets of voting points in the accumulator and checks for the longest segment of pixels with minimum gaps. Line segments that exceed a minimum length threshold are added to the list. This returns the beginning and end point of each line segment in the image. It has 3 thresholds: a minimum number of votes in the Hough accumulator, a maximum line gap for merging and a minimum line length. </p>
+<p>##Extras</p>
+<h3 id="Deriving_rho:_ρ_=_x_cos_θ_+_y_sin_θ"><a name="rho"></a> Deriving rho: ρ = x cos θ + y sin θ</h3><p><img src="https://alyssaq.github.io/blog/images/hough_deriving-rho.png" style="float:left;"> </p>
+<p>With basic trigonometry, we know that for right-angled triangles,<br>$sin \theta = {opposite\over hypotenuse}$ and $cos \theta = {adjacent \over hypotenuse}$.  </p>
+<p>We want to convert the cartesian form $y = mx + b$ with parameters $(m, b)$ to polar form with parameters $(\rho, \theta)$. </p>
+<p>The line from the origin with distance $\rho$ has a gradient of ${sin \theta \over cos \theta}$. The line of interest, which is perpendicular to it, will have a negative reciprocal gradient value of ${-cos \theta \over sin \theta}$. For $b$, the y-intercept of the line of interest, $sin \theta = {\rho \over b}$.</p>
+<p>With $m = {-cos \theta \over sin \theta}$ and $b = {\rho \over sin \theta}$, we get   $\rho = x \ cos \theta + y \ sin \theta$.</p>
+
+      </div>
+      <footer class="article-footer">
+        <a data-url="alyssaq.github.io/2014/understanding-hough-transform/" data-id="cifwbblyk0016beifx9k0fpfw" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+      </footer>
+    </div>
+  </article>
+  
+  
+
+            </div>
+          </section>
+          <aside id="sidebar">
+  <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+  <div class="sidebar-top">
+    <p>follow:</p>
+    <ul class="social-links">
+      
+        <li><a class="social-tooltip" title="twitter" href="https://twitter.com/alyssaquek" target="_blank"><i class="icon fa fa-twitter"></i></a></li>
+      
+        <li><a class="social-tooltip" title="facebook" href="https://www.facebook.com/alyssaq" target="_blank"><i class="icon fa fa-facebook"></i></a></li>
+      
+        <li><a class="social-tooltip" title="linkedin" href="https://linkedin.com/in/alyssaq" target="_blank"><i class="icon fa fa-linkedin"></i></a></li>
+      
+        <li><a class="social-tooltip" title="github" href="https://github.com/alyssaq" target="_blank"><i class="icon fa fa-github"></i></a></li>
+      
+        <li><a class="social-tooltip" title="rss" href="/atom.xml" target="_blank"><i class="icon fa fa-rss"></i></a></li>
+      
+    </ul>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/2015/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <p class="article-nav-title">
+        
+          2015
+        
+      </p>
+      <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+  
+  
+    <a href="/2014/installing-opencv-on-mac-osx-with-homebrew/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <p class="article-nav-title">Installing OpenCV on Mac OSX With Homebrew</p>
+      <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+    </a>
+  
+</nav>
+
+  
+  <div class="widgets-container">
+    
+      
+  <div class="widget-wrap">
+    <h3 class="widget-title">recents</h3>
+    <div class="widget">
+      <ul id="recent-post" class="no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/tech/">tech</a></p>
+              <p class="item-title"><a href="/2015/deploy_gzip_site_s3/" class="title">Site Deployment With Gzipped Assets to AWS S3 Using CircleCI</a></p>
+              <p class="item-date"><time datetime="2015-04-16T10:02:00.000Z" itemprop="datePublished">16-Apr-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/stuff/">stuff</a></p>
+              <p class="item-title"><a href="/2015/face-morpher-talk-at-foss-asia/" class="title">Face Morpher Talk at FOSS Asia</a></p>
+              <p class="item-date"><time datetime="2015-03-14T11:08:00.000Z" itemprop="datePublished">14-Mar-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/singular-value-decomposition-visualisation/" class="title">Singular Value Decomposition (SVD) Visualisation</a></p>
+              <p class="item-date"><time datetime="2015-02-23T19:03:00.000Z" itemprop="datePublished">24-Feb-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/computing-the-axes-or-orientation-of-a-blob/" class="title">Computing the Axes or Orientation of a Blob</a></p>
+              <p class="item-date"><time datetime="2015-01-13T19:30:00.000Z" itemprop="datePublished">14-Jan-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/understanding-eigenvectors-and-eigenvalues-visually/" class="title">Understanding Eigenvectors and Eigenvalues Visually</a></p>
+              <p class="item-date"><time datetime="2015-01-07T07:30:00.000Z" itemprop="datePublished">07-Jan-2015</time></p>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/data-science/">data science</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/stuff/">stuff</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/api/">api</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/automation/">automation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computer-vision/">computer vision</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dropbox/">dropbox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linear-algebra/">linear algebra</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multithreading/">multithreading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/numpy/">numpy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opencv/">opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/">pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/queue/">queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ready-player-one/">ready_player_one</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-float">
+    <h3 class="widget-title">tag cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/automation/" style="font-size: 12.5px;">automation</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/computer-vision/" style="font-size: 17.5px;">computer vision</a> <a href="/tags/dropbox/" style="font-size: 10px;">dropbox</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear algebra</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/markdown/" style="font-size: 12.5px;">markdown</a> <a href="/tags/math/" style="font-size: 12.5px;">math</a> <a href="/tags/multithreading/" style="font-size: 10px;">multithreading</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/numpy/" style="font-size: 10px;">numpy</a> <a href="/tags/opencv/" style="font-size: 10px;">opencv</a> <a href="/tags/pandas/" style="font-size: 10px;">pandas</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/ready-player-one/" style="font-size: 10px;">ready_player_one</a>
+    </div>
+  </div>
+
+
+    
+  </div>
+</aside>
+        </div>
+      </div>
+    </div>
+    <footer id="footer">
+  
+  <div class="container">
+    <div class="container-inner">
+      <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+      <div class="credit">
+        <h1 class="logo-wrap">
+          <a href="/" class="logo"></a>
+        </h1>
+        <p>&copy; 2015 Alyssa Quek</p>
+        <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+    
+
+
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+
+
+
+
+  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
+  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+
+
+<script src="/js/html-patch.js" type="text/javascript"></script>
+<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/prism.min.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

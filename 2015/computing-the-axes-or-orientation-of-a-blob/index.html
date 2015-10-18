@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Computing the Axes or Orientation of a Blob | Alyssa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="How do we find the major and minor axes of a blob?We look at using 2 popular methods to obtain the same result:
+
+Covariance matrix and eigenvectors, eigenvalues (partial PCA).
+Raw image moments
+
+1. Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Computing the Axes or Orientation of a Blob">
+<meta property="og:url" content="alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/index.html">
+<meta property="og:site_name" content="Alyssa">
+<meta property="og:description" content="How do we find the major and minor axes of a blob?We look at using 2 popular methods to obtain the same result:
+
+Covariance matrix and eigenvectors, eigenvalues (partial PCA).
+Raw image moments
+
+1. Co">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-skewed_oval.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-eigens_plot.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-transformed_plot.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-moments_plot.png">
+<meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-three_plot.png">
+<meta property="og:updated_time" content="2015-10-18T08:46:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Computing the Axes or Orientation of a Blob">
+<meta name="twitter:description" content="How do we find the major and minor axes of a blob?We look at using 2 popular methods to obtain the same result:
+
+Covariance matrix and eigenvectors, eigenvalues (partial PCA).
+Raw image moments
+
+1. Co">
+  
+  
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+  
+    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+  
+  
+
+
+  
+    <style type="text/css">
+      .logo { background-image:url(https://s.gravatar.com/avatar/68dd6178c6868bff37f7c2e196201ff8?s=80); }
+    </style>
+  
+
+  
+    <link href='//fonts.useso.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+</head>
+
+<body>
+  <div id="wrap">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div class="container">
+      <div class="container-inner">
+        <div id="header-title">
+          <h1 class="logo-wrap">
+            <a href="/" class="logo"></a>
+          </h1>
+          
+            <h2 class="subtitle-wrap">
+              <p class="subtitle">Alyssa Quek</p>
+            </h2>
+          
+        </div>
+        <div id="header-inner" class="nav-container">
+          <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+          <div class="nav-container-inner">
+            <ul id="main-nav">
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/">Home</a></li>
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/about/index.html">About</a></li>
+              
+            </ul>
+            <nav id="sub-nav">
+              <div id="search-form-wrap">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="container">
+      <div class="main-body container-inner">
+        <div class="main-body-inner">
+          <section id="main">
+            <div class="main-body-header">
+
+              <h1 class="header"><a class="page-title-link" href="/categories/data-science/">data science</a></h1>
+            </div>
+            <div class="main-body-content">
+              
+  <article id="post-computing-the-axes-or-orientation-of-a-blob" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+      <!--  -->
+      
+        <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      Computing the Axes or Orientation of a Blob
+    </h1>
+  
+
+        </header>
+      
+      
+        <p class="article-byline">
+          <a href="/2015/computing-the-axes-or-orientation-of-a-blob/" class="article-date">
+  <time datetime="2015-01-13T19:30:00.000Z" itemprop="datePublished">14-Jan-2015</time>
+</a>
+        </p>
+      
+      <div class="article-entry" itemprop="articleBody">
+        <h4 id="How_do_we_find_the_major_and_minor_axes_of_a_blob?">How do we find the major and minor axes of a blob?</h4><p>We look at using 2 popular methods to obtain the same result:</p>
+<ol>
+<li>Covariance matrix and eigenvectors, eigenvalues (partial PCA).</li>
+<li>Raw image moments</li>
+</ol>
+<h2 id="1-_Covariance_matrix_and_eigens">1. Covariance matrix and eigens</h2><p>An <strong>eigenvalue</strong> tells us the scaling magnitude along the direction of its corresponding <strong>eigenvector</strong>. Check my post on <a href="http://scriptogr.am/alyssa/post/understanding-eigenvectors-and-eigenvalues-visually" target="_blank" rel="external">understanding eigens</a> for the visual intuition. </p>
+<p><a href="http://mathworld.wolfram.com/CovarianceMatrix.html" target="_blank" rel="external"><strong>Covariance matrix</strong></a> is a square and symmetric matrix that summarises the variance between two variables. So, with a set of $(x, y)$ points, the covariance matrix is 2x2:<br>$ C = \begin{bmatrix}<br>variance(x,x) &amp; variance(x,y) \\<br>variance(x,y) &amp; variance(y,y)<br>\end{bmatrix}$, where the variance of $(x, y)$ and $(y, x)$ are the same.</p>
+<p><strong>Principal component analysis (PCA)</strong> is a method commonly used for dimensionality reduction. The eigenvectors of the covariance matrix are called <strong>principal components</strong>. Heres a thorough <a href="http://www.cs.otago.ac.nz/cosc453/student_tutorials/principal_components.pdf" target="_blank" rel="external">tutorial on PCA and applied to computer vision (Lindsay Smith, 2002)</a>.</p>
+<p><strong>Eigenvectors with the largest eigenvalue of a covariance matrix</strong> gives us the direction along which the data has the largest variance.</p>
+<h3 id="Computation_Outline">Computation Outline</h3><ol>
+<li><strong>Matrix of points</strong>. We’ll be dealing with 2D points so our matrix is 2x<em>m</em>. The 1st row are the x-coordinates, 2nd row are the y-coordinates and <em>m</em> indicates the number of points.</li>
+<li><strong>Subtract the mean for each point</strong>. Calculate the mean of the row of x-coordinates. For each x-point, subtract the mean from it. Do the same for the y-coordinates. Mean subtraction minimises the mean square error of approximating the data and centers the data.</li>
+<li><strong>Covariance matrix calculation</strong>. Calculate the 2x2 covariance matrix.</li>
+<li><strong>Eigenvectors, eigenvalues of covariance matrix</strong>. Find the 2 eigen-pairs of our dataset.</li>
+<li><strong>Rearrange the eigen-pairs</strong>. Sort by decreasing eigenvalues.</li>
+<li><strong>Plot the principal components</strong></li>
+</ol>
+<p>Steps 1-5 are the beginning crux to performing <a href="http://en.wikipedia.org/wiki/Principal_component_analysis#Computing_PCA_using_the_covariance_method" target="_blank" rel="external">dimensionality reduction with PCA</a>.</p>
+<h3 id="Code_Time">Code Time</h3><p>We’ll use a binary image as input and our matrix of points are the indices to the white pixels. Heres the image:</p>
+<p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/blob_axes-skewed_oval.png"><br></p>
+
+<p>First, the libraries we’ll be using:</p>
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.misc
+import skimage.filter
+</code></pre>
+
+<p><strong>1) Read the image in grey-scale.</strong> We want the indexes of the white pixels to find the axes of the blob.</p>
+<pre><code class="language-python">
+img = misc.imread('oval.png', flatten=1)
+y, x = np.nonzero(img)
+</code></pre>
+
+<p><strong>2) Subtract mean from each dimension.</strong> We now have our 2x<em>m</em> matrix.</p>
+<pre><code class="language-python">
+x = x - np.mean(x)
+y = y - np.mean(y)
+coords = np.vstack([x, y])
+</code></pre>
+
+<p><strong>3 &amp; 4) Covariance matrix and its eigenvectors and eigenvalues</strong></p>
+<pre><code class="language-python">
+cov = np.cov(coords)
+evals, evecs = np.linalg.eig(cov)
+</code></pre>
+
+<p><strong>5) Sort eigenvalues in decreasing order</strong> (we only have 2 values)</p>
+<pre><code class="language-python">
+sort_indices = np.argsort(evals)[::-1]
+evec1, evec2 = evecs[:, sort_indices]
+x_v1, y_v1 = evec1  # Eigenvector with largest eigenvalue
+x_v2, y_v2 = evec2
+</code></pre>
+
+<p><strong>6) Plot the principal components.</strong> The larger eigenvector is plotted in red and drawn twice as long as the smaller eigenvector in blue.</p>
+<pre><code class="language-python">
+scale = 20
+plt.plot([x_v1*-scale*2, x_v1*scale*2], 
+         [y_v1*-scale*2, y_v1*scale*2], color='red')
+plt.plot([x_v2*-scale, x_v2*scale], 
+         [y_v2*-scale, y_v2*scale], color='blue')
+plt.plot(x, y, 'k.')
+plt.axis('equal')
+plt.gca().invert_yaxis()  # Match the image system with origin at top left
+plt.show()
+</code></pre>
+
+<p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/blob_axes-eigens_plot.png"><br></p>
+
+<p><strong>7) Bonus!</strong> We vertically-align the blob based on the major axis via a linear transformation. An <a href="scriptogr.am/alyssa/post/visualising-matrices-and-affine-transformations-with-python#rotating">anti-clockwise rotating transformation matrix</a> has the general form:<br>$\begin{bmatrix}<br>cos \theta &amp; -sin \theta \\<br>sin \theta &amp; cos \theta<br>\end{bmatrix}$.</p>
+<p>To do this:</p>
+<ol>
+<li>Calculate $\theta$ using the eigenvector of the major axis to the y-axis</li>
+<li>Create the rotating transformation matrix</li>
+<li>Multiply the transformation matrix to the set of coordinates.<pre><code class="language-python">
+theta = np.tanh((x_v1)/(y_v1))  
+rotation_mat = np.matrix([[np.cos(theta), -np.sin(theta)], 
+                      [np.sin(theta), np.cos(theta)]])
+transformed_mat = rotation_mat * coords
+# plot the transformed blob
+x_transformed, y_transformed = transformed_mat.A
+plt.plot(x_points, y_points, 'g.')
+</code></pre>
+
+</li>
+</ol>
+<p>The vertically-align transformed blob is overlaid in green.</p>
+<p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/blob_axes-transformed_plot.png"><br></p>
+
+<h2 id="2-_Raw_image_moments">2. Raw image moments</h2><p>We can obtain the same axes and orientation of a blob with <a href="http://en.wikipedia.org/wiki/Image_moment#Raw_moments" target="_blank" rel="external">raw image moments and central moments</a>. Special thanks to this <a href="http://stackoverflow.com/questions/9005659/compute-eigenvectors-of-image-in-python" target="_blank" rel="external">stack overflow answer</a>.</p>
+<p>The calculation of a raw image moment is given by the equation:<br>$$<br>M<em>{ij} = \sum\limits</em>{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)<br>$$ where $x$ and $y$ are indices to the data and $I(x, y)$ is the grey-level intensity value at that index. The codification of that equation:</p>
+<pre><code class="language-python">
+def raw_moment(data, i_order, j_order):
+  nrows, ncols = data.shape
+  y_indices, x_indicies = np.mgrid[:nrows, :ncols]
+  return (data * x_indicies**i_order * y_indices**j_order).sum()
+</code></pre>
+
+<p>Now we can derive the second order central moments and construct its covariance matrix:</p>
+<pre><code class="language-python">
+def moments_cov(data):
+  data_sum = data.sum()
+  m10 = raw_moment(data, 1, 0)
+  m01 = raw_moment(data, 0, 1)
+  x_centroid = m10 / data_sum
+  y_centroid = m01 / data_sum
+  u11 = (raw_moment(data, 1, 1) - x_centroid * m01) / data_sum
+  u20 = (raw_moment(data, 2, 0) - x_centroid * m10) / data_sum
+  u02 = (raw_moment(data, 0, 2) - y_centroid * m01) / data_sum
+  cov = np.array([[u20, u11], [u11, u02]])
+  return cov
+</code></pre>
+
+<p>Note that calculating the image moments does not require finding the indices to the blob shape. To use the above function, simply call it with the image data:</p>
+<pre><code class="language-python">
+img = misc.imread('oval.png', flatten=1)
+cov = moments_cov(img)
+evals, evecs = np.linalg.eig(cov)
+</code></pre>
+
+<p>Given the covariance matrix, finding the axes and re-aligning the blob continues with steps 4 to 7 from the first method. As expected, the transformed plot looks the same:</p>
+<p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/blob_axes-moments_plot.png"><br></p>
+
+
+<h2 id="Comparison">Comparison</h2><p>In this case, using image moments would be faster since we do not have to find the $(x, y)$ coordinates to the blob pixels. Both methods would encounter issues with images containing lots of noise.</p>
+<p>The partial PCA calculated the largest eigenvalue of 2942.0060 and its eigenvector [0.3997, -0.9166]. By a slight difference, image moments returned the largest eigenvalue of calculated the largest eigenvalue of 2943.2583 and its eigenvector of [0.4027, -0.9153].<br>Their $\theta$ difference is less than a fifth of $1^\circ$.</p>
+<p>For asymmetric blobs, both methods will be biased to the side that has the higher concentration of pixels. Heres an image where the axes appear to be slightly off and over-rotates in an attempt to align it (original image on the left):</p>
+<p><img src="https://alyssaq.github.io/blog/images/blob_axes-three_plot.png" alt="three_plot"></p>
+
+      </div>
+      <footer class="article-footer">
+        <a data-url="alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/" data-id="cifwbbly4000pbeifdat65t60" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-algebra/">linear algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+      </footer>
+    </div>
+  </article>
+  
+  
+
+            </div>
+          </section>
+          <aside id="sidebar">
+  <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+  <div class="sidebar-top">
+    <p>follow:</p>
+    <ul class="social-links">
+      
+        <li><a class="social-tooltip" title="twitter" href="https://twitter.com/alyssaquek" target="_blank"><i class="icon fa fa-twitter"></i></a></li>
+      
+        <li><a class="social-tooltip" title="facebook" href="https://www.facebook.com/alyssaq" target="_blank"><i class="icon fa fa-facebook"></i></a></li>
+      
+        <li><a class="social-tooltip" title="linkedin" href="https://linkedin.com/in/alyssaq" target="_blank"><i class="icon fa fa-linkedin"></i></a></li>
+      
+        <li><a class="social-tooltip" title="github" href="https://github.com/alyssaq" target="_blank"><i class="icon fa fa-github"></i></a></li>
+      
+        <li><a class="social-tooltip" title="rss" href="/atom.xml" target="_blank"><i class="icon fa fa-rss"></i></a></li>
+      
+    </ul>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/singular-value-decomposition-visualisation/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <p class="article-nav-title">
+        
+          Singular Value Decomposition (SVD) Visualisation
+        
+      </p>
+      <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+  
+  
+    <a href="/2015/understanding-eigenvectors-and-eigenvalues-visually/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <p class="article-nav-title">Understanding Eigenvectors and Eigenvalues Visually</p>
+      <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+    </a>
+  
+</nav>
+
+  
+  <div class="widgets-container">
+    
+      
+  <div class="widget-wrap">
+    <h3 class="widget-title">recents</h3>
+    <div class="widget">
+      <ul id="recent-post" class="no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/tech/">tech</a></p>
+              <p class="item-title"><a href="/2015/deploy_gzip_site_s3/" class="title">Site Deployment With Gzipped Assets to AWS S3 Using CircleCI</a></p>
+              <p class="item-date"><time datetime="2015-04-16T10:02:00.000Z" itemprop="datePublished">16-Apr-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/stuff/">stuff</a></p>
+              <p class="item-title"><a href="/2015/face-morpher-talk-at-foss-asia/" class="title">Face Morpher Talk at FOSS Asia</a></p>
+              <p class="item-date"><time datetime="2015-03-14T11:08:00.000Z" itemprop="datePublished">14-Mar-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/singular-value-decomposition-visualisation/" class="title">Singular Value Decomposition (SVD) Visualisation</a></p>
+              <p class="item-date"><time datetime="2015-02-23T19:03:00.000Z" itemprop="datePublished">24-Feb-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/computing-the-axes-or-orientation-of-a-blob/" class="title">Computing the Axes or Orientation of a Blob</a></p>
+              <p class="item-date"><time datetime="2015-01-13T19:30:00.000Z" itemprop="datePublished">14-Jan-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/understanding-eigenvectors-and-eigenvalues-visually/" class="title">Understanding Eigenvectors and Eigenvalues Visually</a></p>
+              <p class="item-date"><time datetime="2015-01-07T07:30:00.000Z" itemprop="datePublished">07-Jan-2015</time></p>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/data-science/">data science</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/stuff/">stuff</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/api/">api</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/automation/">automation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computer-vision/">computer vision</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dropbox/">dropbox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linear-algebra/">linear algebra</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multithreading/">multithreading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/numpy/">numpy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opencv/">opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/">pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/queue/">queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ready-player-one/">ready_player_one</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-float">
+    <h3 class="widget-title">tag cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/automation/" style="font-size: 12.5px;">automation</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/computer-vision/" style="font-size: 17.5px;">computer vision</a> <a href="/tags/dropbox/" style="font-size: 10px;">dropbox</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear algebra</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/markdown/" style="font-size: 12.5px;">markdown</a> <a href="/tags/math/" style="font-size: 12.5px;">math</a> <a href="/tags/multithreading/" style="font-size: 10px;">multithreading</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/numpy/" style="font-size: 10px;">numpy</a> <a href="/tags/opencv/" style="font-size: 10px;">opencv</a> <a href="/tags/pandas/" style="font-size: 10px;">pandas</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/ready-player-one/" style="font-size: 10px;">ready_player_one</a>
+    </div>
+  </div>
+
+
+    
+  </div>
+</aside>
+        </div>
+      </div>
+    </div>
+    <footer id="footer">
+  
+  <div class="container">
+    <div class="container-inner">
+      <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+      <div class="credit">
+        <h1 class="logo-wrap">
+          <a href="/" class="logo"></a>
+        </h1>
+        <p>&copy; 2015 Alyssa Quek</p>
+        <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+    
+
+
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+
+
+
+
+  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
+  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+
+
+<script src="/js/html-patch.js" type="text/javascript"></script>
+<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/prism.min.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
