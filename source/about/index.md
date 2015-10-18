@@ -3,7 +3,7 @@ title: about me!
 
 I like all things dark, quirky and Japanese.
 
-I'm a fan of [efficient eating](https://docs.google.com/presentation/d/10AXfQHEeZAxhEBZFd-C7MTj0s3mD5SWhVG8jsw0c-hU/pub) and minialist living.
+I'm a fan of [efficient eating](https://docs.google.com/presentation/d/10AXfQHEeZAxhEBZFd-C7MTj0s3mD5SWhVG8jsw0c-hU/pub) and minimalist living.
 
 I enjoy applied maths and building applications that analyse, automate and solve problems. 
 I dont always need a good reason to build something. 
