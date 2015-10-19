@@ -97,8 +97,7 @@ plt.show()
 <img src="https://alyssaq.github.io/blog/images/blob_axes-eigens_plot.png">
 </p>
 
-**7) Bonus!** We vertically-align the blob based on the major axis via a linear transformation. An [anti-clockwise rotating transformation matrix](scriptogr.am/alyssa/post/visualising-matrices-and-affine-transformations-with-python#rotating) has the general form:
-$\begin{bmatrix}
+**7) Bonus!** We vertically-align the blob based on the major axis via a linear transformation. An [anti-clockwise rotating transformation matrix](scriptogr.am/alyssa/post/visualising-matrices-and-affine-transformations-with-python#rotating) has the general form: $\begin{bmatrix}
 cos \theta & -sin \theta \\\
 sin \theta & cos \theta
 \end{bmatrix}$.
@@ -126,10 +125,21 @@ The vertically-align transformed blob is overlaid in green.
 ## 2. Raw image moments
 We can obtain the same axes and orientation of a blob with [raw image moments and central moments](http://en.wikipedia.org/wiki/Image_moment#Raw_moments). Special thanks to this [stack overflow answer](http://stackoverflow.com/questions/9005659/compute-eigenvectors-of-image-in-python).
 
-The calculation of a raw image moment is given by the equation:
-$$
-M_{ij} = \sum\limits_{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)
-$$ where $x$ and $y$ are indices to the data and $I(x, y)$ is the grey-level intensity value at that index. The codification of that equation:
+The calculation of a raw image moment is given by the equation: 
+
+{% math %}
+\begin{aligned}
+M_{ij}  = \sum\limits_{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)
+\end{aligned}
+{% endmath %}
+
+
+  <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}, processEscapes: true });
+  </script>
+
+where $x$ and $y$ are indices to the data and $I(x, y)$ is the grey-level intensity value at that index. The codification of that equation:
 
 <pre><code class="language-python">
 def raw_moment(data, i_order, j_order):
@@ -169,7 +179,7 @@ Given the covariance matrix, finding the axes and re-aligning the blob continues
 ## Comparison
 In this case, using image moments would be faster since we do not have to find the $(x, y)$ coordinates to the blob pixels. Both methods would encounter issues with images containing lots of noise.
 
-The partial PCA calculated the largest eigenvalue of 2942.0060 and its eigenvector [0.3997, -0.9166]. By a slight difference, image moments returned the largest eigenvalue of calculated the largest eigenvalue of 2943.2583 and its eigenvector of [0.4027, -0.9153].
+The partial PCA calculated the largest eigenvalue of 2942.0060 and its eigenvector [0.3997, -0.9166]. By a slight difference, image moments returned the largest eigenvalue of 2943.2583 and its eigenvector of [0.4027, -0.9153].
 Their $\theta$ difference is less than a fifth of $1^\circ$.
 
 For asymmetric blobs, both methods will be biased to the side that has the higher concentration of pixels. Heres an image where the axes appear to be slightly off and over-rotates in an attempt to align it (original image on the left):

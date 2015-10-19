@@ -85,6 +85,7 @@ logo: https://s.gravatar.com/avatar/68dd6178c6868bff37f7c2e196201ff8?s=80
 menu:
   Home: /
   About: /about/index.html
+  #Categories:
 
 # Article list grouped by year
 groupByYear: true
@@ -99,7 +100,7 @@ thumbnail: false
 scrollLoading: true
 
 # Sidebar
-sidebar: right # sidebar's position (left or right)
+sidebar: left # sidebar's position (left or right)
 social_links:
   twitter: https://twitter.com/alyssaquek
   facebook: https://www.facebook.com/alyssaq
@@ -120,7 +121,7 @@ widgets:
 #   Hexo: http://hexo.io
 
 # Don't Use Google APIs if you are in google-blocked areas
-use_google_apis: false
+use_google_apis: true
 
 feed:
   type: atom
