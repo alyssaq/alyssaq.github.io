@@ -40,20 +40,6 @@
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
-
-  <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-<script>
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [ ['$','$'], ['\\(','\\)'] ],
-    displayMath: [ ['$$','$$'], ['\[','\]']],
-    processEscapes: true
-  },
-  TeX: {
-    extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
-  }
-})
-</script>
 </head>
 
 <body>
@@ -147,7 +133,7 @@ MathJax.Hub.Config({
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2014/view-math-equations-in-markdown-with-mathjax/" data-id="cifwhcv8n002cwhifsijjbcqy" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2014/view-math-equations-in-markdown-with-mathjax/" data-id="cifxcwneo002cywif17ypmv1l" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
@@ -323,10 +309,39 @@ MathJax.Hub.Config({
 
 <script src="/js/html-patch.js" type="text/javascript"></script>
 <script src="/js/script.js" type="text/javascript"></script>
-<script src="/js/prism.min.js" type="text/javascript"></script><script src="/js/html-patch.js" type="text/javascript"></script>
-<script src="/js/script.js" type="text/javascript"></script>
 <script src="/js/prism.min.js" type="text/javascript"></script>
 
+
   </div>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 </body>
 </html>
