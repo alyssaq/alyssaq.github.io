@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Alyssa Quek]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="alyssaq.github.io/"/>
-  <updated>2015-10-18T08:46:46.000Z</updated>
+  <updated>2015-12-13T08:05:43.000Z</updated>
   <id>alyssaq.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="alyssaq.github.io/2015/deploy_gzip_site_s3/"/>
     <id>alyssaq.github.io/2015/deploy_gzip_site_s3/</id>
     <published>2015-04-16T10:02:00.000Z</published>
-    <updated>2015-10-18T08:46:46.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p>I’ve been using <a href="https://www.heroku.com" target="_blank" rel="external">Heroku</a> and <a href="https://cloud.google.com/appengine/docs" target="_blank" rel="external">Google App Engine</a> to host most of my web applications. This time, I decided to use <a href="http://aws.amazon.com/s3" target="_blank" rel="external">Amazon S3</a> to serve a static website.</p>
 <h2 id="Amazon_S3_setup">Amazon S3 setup</h2><p>After creating your S3 bucket, click on the <code>Properties</code> button.</p>
 <p>1) Enable static website hosting. For single page apps, specify the same error and index document.</p>
@@ -102,7 +102,7 @@ deployment:
     <link href="alyssaq.github.io/2015/face-morpher-talk-at-foss-asia/"/>
     <id>alyssaq.github.io/2015/face-morpher-talk-at-foss-asia/</id>
     <published>2015-03-14T11:08:00.000Z</published>
-    <updated>2015-10-18T08:46:36.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p>I just presented at FOSS Asia (free open source software) conference.<br>I talked about face morphing and averaging using Python.</p>
 <p>Slides: <a href="http://alyssaq.github.io/face_morpher_slides">http://alyssaq.github.io/face_morpher_slides</a><br>Code: <a href="http://github.com/alyssaq/face_morpher" target="_blank" rel="external">http://github.com/alyssaq/face_morpher</a></p>
 ]]></content>
@@ -122,7 +122,7 @@ deployment:
     <link href="alyssaq.github.io/2015/singular-value-decomposition-visualisation/"/>
     <id>alyssaq.github.io/2015/singular-value-decomposition-visualisation/</id>
     <published>2015-02-23T19:03:00.000Z</published>
-    <updated>2015-10-18T08:46:32.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p><a href="https://books.google.com.sg/books?id=MjNwWUY8jx4C&amp;pg=PA259" target="_blank" rel="external">“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre)</a></p>
 <p>This mathematical technique has been used across various industries and example applications include <a href="http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf" target="_blank" rel="external">recommender systems (Netflix prize)</a>, <a href="http://www.iaarc.org/publications/fulltext/isarc2007-4.5_4_035.pdf" target="_blank" rel="external">face and object recognition</a>, <a href="http://www.orie.cornell.edu/engineering2/customcf/iws_events_calendar/files/Marco_Avellaneda_Presentation_10_16_14.pdf" target="_blank" rel="external">risk modelling in equity options</a> and <a href="http://www.ncbi.nlm.nih.gov/pubmed/12045141" target="_blank" rel="external">identifying genes in brain imaging that make up Parkinson disease</a>. </p>
 <h2 id="Definition">Definition</h2><p>SVD is a matrix factorisation and decomposes a matrix of any size into a  product of 3 matrices:</p>
@@ -213,7 +213,7 @@ Out[5]: True
     <link href="alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/"/>
     <id>alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/</id>
     <published>2015-01-13T19:30:00.000Z</published>
-    <updated>2015-10-19T04:06:27.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<h4 id="How_do_we_find_the_major_and_minor_axes_of_a_blob?">How do we find the major and minor axes of a blob?</h4><p>We look at using 2 popular methods to obtain the same result:</p>
 <ol>
 <li>Covariance matrix and eigenvectors, eigenvalues (partial PCA).</li>
@@ -373,7 +373,7 @@ evals, evecs = np.linalg.eig(cov)
     <link href="alyssaq.github.io/2015/understanding-eigenvectors-and-eigenvalues-visually/"/>
     <id>alyssaq.github.io/2015/understanding-eigenvectors-and-eigenvalues-visually/</id>
     <published>2015-01-07T07:30:00.000Z</published>
-    <updated>2015-10-18T08:46:11.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p>Eigenvectors and eigenvalues are used in many engineering problems and have applications in <a href="http://www.cipa.dcu.ie/papers/spie_97.pdf" target="_blank" rel="external">object recognition</a>, <a href="http://cg.cs.uni-bonn.de/fileadmin/Downloads/schultz/papers/schultz-evalder-2008.pdf" target="_blank" rel="external">edge detection in diffusion MRI images</a>, <a href="http://www2.eng.cam.ac.uk/~hemh/gyroscopes/momentinertia.html" target="_blank" rel="external">moments of inertia</a> in motor calculations, <a href="http://www.ma.utexas.edu/mp_arc/c/13/13-25.pdf" target="_blank" rel="external">bridge modelling</a>, <a href="http://www.rose-hulman.edu/~bryan/googleFinalVersionFixed.pdf" target="_blank" rel="external">Google’s PageRank algorithm</a> and more on <a href="http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors#Applications" target="_blank" rel="external">wikipedia</a>.</p>
 <p>Previously, I wrote about <a href="http://scriptogr.am/alyssa/post/visualising-matrices-and-affine-transformations-with-python" target="_blank" rel="external">visualising matrices and affine transformations</a>. Here, we build on top of that and understand eigenvectors and eigenvalues visually.</p>
 <h2 id="Interpreting_eigens">Interpreting eigens</h2><p>Quick recap, a non-zero matrix $x$ can be transformed by multiplying it with a $n \times n$ square matrix, $A$. So, the transformed matrix can be represented by the equation:<br>$$ T(x) = Ax $$</p>
@@ -461,7 +461,7 @@ Out[3]: True
     <link href="alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/"/>
     <id>alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/</id>
     <published>2015-01-01T18:00:00.000Z</published>
-    <updated>2015-10-18T12:18:40.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p>Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). </p>
 <p>There is an assumed knowledge of the core mathematical concepts in matrices and vectors. If a refresher is needed, I highly recommend <a href="https://www.khanacademy.org/math/precalculus" target="_blank" rel="external">Khan Academy’s Precalculus</a> course.</p>
 <p>I also recommend <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank" rel="external">Khan Academy’s Linear Algebra</a> course for further learning. </p>
@@ -556,7 +556,7 @@ translated_matrix = A*P
     <link href="alyssaq.github.io/2015/2015/"/>
     <id>alyssaq.github.io/2015/2015/</id>
     <published>2014-12-31T18:24:00.000Z</published>
-    <updated>2015-10-18T08:45:42.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<h2 id="2014_Review">2014 Review</h2><p>Travelled to 10 different countries in Europe with Seb as the rider and myself as the pillion on his motorbike. Fell in love with <a href="https://www.youtube.com/watch?v=P0FPDgKVEtw" target="_blank" rel="external">the Alps</a>. Did 4 trips from Singapore to Malaysia to <a href="https://www.youtube.com/watch?v=dCJ2m0K7rVU" target="_blank" rel="external">hunt waterfalls</a>. The 4th one spanned over 3 days to Cameron Highlands. Skied twice - first at Niseko, Japan; then at Thredbo, Australia. Joined a group of astronomy enthusiasts in Mersing and spent 2 nights engaging in some spectacular stargazing and astrophotography.</p>
 <p>Learnt node.js, python’s scipy stack, front-end development, devops, databases, APIs. Read one novel. Freelanced for the year and earned a third of my usual salary from the previous year. </p>
 <p>Spend 2 months obsessed over a super nutritious liquid blend, <a href="alyssaquek.blogspot.sg/2014/10/bentoblend-my-diy-soylent.html">bentoblend</a>. I still drink this for breakfast a couple of times a week.</p>
@@ -579,7 +579,7 @@ translated_matrix = A*P
     <link href="alyssaq.github.io/2014/understanding-hough-transform/"/>
     <id>alyssaq.github.io/2014/understanding-hough-transform/</id>
     <published>2014-12-14T10:18:00.000Z</published>
-    <updated>2015-10-18T08:45:38.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p>The Hough transform <a href="http://www.ai.sri.com/pubs/files/tn036-duda71.pdf" target="_blank" rel="external">(Duda and Hart, 1972)</a>, which started out as a technique to detect lines in image, has been generalised and extended to detect curves in 2D and 3D.</p>
 <p>Here, we understand how an image is transformed into the hough space for line detection and implement it in Python.</p>
 <h2 id="How_it_works_-_gradient-intercept_parameter_space">How it works - gradient-intercept parameter space</h2><p>A line in Cartesian form has the equation:<br><img src="https://alyssaq.github.io/blog/images/hough-cartesian_equation.png" style="float:right"></p>
@@ -718,7 +718,7 @@ print "rho={0:.2f}, theta={1:.0f}".format(rho, np.rad2deg(theta))
     <link href="alyssaq.github.io/2014/installing-opencv-on-mac-osx-with-homebrew/"/>
     <id>alyssaq.github.io/2014/installing-opencv-on-mac-osx-with-homebrew/</id>
     <published>2014-08-18T08:24:00.000Z</published>
-    <updated>2015-10-18T08:45:08.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<ol>
 <li>Install the package manager <a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a>. It beats MacPorts any day.</li>
 <li><p>Go ahead and install <a href="http://opencv.org/" target="_blank" rel="external">OpenCV</a>:</p>
@@ -768,7 +768,7 @@ In [<span class="number">3</span>]: cv2.<span class="function"><span class="titl
     <link href="alyssaq.github.io/2014/how-to-run-slimerjs-and-phantomjs-with-circleci/"/>
     <id>alyssaq.github.io/2014/how-to-run-slimerjs-and-phantomjs-with-circleci/</id>
     <published>2014-05-25T09:56:00.000Z</published>
-    <updated>2015-10-18T08:44:57.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Goal">Goal</h2><p>Automatically run user-driven tests (BDD) with <a href="http://slimerjs.org/" target="_blank" rel="external">SlimerJS</a> for testing on Gecko (firefox) and <a href="http://phantomjs.org/" target="_blank" rel="external">PhantomJS</a> for WebKit (chrome/safari) on the continuous integration platform, <a href="https://circleci.com/" target="_blank" rel="external">CircleCI</a>.</p>
 <h3 id="Auto_testing_on_CircleCI">Auto testing on CircleCI</h3><p><a href="https://circleci.com/docs/environment#browsers" target="_blank" rel="external">CircleCI’s test environment</a> is preinstalled with CasperJS and PhantomJS but does not have SlimerJS installed. To get started, all you need is a <a href="https://circleci.com/docs/configuration" target="_blank" rel="external"><code>circle.yml</code></a> file in your repository, activate it in your CircleCI account and it’ll automatically run <code>npm test</code> if you’re using NodeJS. I also use it for my Python applications.</p>
 <p>Running unit tests and just PhantomJS tests is simple and documented on their site but getting SlimerJS working took a little more Googling and trial-and-error. Heres how I set it up.</p>
@@ -825,7 +825,7 @@ notify:
     <link href="alyssaq.github.io/2014/window-titling-in-os-x/"/>
     <id>alyssaq.github.io/2014/window-titling-in-os-x/</id>
     <published>2014-05-13T10:16:00.000Z</published>
-    <updated>2015-10-18T08:44:52.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p>Discovered window tiling for my Mac and absolutely love it!</p>
 <p>Its open-source, light-weight and does what I need:<br><a href="http://spectacleapp.com/" target="_blank" rel="external">spectacleapp</a></p>
 <p>Shortcuts to snap any application to left-half, right-half, quarter, thirds.<br>Its awesome!</p>
@@ -846,7 +846,7 @@ notify:
     <link href="alyssaq.github.io/2014/how-do-I-return-a-http-response-to-caller-and-continue-processing/"/>
     <id>alyssaq.github.io/2014/how-do-I-return-a-http-response-to-caller-and-continue-processing/</id>
     <published>2014-04-02T05:33:00.000Z</published>
-    <updated>2015-10-18T09:04:06.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Scenario">Scenario</h2><p>I have an analysis service that is invoked by posting data via its API.<br>Since the processing could be long-running, it is best to return a response to the caller and continue with the data.  </p>
 <h2 id="Goal">Goal</h2><p>Return a 200 HTTP response to the caller upon receiving valid data.<br>After returning the response, continue processing the data and post the results to another endpoint.</p>
 <h2 id="Potential_solutions">Potential solutions</h2><ul>
@@ -965,7 +965,7 @@ if __name__ == '__main__':
     <link href="alyssaq.github.io/2014/ready-player-one--summary-and-aftereffects/"/>
     <id>alyssaq.github.io/2014/ready-player-one--summary-and-aftereffects/</id>
     <published>2014-03-10T09:46:00.000Z</published>
-    <updated>2015-10-18T08:44:27.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p>You have to read <a href="https://www.goodreads.com/book/show/9969571-ready-player-one" target="_blank" rel="external">Ready Player One (2011)</a> by Ernest Cline!</p>
 <p>I have a major soft spot for utopian and dystopian future societies and characters. Throw in immersive virtual reality, artificial intelligence, pervasive computing vision, haptic technologies, Japanese culture and I’m in virtual heaven.<br><a href="http://www.ted.com/talks/ray_kurzweil_on_how_technology_will_transform_us" target="_blank" rel="external">Progress in technology is exponential</a> and we’ll be able to merge with our technology within the next decade. No, no alien invasion.</p>
 <h2 id="Welcome_to_Ready_Player_One">Welcome to Ready Player One</h2><p>In the dystopian 2044, a free-to-use virtual universe known as OASIS has become a daily refuge from the ugly real world and school systems are available online. When the creator, Halliday, dies without heirs, he leaves his $240 billion fortune and OASIS control to the finder of his Easter Egg.<br>To win, players have to unravel a series of riddles and video games which have been built around Halliday’s obsession of 80’s pop culture. We follow Wade Watt’s convolutions of his race towards the Egg in this highly entertaining, thrilling and addictive game within a novel.</p>
@@ -1022,7 +1022,7 @@ if __name__ == '__main__':
     <link href="alyssaq.github.io/2014/deploy-a-python-web-app-with-3rdparty-packages-to-heroku/"/>
     <id>alyssaq.github.io/2014/deploy-a-python-web-app-with-3rdparty-packages-to-heroku/</id>
     <published>2014-02-18T16:34:00.000Z</published>
-    <updated>2015-10-18T08:44:16.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Goal">Goal</h2><p>To deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting <a href="http://en.wikipedia.org/wiki/Platform_as_a_service" target="_blank" rel="external">platform-as-a-service</a>.</p>
 <p>My required 3rd-party Python packages/modules:</p>
 <ul>
@@ -1074,7 +1074,7 @@ if __name__ == '__main__':
     <link href="alyssaq.github.io/2014/view-math-equations-in-markdown-with-mathjax/"/>
     <id>alyssaq.github.io/2014/view-math-equations-in-markdown-with-mathjax/</id>
     <published>2014-02-02T11:00:00.000Z</published>
-    <updated>2015-10-18T08:43:57.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<p><a href="http://docs.mathjax.org/en/latest/mathjax.html" target="_blank" rel="external">MaxJax</a> is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers. </p>
 <p>1) Add the MathJax script from cdn into your HTML. I use the TeX syntax but you can also use mathML by including it in the config parameter. (For scriptogr.am, its under tools &gt; HTML editor).</p>
 <pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
@@ -1112,7 +1112,7 @@ if __name__ == '__main__':
     <link href="alyssaq.github.io/2014/view-equation-in-markdown-with-dropbox-image-hosting/"/>
     <id>alyssaq.github.io/2014/view-equation-in-markdown-with-dropbox-image-hosting/</id>
     <published>2014-02-01T11:03:00.000Z</published>
-    <updated>2015-10-18T08:43:47.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Goal">Goal</h2><p>I wanted to show math equations in my github README.md</p>
 <p>Update: I now use <a href="http://scriptogr.am/alyssa/post/view-math-equations-in-markdown-with-mathjax" target="_blank" rel="external">MathJax to view math equations in markdown</a>. I use dropbox to show images in this scriptogr.am blog.</p>
 <h3 id="How_to_show_math_equations_in_the_browser">How to show math equations in the browser</h3><p>To do this, I was going to use <a href="http://www.w3.org/Math/mathml-faq.html" target="_blank" rel="external">MathML</a>, which<br>is an XML-based syntax for mathematical symbols to render in browsers.<br>Unfortunately,  markdown does <em>NOT</em> support MathML<br>☹</p>
@@ -1155,7 +1155,7 @@ if __name__ == '__main__':
     <link href="alyssaq.github.io/2014/publish-your-node-module-to-npm/"/>
     <id>alyssaq.github.io/2014/publish-your-node-module-to-npm/</id>
     <published>2014-01-23T10:59:00.000Z</published>
-    <updated>2015-10-18T08:43:35.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Goal:">Goal:</h2><p>You have a node module and want in on npm registry for others to use by simply running: </p>
 <pre><code>npm install <span class="tag">&lt;<span class="title">your_module_name</span>&gt;</span>
 </code></pre><h2 id="Prerequisites">Prerequisites</h2><ol>
@@ -1199,7 +1199,7 @@ if __name__ == '__main__':
     <link href="alyssaq.github.io/2014/2014--lets-blog/"/>
     <id>alyssaq.github.io/2014/2014--lets-blog/</id>
     <published>2014-01-22T19:48:00.000Z</published>
-    <updated>2015-10-18T08:33:16.000Z</updated>
+    <updated>2015-12-13T08:05:43.000Z</updated>
     <content type="html"><![CDATA[<h2 id="I_procrastinated,_now_I_shall_blog">I procrastinated, now I shall blog</h2><p>After storing years of life stories in my head, I’ve finally decided to blog.<br>In my defence, Ive tried many times. I have several online blogs, many to-do lists and scribbles of thoughts on paper, receipts, tissue papers and un-organised word documents.</p>
 <p>This blog is not going to showcase my deep dark thoughts (maybe I’ll write them somewhere else) or daily life rambles. I want to keep the posts technical-related and document my learnings and summaries as a Software Engineer. </p>
 <p>As of January 2014, I have left the corporate world and have joined the startup world. I go in as the first full-time employee in a team of 5. No surprises that this triggered the first post. In the last week, I’ve been working on a mini text-analytics engine in nodejs. </p>
