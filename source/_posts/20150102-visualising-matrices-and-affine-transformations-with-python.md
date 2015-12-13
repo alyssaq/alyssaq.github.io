@@ -18,14 +18,11 @@ I also recommend [Khan Academy's Linear Algebra](https://www.khanacademy.org/mat
 Quick distinction. Linear transformations are fixed around the origin (scaling, rotating, skewing). Affine transformations are a linear function followed by a translation.
 
 ## Visualising a matrix
-Points in 2D space can be written as (3, 13), (5, 15). A set of 2D vectors can be written in a matrix as
-$\begin{bmatrix} 
+Points in 2D space can be written as (3, 13), (5, 15). A set of 2D vectors can be written in a matrix as $\begin{bmatrix} 
 3 & 5 \\\
 13 & 15 
-\end{bmatrix}$
-with each column representing a data point.
-So, a matrix, say $P$ = 
-$\begin{bmatrix} 
+\end{bmatrix}$ with each column representing a data point.
+So, matrix $P$ = $\begin{bmatrix} 
 0 & 0 & 20 & 20\\\
 0 & 20 & 20 & 0
 \end{bmatrix}$ consists of 4 points. Lets plot it in Python.
@@ -64,8 +61,7 @@ plt.axes().set_aspect('equal')
 plt.show()
 </code></pre>
 
-And our matrix $P$ = 
-$\begin{bmatrix} 
+And our matrix $P$ = $\begin{bmatrix} 
 0 & 0 & 20 & 20\\\
 0 & 20 & 20 & 0
 \end{bmatrix}$ can be visualised as the corners of a square. Remember to view the lines as a bunch of points.
@@ -74,7 +70,8 @@ $\begin{bmatrix}
 </p>
 
 ## Identity matrix
-Multiplying a matrix with the identity matrix does nothing to the matrix. That is, $\begin{bmatrix} 1 & 0 \\\ 0 & 1 \end{bmatrix}
+Multiplying a matrix with the identity matrix does nothing to the matrix. 
+That is, $\begin{bmatrix} 1 & 0 \\\ 0 & 1 \end{bmatrix}
 \begin{bmatrix} 3 \\\ 13 \end{bmatrix} = \begin{bmatrix} 3 \\\ 13 \end{bmatrix}$. Each column in the indentity matrix are called [_basis vectors_](http://en.wikipedia.org/wiki/Basis_%28linear_algebra%29) (linearly independent and equations solve for 0). These will be super useful in deriving and visualising the transformation matrices.
 
 ## Scaling
@@ -198,4 +195,4 @@ translated_matrix:
 Heres a summary of the transformation matrices (courtesy of [wikipedia](http://en.wikipedia.org/wiki/Transformation_matrix)). Notice that a 2x2 linear transformation matrix becomes a 3x3 transformation matrix by padding it with 0s and a 1 at the bottom-right corner. 
 
 So, for vectors in 3D ($\mathbb{R}^3$) space, its _linear_ transformation matrix is 3x3 and its _affine_ transformation matrix (usually called without the affine) is 4x4 and so on for higher dimensions.
-<img src="http://upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg">
+<img src="//upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg">
