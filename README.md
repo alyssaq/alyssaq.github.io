@@ -2,6 +2,11 @@
 
 Created with [hexo](https://hexo.io)
 
+## Development
+
+	$ npm install
+	$ npm run dev
+
 ## Deploy
 
-	hexo generate --deploy
+	$ npm run deploy
