@@ -5,8 +5,12 @@
   "hexo": {
     "version": "3.1.1"
   },
+  "scripts": {
+    "dev": "hexo server",
+    "deploy": "hexo generate --deploy"
+  },
   "dependencies": {
-    "hexo": "^3.1.0",
+    "hexo": "^3.1.1",
     "hexo-browsersync": "^0.2.0",
     "hexo-deployer-git": "0.0.4",
     "hexo-fs": "^0.1.4",
@@ -21,5 +25,7 @@
     "hexo-renderer-stylus": "^0.3.0",
     "hexo-server": "^0.1.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "hexo-cli": "^0.1.9"
+  }
 }
