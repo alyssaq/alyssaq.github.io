@@ -1,9 +1,9 @@
 title: Understanding Hough Transform with Python
-date: 2014-12-14 18:18 
-tags: 
+date: 2014-12-14 18:18
+tags:
 - python
 - computer vision
-categories: 
+categories:
 - data science
 ---
 
@@ -29,7 +29,7 @@ Say we have 2 edge points ($x_1, y_1$) and ($x_2, y_2$). For each edge point at 
 
 **All points on a line in image space intersect at a common point in parameter space. This common point ($m$, $b$) represents the line in image space.**
 
-Unfortunately, the slope, $m$, is undefined when the line is vertical (division by 0!). 
+Unfortunately, the slope, $m$, is undefined when the line is vertical (division by 0!).
 To overcome this, we use another parameter space, the hough space.
 
 ## How it works - angle-distance parameter space
@@ -38,13 +38,13 @@ A line in Polar coordinate system has the equation:
     ρ = x cos θ + y sin θ
 
     where:
-    ρ (rho) = distance from origin to the line. [-max_dist to max_dist]. 
+    ρ (rho) = distance from origin to the line. [-max_dist to max_dist].
               max_dist is the diagonal length of the image.  
     θ = angle from origin to the line. [-90° to 90°]
 
-If you're interested in how $\rho$ is derived, I've laid out the maths at the bottom [extras section: deriving rho](#rho).
+If you're interested in how $\rho$ is derived, I've laid out the maths at the bottom [extras section: deriving rho](#Extras).
 
-To explain the hough transform, I'll use a simple example. I've created an input binary image of size 30 x 30 pixels with points at (5, 25) and (20, 10) shown below. The image is transformed to the hough space by calculating $\rho$ with a point at each angle from $-90^\circ$ to $90^\circ$ (negative angles are anti-clockwise starting horizontally from the origin and positive angles are clockwise).  The points in hough space make a sinusoidal curve. 
+To explain the hough transform, I'll use a simple example. I've created an input binary image of size 30 x 30 pixels with points at (5, 25) and (20, 10) shown below. The image is transformed to the hough space by calculating $\rho$ with a point at each angle from $-90^\circ$ to $90^\circ$ (negative angles are anti-clockwise starting horizontally from the origin and positive angles are clockwise).  The points in hough space make a sinusoidal curve.
 
 <img src="https://alyssaq.github.io/blog/images/hough-2point_transform.png" style="float:left">
 
@@ -99,7 +99,7 @@ def hough_line(img):
       rho = round(x * cos_t[t_idx] + y * sin_t[t_idx]) + diag_len
       accumulator[rho, t_idx] += 1
 
-  return accumulator, thetas, rhos 
+  return accumulator, thetas, rhos
 </code></pre>
 
 
@@ -122,21 +122,21 @@ print "rho={0:.2f}, theta={1:.0f}".format(rho, np.rad2deg(theta))
 Hough transform (and the faster probabilistic version) is available in [openCV](http://docs.opencv.org/doc/tutorials/imgproc/imgtrans/hough_lines/hough_lines.html) and [scikit-image](http://scikit-image.org/docs/dev/auto_examples/plot_line_hough_transform.html).
 
 ## Extensions
-Hough transform can be extended to detect circles of the equation 
+Hough transform can be extended to detect circles of the equation
 $r^2 = (x − a)^2 + (y − b)^2$ in the parameter space, $\rho = (a, b, r)$.
 Furthermore, it can be generalized to detect arbitrary shapes [(D. H. Ballard, 1981)](http://comp-eng.binus.ac.id/files/2012/04/D.H.-Ballard-Generalizing-the-Hough-Transform-to-Detect-Arbitrary-Shapes1.pdf).
 
-Another approach is the Progressive Probabilistic Hough Transform [(Galamhos et al, 1999)](http://cmp.felk.cvut.cz/~matas/papers/matas-bmvc98.pdf). The algorithm uses  random subsets of voting points in the accumulator and checks for the longest segment of pixels with minimum gaps. Line segments that exceed a minimum length threshold are added to the list. This returns the beginning and end point of each line segment in the image. It has 3 thresholds: a minimum number of votes in the Hough accumulator, a maximum line gap for merging and a minimum line length. 
+Another approach is the Progressive Probabilistic Hough Transform [(Galamhos et al, 1999)](http://cmp.felk.cvut.cz/~matas/papers/matas-bmvc98.pdf). The algorithm uses  random subsets of voting points in the accumulator and checks for the longest segment of pixels with minimum gaps. Line segments that exceed a minimum length threshold are added to the list. This returns the beginning and end point of each line segment in the image. It has 3 thresholds: a minimum number of votes in the Hough accumulator, a maximum line gap for merging and a minimum line length.
 
 ## Extras
 ### Deriving rho: ρ = x cos θ + y sin θ
 
-<img src="https://alyssaq.github.io/blog/images/hough_deriving-rho.png" style="float:left;"> 
+<img src="https://alyssaq.github.io/blog/images/hough_deriving-rho.png" style="float:left;">
 
 With basic trigonometry, we know that for right-angled triangles,    
 $sin \theta = {opposite\over hypotenuse}$ and $cos \theta = {adjacent \over hypotenuse}$.  
 
-We want to convert the cartesian form $y = mx + b$ with parameters $(m, b)$ to polar form with parameters $(\rho, \theta)$. 
+We want to convert the cartesian form $y = mx + b$ with parameters $(m, b)$ to polar form with parameters $(\rho, \theta)$.
 
 The line from the origin with distance $\rho$ has a gradient of ${sin \theta \over cos \theta}$. The line of interest, which is perpendicular to it, will have a negative reciprocal gradient value of ${-cos \theta \over sin \theta}$. For $b$, the y-intercept of the line of interest, $sin \theta = {\rho \over b}$.
 
