@@ -11,5 +11,5 @@ If its fun and interesting, I'll [morph it](https://github.com/alyssaq/face_morp
 
 This blog will showcase my learnings in maths and software engineering with occasional life slices.
 
-My work summary can be found on linkedin.
+My work summary can be found on [linkedin](https://www.linkedin.com/in/alyssaq).
 Feel free to connect on any social platform or email at alyssaquek@gmail.
