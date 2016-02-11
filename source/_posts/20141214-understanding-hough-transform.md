@@ -128,8 +128,8 @@ Furthermore, it can be generalized to detect arbitrary shapes [(D. H. Ballard, 1
 
 Another approach is the Progressive Probabilistic Hough Transform [(Galamhos et al, 1999)](http://cmp.felk.cvut.cz/~matas/papers/matas-bmvc98.pdf). The algorithm uses  random subsets of voting points in the accumulator and checks for the longest segment of pixels with minimum gaps. Line segments that exceed a minimum length threshold are added to the list. This returns the beginning and end point of each line segment in the image. It has 3 thresholds: a minimum number of votes in the Hough accumulator, a maximum line gap for merging and a minimum line length. 
 
-##Extras
-### <a name="rho"></a> Deriving rho: ρ = x cos θ + y sin θ
+## Extras
+### Deriving rho: ρ = x cos θ + y sin θ
 
 <img src="https://alyssaq.github.io/blog/images/hough_deriving-rho.png" style="float:left;"> 
 
