@@ -1,16 +1,16 @@
 title: Understanding eigenvectors and eigenvalues visually
-date: 2015-01-07 15:30 
-tags: 
+date: 2015-01-07 15:30
+tags:
 - computer vision
 - linear algebra
 - python
-categories: 
+categories:
 - data science
 ---
 
 Eigenvectors and eigenvalues are used in many engineering problems and have applications in [object recognition](http://www.cipa.dcu.ie/papers/spie_97.pdf), [edge detection in diffusion MRI images](http://cg.cs.uni-bonn.de/fileadmin/Downloads/schultz/papers/schultz-evalder-2008.pdf), [moments of inertia](http://www2.eng.cam.ac.uk/~hemh/gyroscopes/momentinertia.html) in motor calculations, [bridge modelling](http://www.ma.utexas.edu/mp_arc/c/13/13-25.pdf), [Google's PageRank algorithm](http://www.rose-hulman.edu/~bryan/googleFinalVersionFixed.pdf) and more on [wikipedia](http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors#Applications).
 
-Previously, I wrote about [visualising matrices and affine transformations](http://scriptogr.am/alyssa/post/visualising-matrices-and-affine-transformations-with-python). Here, we build on top of that and understand eigenvectors and eigenvalues visually.
+Previously, I wrote about [visualising matrices and affine transformations](https://alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python). Here, we build on top of that and understand eigenvectors and eigenvalues visually.
 
 ## Interpreting eigens
 Quick recap, a non-zero matrix $x$ can be transformed by multiplying it with a $n \times n$ square matrix, $A$. So, the transformed matrix can be represented by the equation:
@@ -31,7 +31,7 @@ Eigenvalue $\lambda$ and its corresponding eigenvector is found by solving the e
 __What does determinant zero mean?__    
 Heres a nice [factsheet of determinant properties](http://www.math.harvard.edu/~elkies/M21b.08/det.html). If the $det(M) = 0$, $M$ is not invertible (columns cannot be swapped) and the rows and columns of $M$ are linearly dependent (one of the vectors in the set can be represented by the others. E.g {[2, 3], [4, 6]} are dependent as the second vector is a scaled version of the first vector in the set.)
 
-You should watch Khan Academy's [example solving eigenvalues](https://www.khanacademy.org/math/linear-algebra/alternate_bases/eigen_everything/v/linear-algebra-example-solving-for-the-eigenvalues-of-a-2x2-matrix) and the entire _Eigen-eveything_ series if you want a step-by-step calculation and cement the maths. I also found these resources useful: 
+You should watch Khan Academy's [example solving eigenvalues](https://www.khanacademy.org/math/linear-algebra/alternate_bases/eigen_everything/v/linear-algebra-example-solving-for-the-eigenvalues-of-a-2x2-matrix) and the entire _Eigen-eveything_ series if you want a step-by-step calculation and cement the maths. I also found these resources useful:
 
  * [Coordinates, Eigenvalues, and Eigenvectors (Michigan State University)](http://www.math.msu.edu/~shapiro/Teaching/classes/311UH_05/Eigenvalues.pdf)
  * [Introduction to Linear Algebra, 4th ed, Chapter 6](http://math.mit.edu/~gs/linearalgebra/ila0601.pdf).
@@ -78,15 +78,15 @@ In [2]: evals, evecs = np.linalg.eig(A)
 
 Out[2]: evals:  [ 0.71921134  1.48078866]
 		evecs: [[-0.73009717 -0.52937334]
- 				[ 0.68334334 -0.84838898]] 
+ 				[ 0.68334334 -0.84838898]]
 </code></pre>
-	
+
 To plot the eigenvectors, we calculate the gradient:
 <pre><code class="language-python">
 In [1]: x_v1, y_v1 = evecs[:,0].getA1()
 	    x_v2, y_v2 = evecs[:,1].getA1()
 In [2]: m1 = y_v1/x_v1 # Gradient of 1st eigenvector
-        m2 = y_v2/x_v2 # Gradient of 2nd eigenvector	
+        m2 = y_v2/x_v2 # Gradient of 2nd eigenvector
 
 Out [2]: m1 = -0.936, m2 = 1.603  # Round to 3dp
 </code></pre>
@@ -111,34 +111,34 @@ A \times p1 \\ &=
 7.684 \\\
 -7.192
 \end{bmatrix} \\\
-\lambda \times p1 \\ &= 
+\lambda \times p1 \\ &=
 0.719 & \times \begin{bmatrix}
 10.68 \\\
 -10
-\end{bmatrix} &= 
+\end{bmatrix} &=
 \begin{bmatrix}
 7.684 \\\
 -7.192
 \end{bmatrix} \\\
 \end{aligned}
 \end{equation} \\\
-\therefore Ax = \lambda x $$	
+\therefore Ax = \lambda x $$
 
-Doing this for $e2$ will show the same calculation. As this eigenvector is associated with the largest eigenvalue of 1.481, this is the maximum possible stretch when acted by the transformation matrix. 
+Doing this for $e2$ will show the same calculation. As this eigenvector is associated with the largest eigenvalue of 1.481, this is the maximum possible stretch when acted by the transformation matrix.
 
 To complete the visuals, we'll plot $p1$ (the intercept with $e1$), $p2$ (the intercept with $e2$) and their transformed point $T(p1)$ and $T(p2)$.         
 [<i class="fa fa-github-alt"></i> Gist for the full plot](https://gist.github.com/alyssaq/f56ba93b4d3b3be76943)
 ![full_plot](https://alyssaq.github.io/blog/images/eigens-full_plot.png)
 
 ## [Eigendecomposition](#eigendecomposition)
-We can rearrange $Ax = \lambda x$ to represent $A$ as a product of its eigenvectors and eigenvalues by diagonalising the eigenvalues: 
+We can rearrange $Ax = \lambda x$ to represent $A$ as a product of its eigenvectors and eigenvalues by diagonalising the eigenvalues:
 $$A = Q \Lambda Q^{-1}$$
 with $Q$ as the eigenvectors and $\Lambda$ as the diagonalised eigenvalues. Using the values from the example above:
 
 $$ \begin{bmatrix}
 1 & 0.3 \\\
 0.45 & 1.2
-\end{bmatrix} = 
+\end{bmatrix} =
 \begin{bmatrix}
 -0.730 & -0.529 \\\
 0.683 & -0.848
@@ -146,7 +146,7 @@ $$ \begin{bmatrix}
 \begin{bmatrix}
 0.719 & 0 \\\
 0 & 1.481
-\end{bmatrix} 
+\end{bmatrix}
 \begin{bmatrix}
 -0.730 & -0.529 \\\
 0.683 & -0.848

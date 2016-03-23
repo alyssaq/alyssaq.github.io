@@ -1,10 +1,10 @@
 title: Computing the axes or orientation of a blob
-date: 2015-01-14 03:30 
-tags: 
+date: 2015-01-14 03:30
+tags:
 - computer vision
 - linear algebra
 - python
-categories: 
+categories:
 - data science
 ---
 
@@ -15,7 +15,7 @@ We look at using 2 popular methods to obtain the same result:
 2. Raw image moments
 
 ## 1. Covariance matrix and eigens
-An **eigenvalue** tells us the scaling magnitude along the direction of its corresponding **eigenvector**. Check my post on [understanding eigens](http://scriptogr.am/alyssa/post/understanding-eigenvectors-and-eigenvalues-visually) for the visual intuition. 
+An **eigenvalue** tells us the scaling magnitude along the direction of its corresponding **eigenvector**. Check my post on [understanding eigens](https://alyssaq.github.io/2015/understanding-eigenvectors-and-eigenvalues-visually) for the visual intuition.
 
 [**Covariance matrix**](http://mathworld.wolfram.com/CovarianceMatrix.html) is a square and symmetric matrix that summarises the variance between two variables. So, with a set of $(x, y)$ points, the covariance matrix is 2x2:
 $ C = \begin{bmatrix}
@@ -83,9 +83,9 @@ x_v2, y_v2 = evec2
 **6) Plot the principal components.** The larger eigenvector is plotted in red and drawn twice as long as the smaller eigenvector in blue.
 <pre><code class="language-python">
 scale = 20
-plt.plot([x_v1*-scale*2, x_v1*scale*2], 
+plt.plot([x_v1*-scale*2, x_v1*scale*2],
 		 [y_v1*-scale*2, y_v1*scale*2], color='red')
-plt.plot([x_v2*-scale, x_v2*scale], 
+plt.plot([x_v2*-scale, x_v2*scale],
 		 [y_v2*-scale, y_v2*scale], color='blue')
 plt.plot(x, y, 'k.')
 plt.axis('equal')
@@ -97,7 +97,7 @@ plt.show()
 <img src="https://alyssaq.github.io/blog/images/blob_axes-eigens_plot.png">
 </p>
 
-**7) Bonus!** We vertically-align the blob based on the major axis via a linear transformation. An [anti-clockwise rotating transformation matrix](scriptogr.am/alyssa/post/visualising-matrices-and-affine-transformations-with-python#rotating) has the general form: $\begin{bmatrix}
+**7) Bonus!** We vertically-align the blob based on the major axis via a linear transformation. An [anti-clockwise rotating transformation matrix](https://alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python#rotating) has the general form: $\begin{bmatrix}
 cos \theta & -sin \theta \\\
 sin \theta & cos \theta
 \end{bmatrix}$.
@@ -109,7 +109,7 @@ To do this:
  3. Multiply the transformation matrix to the set of coordinates.
 <pre><code class="language-python">
 theta = np.tanh((x_v1)/(y_v1))  
-rotation_mat = np.matrix([[np.cos(theta), -np.sin(theta)], 
+rotation_mat = np.matrix([[np.cos(theta), -np.sin(theta)],
                           [np.sin(theta), np.cos(theta)]])
 transformed_mat = rotation_mat * coords
 # plot the transformed blob
@@ -125,7 +125,7 @@ The vertically-align transformed blob is overlaid in green.
 ## 2. Raw image moments
 We can obtain the same axes and orientation of a blob with [raw image moments and central moments](http://en.wikipedia.org/wiki/Image_moment#Raw_moments). Special thanks to this [stack overflow answer](http://stackoverflow.com/questions/9005659/compute-eigenvectors-of-image-in-python).
 
-The calculation of a raw image moment is given by the equation: 
+The calculation of a raw image moment is given by the equation:
 
 {% math %}
 \begin{aligned}

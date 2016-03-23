@@ -1,16 +1,16 @@
 title: Singular Value Decomposition (SVD) visualisation
 date: 2015-02-24 03:03
-tags: 
+tags:
 - computer vision
 - linear algebra
 - python
-categories: 
+categories:
 - data science
 ---
 
 ["The SVD is absolutely a high point of linear algebra" (Gilbert Strang, Kai Borre)](https://books.google.com.sg/books?id=MjNwWUY8jx4C&pg=PA259)
 
-This mathematical technique has been used across various industries and example applications include [recommender systems (Netflix prize)](http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf), [face and object recognition](http://www.iaarc.org/publications/fulltext/isarc2007-4.5_4_035.pdf), [risk modelling in equity options](http://www.orie.cornell.edu/engineering2/customcf/iws_events_calendar/files/Marco_Avellaneda_Presentation_10_16_14.pdf) and [identifying genes in brain imaging that make up Parkinson disease](http://www.ncbi.nlm.nih.gov/pubmed/12045141). 
+This mathematical technique has been used across various industries and example applications include [recommender systems (Netflix prize)](http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf), [face and object recognition](http://www.iaarc.org/publications/fulltext/isarc2007-4.5_4_035.pdf), [risk modelling in equity options](http://www.orie.cornell.edu/engineering2/customcf/iws_events_calendar/files/Marco_Avellaneda_Presentation_10_16_14.pdf) and [identifying genes in brain imaging that make up Parkinson disease](http://www.ncbi.nlm.nih.gov/pubmed/12045141).
 
 ## Definition
 SVD is a matrix factorisation and decomposes a matrix of any size into a  product of 3 matrices:
@@ -24,9 +24,9 @@ $V$ : $m \times m$ : orthogonal matrix containing eigenvectors of $A^TA$.
 
 _Orthogonal matrix_: square matrix where columns make $90^\circ$ angles between each other and its inner dot product is zero. $Q^TQ = QQ^T = I$ and $Q^T=Q^{-1}$.    
 _Orthonormal matrix_: orthogonal matrix where columns are unit vectors.
- 
+
 ## Example matrix
-For this post, Im going to use the same matrices from [my post on eigenvectors and eigenvalues](http://scriptogr.am/alyssa/post/understanding-eigenvectors-and-eigenvalues-visually). We have a matrix $x = \begin{bmatrix}
+For this post, Im going to use the same matrices from [my post on eigenvectors and eigenvalues](https://alyssaq.github.io/2015/understanding-eigenvectors-and-eigenvalues-visually). We have a matrix $x = \begin{bmatrix}
 -10 & -10 & 20 & 20\\\
 -10 & 20 & 20 & -10
 \end{bmatrix}$ and a transformation matrix $A = \begin{bmatrix}
