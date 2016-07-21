@@ -17,7 +17,7 @@ The essence of SVD is that it decomposes a matrix of any shape into a product of
 
 By lucid analogy, a number can decompose into 3 numbers to always have the smallest prime in the middle. E.g $24 = 3 \times 2 \times 4$ or $57 = 1 \times 3 \times 19$.
 
-For the interested, I previously wrote a post on [SVD visualisation](http://scriptogr.am/alyssa/post/singular-value-decomposition-svd-visualisation) to view the properties of the decomposition.
+For the interested, I previously wrote a post on [SVD visualisation](https://alyssaq.github.io/2015/singular-value-decomposition-visualisation) to view the properties of the decomposition.
 
 The result of the decomposition leaves us with an ordered matrix of singular values which encompass the variance associated with every direction. We assume that larger variances means less redundancy and less correlation and encode more structure about the data. This allows us to use a representative subset of user rating directions or principal components to recommend movies.
 
