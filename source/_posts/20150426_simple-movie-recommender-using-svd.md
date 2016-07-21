@@ -72,7 +72,7 @@ def top_cosine_similarity(data, movie_id, top_n=10):
     return sort_indexes[:top_n]
 
 # Helper function to print top N similar movies
-def print_similar_movies(movie_data, top_indexes):
+def print_similar_movies(movie_data, movie_id, top_indexes):
     print('Recommendations for {0}: \n'.format(
     movie_data[movie_data.movie_id == movie_id].title.values[0]))
     for id in top_indexes + 1:
@@ -122,7 +122,7 @@ top_n = 10
 
 sliced = evecs[:, :k] # representative data
 top_indexes = top_cosine_similarity(sliced, movie_id, top_n)
-print_similar_movies(movie_data, top_indexes)
+print_similar_movies(movie_data, movie_id, top_indexes)
 </code></pre>
 
 	Recommendations for Toy Story (1995): 
