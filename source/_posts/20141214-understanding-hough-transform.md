@@ -7,7 +7,7 @@ categories:
 - data science
 ---
 
-The Hough transform [(Duda and Hart, 1972)](http://www.ai.sri.com/pubs/files/tn036-duda71.pdf), which started out as a technique to detect lines in image, has been generalised and extended to detect curves in 2D and 3D.
+The Hough transform [(Duda and Hart, 1972)](http://www.ai.sri.com/pubs/files/tn036-duda71.pdf), which started out as a technique to detect lines in an image, has been generalised and extended to detect curves in 2D and 3D.
 
 Here, we understand how an image is transformed into the hough space for line detection and implement it in Python.
 
