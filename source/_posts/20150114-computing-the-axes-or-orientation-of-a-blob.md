@@ -114,7 +114,7 @@ rotation_mat = np.matrix([[np.cos(theta), -np.sin(theta)],
 transformed_mat = rotation_mat * coords
 # plot the transformed blob
 x_transformed, y_transformed = transformed_mat.A
-plt.plot(x_points, y_points, 'g.')
+plt.plot(x_transformed, y_transformed, 'g.')
 </code></pre>
 
 The vertically-align transformed blob is overlaid in green.
@@ -132,12 +132,6 @@ The calculation of a raw image moment is given by the equation:
 M_{ij}  = \sum\limits_{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)
 \end{aligned}
 {% endmath %}
-
-
-  <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-  <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}, processEscapes: true });
-  </script>
 
 where $x$ and $y$ are indices to the data and $I(x, y)$ is the grey-level intensity value at that index. The codification of that equation:
 
