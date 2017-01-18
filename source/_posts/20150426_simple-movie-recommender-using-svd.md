@@ -144,7 +144,7 @@ In step 4 above, our input matrix $A$ has shape $u \times m$. The computation of
 By construction, $A^T A$ equals the covariance matrix of `normalised_mat`. Thus, the columns of $V$ are the principal components of `normalised_mat`. (Refer to section VI of [John Shlen's tutorial (2014)](http://arxiv.org/pdf/1404.1100.pdf) for the full mathematical proof of this relationship).
 
 ### Why use SVD over the covariance matrix?
-  * Its faster (Facebook published a [fast randomized SVD](https://research.facebook.com/blog/294071574113354/fast-randomized-svd))
+  * Its faster (Facebook published a [fast randomized SVD](https://research.fb.com/fast-randomized-svd/))
   * Singular values from SVD are sorted (we have to sort the eigenvalues in ascending order)
   
   
