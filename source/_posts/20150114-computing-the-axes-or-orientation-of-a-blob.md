@@ -75,9 +75,8 @@ evals, evecs = np.linalg.eig(cov)
 **5) Sort eigenvalues in decreasing order** (we only have 2 values)
 <pre><code class="language-python">
 sort_indices = np.argsort(evals)[::-1]
-evec1, evec2 = evecs[:, sort_indices]
-x_v1, y_v1 = evec1  # Eigenvector with largest eigenvalue
-x_v2, y_v2 = evec2
+x_v1, y_v1 = evecs[:, sort_indices[0]]  # Eigenvector with largest eigenvalue
+x_v2, y_v2 = evecs[:, sort_indices[1]]
 </code></pre>
 
 **6) Plot the principal components.** The larger eigenvector is plotted in red and drawn twice as long as the smaller eigenvector in blue.
