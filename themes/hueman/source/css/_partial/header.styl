@@ -1,5 +1,10 @@
 #header
-  background: color-header-background
+  background-color: lighten(color-header-background, 7)
+  background-image:
+  radial-gradient(color-header-background 9px, transparent 10px),
+  repeating-radial-gradient(color-header-background 0, color-header-background 4px,  transparent 20px, color-header-background 21px, color-header-background 25px, transparent 26px, transparent 50px)
+  background-size: 30px 30px, 90px 90px
+  background-position: 0 0
   padding-bottom: nav-height
   position: relative
 
@@ -20,7 +25,7 @@
     padding: 10px 0px 0px
     margin-left: 20px
   .subtitle
-    font-size: 20px
+    font-size: 25px
     line-height: logo-height + 20
     letter-spacing: 0.03em
     color: color-nav-foreground
