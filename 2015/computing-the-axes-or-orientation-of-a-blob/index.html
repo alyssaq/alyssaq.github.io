@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-transformed_plot.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-moments_plot.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-three_plot.png">
-<meta property="og:updated_time" content="2018-04-28T10:36:06.845Z">
+<meta property="og:updated_time" content="2018-04-28T11:49:12.293Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Computing the Axes or Orientation of a Blob">
 <meta name="twitter:description" content="How do we find the major and minor axes of a blob?We look at using 2 popular methods to obtain the same result:  Covariance matrix and eigenvectors, eigenvalues (partial PCA). Raw image moments  1. Co">
@@ -220,9 +220,7 @@ plt.plot(x_transformed, y_transformed, 'g.')
 
 <h2 id="2-Raw-image-moments"><a href="#2-Raw-image-moments" class="headerlink" title="2. Raw image moments"></a>2. Raw image moments</h2><p>We can obtain the same axes and orientation of a blob with <a href="http://en.wikipedia.org/wiki/Image_moment#Raw_moments" target="_blank" rel="noopener">raw image moments and central moments</a>. Special thanks to this <a href="http://stackoverflow.com/questions/9005659/compute-eigenvectors-of-image-in-python" target="_blank" rel="noopener">stack overflow answer</a>.</p>
 <p>The calculation of a raw image moment is given by the equation:</p>
-<span>$$\begin{aligned}
-M_{ij}  = \sum\limits_{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)
-\end{aligned}$$</span><!-- Has MathJax -->
+<p>\begin{aligned}<br>M_{ij}  = \sum\limits_{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)<br>\end{aligned}</p>
 <p>where $x$ and $y$ are indices to the data and $I(x, y)$ is the grey-level intensity value at that index. The codification of that equation:</p>
 <pre><code class="language-python">
 def raw_moment(data, i_order, j_order):
@@ -264,7 +262,7 @@ evals, evecs = np.linalg.eig(cov)
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/" data-id="cjgjb7dc600173vifyzuhujgg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/" data-id="cjgjbqlra0012c6if9fc81mbe" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-algebra/">linear algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
@@ -441,27 +439,24 @@ evals, evecs = np.linalg.eig(cov)
 
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      processEscapes: true
+    }
+  })
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-AMS_HTML'></script>
+
+
+
 
 <script src="/js/html-patch.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/prism.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
 
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
