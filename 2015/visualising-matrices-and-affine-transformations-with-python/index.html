@@ -6,17 +6,17 @@
   <title>Visualising Matrices and Affine Transformations With Python | Alyssa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="computer vision,linear algebra,python">
+  <meta name="keywords" content="python,computer vision,linear algebra">
   
 
-  <meta name="description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). 
-There is an assumed knowl">
+  <meta name="description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me).  There is an assumed knowl">
+<meta name="keywords" content="python,computer vision,linear algebra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Visualising Matrices and Affine Transformations With Python">
 <meta property="og:url" content="alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/index.html">
 <meta property="og:site_name" content="Alyssa">
-<meta property="og:description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). 
-There is an assumed knowl">
+<meta property="og:description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me).  There is an assumed knowl">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-plot.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-scaling.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-scaling-result.png">
@@ -25,19 +25,19 @@ There is an assumed knowl">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-rotating.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-rotating-result.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/matrix-translating-result.png">
-<meta property="og:image" content="alyssaq.github.io//upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg">
+<meta property="og:image" content="//upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg">
 <meta property="og:updated_time" content="2018-04-28T10:36:06.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Visualising Matrices and Affine Transformations With Python">
-<meta name="twitter:description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). 
-There is an assumed knowl">
+<meta name="twitter:description" content="Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me).  There is an assumed knowl">
+<meta name="twitter:image" content="https://alyssaq.github.io/blog/images/matrix-plot.png">
   
   
 
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
   
-    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+    <link rel="stylesheet" href="/scrollLoading/style.css">
   
   
 
@@ -60,7 +60,7 @@ There is an assumed knowl">
     <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -92,7 +92,7 @@ There is an assumed knowl">
             <nav id="sub-nav">
               <div id="search-form-wrap">
                 
-                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
                 
               </div>
             </nav>
@@ -133,8 +133,8 @@ There is an assumed knowl">
       </p>
       <div class="article-entry" itemprop="articleBody">
         <p>Here, we visualise matrix linear and affine transformations to set the foundation in understanding more awesome computer vision techniques (still a learning process for me). </p>
-<p>There is an assumed knowledge of the core mathematical concepts in matrices and vectors. If a refresher is needed, I highly recommend <a href="https://www.khanacademy.org/math/precalculus" target="_blank" rel="external">Khan Academy’s Precalculus</a> course.</p>
-<p>I also recommend <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank" rel="external">Khan Academy’s Linear Algebra</a> course for further learning. </p>
+<p>There is an assumed knowledge of the core mathematical concepts in matrices and vectors. If a refresher is needed, I highly recommend <a href="https://www.khanacademy.org/math/precalculus" target="_blank" rel="noopener">Khan Academy’s Precalculus</a> course.</p>
+<p>I also recommend <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank" rel="noopener">Khan Academy’s Linear Algebra</a> course for further learning. </p>
 <h2 id="Linear-vs-Affine-transform"><a href="#Linear-vs-Affine-transform" class="headerlink" title="Linear vs Affine transform"></a>Linear vs Affine transform</h2><p>Quick distinction. Linear transformations are fixed around the origin (scaling, rotating, skewing). Affine transformations are a linear function followed by a translation.</p>
 <h2 id="Visualising-a-matrix"><a href="#Visualising-a-matrix" class="headerlink" title="Visualising a matrix"></a>Visualising a matrix</h2><p>Points in 2D space can be written as (3, 13), (5, 15). A set of 2D vectors can be written in a matrix as $\begin{bmatrix}<br>3 &amp; 5 \\<br>13 &amp; 15<br>\end{bmatrix}$ with each column representing a data point.<br>So, matrix $P$ = $\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$ consists of 4 points. Lets plot it in Python.</p>
 <p>First, the libraries:</p>
@@ -174,8 +174,8 @@ plt.show()
 <p>And our matrix $P$ = $\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$ can be visualised as the corners of a square. Remember to view the lines as a bunch of points.</p>
 <p style="text-align:center"><br><img src="https://alyssaq.github.io/blog/images/matrix-plot.png"><br></p>
 
-<h2 id="Identity-matrix"><a href="#Identity-matrix" class="headerlink" title="Identity matrix"></a>Identity matrix</h2><p>Multiplying a matrix with the identity matrix does nothing to the matrix.<br>That is, $\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}<br>\begin{bmatrix} 3 \\ 13 \end{bmatrix} = \begin{bmatrix} 3 \\ 13 \end{bmatrix}$. Each column in the indentity matrix are called <a href="http://en.wikipedia.org/wiki/Basis_%28linear_algebra%29" target="_blank" rel="external"><em>basis vectors</em></a> (linearly independent and equations solve for 0). These will be super useful in deriving and visualising the transformation matrices.</p>
-<h2 id="Scaling"><a href="#Scaling" class="headerlink" title="Scaling"></a>Scaling</h2><p><img src="https://alyssaq.github.io/blog/images/matrix-scaling.png" style="float:left"><br>Lets say we want to scale our points by 2. The plot on the left shows the identity matrix in black and our end goal in red. Heres the <a href="https://gist.github.com/alyssaq/90d5f116250c443cd928#file-plot_matrix_scaling-py" target="_blank" rel="external">github gist</a> for the plot. The first vector along the _x_-axis, $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ has to be multipled by 2 to get to $\begin{bmatrix} 2 \\ 0 \end{bmatrix}$. The same is applied to the second vector along the _y_-axis.  Our end matrix is $\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{bmatrix}$. </p>
+<h2 id="Identity-matrix"><a href="#Identity-matrix" class="headerlink" title="Identity matrix"></a>Identity matrix</h2><p>Multiplying a matrix with the identity matrix does nothing to the matrix.<br>That is, $\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}<br>\begin{bmatrix} 3 \\ 13 \end{bmatrix} = \begin{bmatrix} 3 \\ 13 \end{bmatrix}$. Each column in the indentity matrix are called <a href="http://en.wikipedia.org/wiki/Basis_%28linear_algebra%29" target="_blank" rel="noopener"><em>basis vectors</em></a> (linearly independent and equations solve for 0). These will be super useful in deriving and visualising the transformation matrices.</p>
+<h2 id="Scaling"><a href="#Scaling" class="headerlink" title="Scaling"></a>Scaling</h2><p><img src="https://alyssaq.github.io/blog/images/matrix-scaling.png" style="float:left"><br>Lets say we want to scale our points by 2. The plot on the left shows the identity matrix in black and our end goal in red. Heres the <a href="https://gist.github.com/alyssaq/90d5f116250c443cd928#file-plot_matrix_scaling-py" target="_blank" rel="noopener">github gist</a> for the plot. The first vector along the _x_-axis, $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ has to be multipled by 2 to get to $\begin{bmatrix} 2 \\ 0 \end{bmatrix}$. The same is applied to the second vector along the _y_-axis.  Our end matrix is $\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{bmatrix}$. </p>
 <p>To generalise, we can multiply a matrix by $\begin{bmatrix} k1 &amp; 0 \\ 0 &amp; k2 \end{bmatrix}$ to achieve scaling in 2D space. $k1$ and $k2$ can be the same or different to obtain different scalings in the different dimensions.</p>
 <p><img src="https://alyssaq.github.io/blog/images/matrix-scaling-result.png" style="float:right"></p>
 <p>Lets try scaling our matrix $P$ by multiplying it with the matrix:<br>$\begin{bmatrix}<br>1.5 &amp; 0 \\<br>0 &amp; 2<br>\end{bmatrix}$  As expected, we can see that the original square (dashed lines) has been scaled by 1.5 in the positive _x_ direction and scaled by 2 in the positive _y_ direction.</p>
@@ -187,7 +187,7 @@ plt.show()
 <p>So, doing<br>$\begin{bmatrix}<br>1 &amp; 0.5 \\<br>0 &amp; 1<br>\end{bmatrix} \times<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix}$<br>will skew $P$ by 50%.</p>
 <p style="text-align:center"><img src="https://alyssaq.github.io/blog/images/matrix-skewing-result.png"></p> 
 
-<h2 id="Rotating"><a href="#Rotating" class="headerlink" title=" Rotating"></a><a name="rotating"></a> Rotating</h2><p><img src="https://alyssaq.github.io/blog/images/matrix-rotating.png" style="float:left"><br>My favourite linear transformation. Using the trusty <a href="http://www.mathsisfun.com/algebra/sohcahtoa.html" target="_blank" rel="external"><em>SOH CAH TOA</em></a> acronym, we can see that<br>(1, 0) on the _x_-axis lands on $(cos \theta, sin \theta)$ and<br>(0, 1) on the _y_-axis lands on $(-sin \theta, cos \theta)$ when rotated by positive $\theta$. </p>
+<h2 id="Rotating"><a href="#Rotating" class="headerlink" title=" Rotating"></a><a name="rotating"></a> Rotating</h2><p><img src="https://alyssaq.github.io/blog/images/matrix-rotating.png" style="float:left"><br>My favourite linear transformation. Using the trusty <a href="http://www.mathsisfun.com/algebra/sohcahtoa.html" target="_blank" rel="noopener"><em>SOH CAH TOA</em></a> acronym, we can see that<br>(1, 0) on the _x_-axis lands on $(cos \theta, sin \theta)$ and<br>(0, 1) on the _y_-axis lands on $(-sin \theta, cos \theta)$ when rotated by positive $\theta$. </p>
 <p>Thus, our rotating transformation matrix has the general form: $\begin{bmatrix}<br>cos \theta &amp; -sin \theta \\<br>sin \theta &amp; cos \theta<br>\end{bmatrix}$. </p>
 <p>Lets plot $P$ when it is rotated by $-30^\circ$. Note the change in negative $sin$ for clockwise rotation. Our matrices involved in this transformation are:</p>
 <p>$\begin{bmatrix}<br>0.866 &amp; 0.5 \\<br>-0.5 &amp; 0.866<br>\end{bmatrix} \times<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 20 &amp; 20\\<br>0 &amp; 20 &amp; 20 &amp; 0<br>\end{bmatrix} =<br>\begin{bmatrix}<br>0 &amp; 10 &amp; 27.32 &amp; 17.32\\<br>0 &amp; 17.32 &amp; 7.32 &amp; -10<br>\end{bmatrix}$<br><img src="https://alyssaq.github.io/blog/images/matrix-rotating-result.png"></p>
@@ -204,12 +204,12 @@ translated_matrix = A*P
         [ -0.25,  19.75,  19.75,  -0.25],
         [  1.  ,   1.  ,   1.  ,   1.  ]])
 </code></pre><p><img src="https://alyssaq.github.io/blog/images/matrix-translating-result.png"></p>
-<h2 id="Transformation-matrix"><a href="#Transformation-matrix" class="headerlink" title="Transformation matrix"></a>Transformation matrix</h2><p>Heres a summary of the transformation matrices (courtesy of <a href="http://en.wikipedia.org/wiki/Transformation_matrix" target="_blank" rel="external">wikipedia</a>). Notice that a 2x2 linear transformation matrix becomes a 3x3 transformation matrix by padding it with 0s and a 1 at the bottom-right corner. </p>
+<h2 id="Transformation-matrix"><a href="#Transformation-matrix" class="headerlink" title="Transformation matrix"></a>Transformation matrix</h2><p>Heres a summary of the transformation matrices (courtesy of <a href="http://en.wikipedia.org/wiki/Transformation_matrix" target="_blank" rel="noopener">wikipedia</a>). Notice that a 2x2 linear transformation matrix becomes a 3x3 transformation matrix by padding it with 0s and a 1 at the bottom-right corner. </p>
 <p>So, for vectors in 3D ($\mathbb{R}^3$) space, its <em>linear</em> transformation matrix is 3x3 and its <em>affine</em> transformation matrix (usually called without the affine) is 4x4 and so on for higher dimensions.<br><img src="//upload.wikimedia.org/wikipedia/commons/2/2c/2D_affine_transformation_matrix.svg"></p>
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/" data-id="cjgj9eg7o0014bfif4zkdwgv5" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python/" data-id="cjgjagypq000vtoif6yvrq4p0" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-algebra/">linear algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
@@ -381,46 +381,31 @@ translated_matrix = A*P
 
 
 
-  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
-  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+  <script src="/scrollLoading/jquery.scrollLoading.js"></script>
+  <script src="/scrollLoading/main.js"></script>
 
 
 
 
-<script src="/js/html-patch.js" type="text/javascript"></script>
-<script src="/js/script.js" type="text/javascript"></script>
-<script src="/js/prism.js" type="text/javascript"></script>
+<script src="/js/html-patch.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/prism.js"></script>
 
   </div>
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
         }
     });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
 </script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

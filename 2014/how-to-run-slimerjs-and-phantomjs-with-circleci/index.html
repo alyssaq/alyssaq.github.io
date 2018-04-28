@@ -9,27 +9,27 @@
   <meta name="keywords" content="javascript">
   
 
-  <meta name="description" content="GoalAutomatically run user-driven tests (BDD) with SlimerJS for testing on Gecko (firefox) and PhantomJS for WebKit (chrome/safari) on the continuous integration platform, CircleCI.
-Auto testing on Ci">
+  <meta name="description" content="GoalAutomatically run user-driven tests (BDD) with SlimerJS for testing on Gecko (firefox) and PhantomJS for WebKit (chrome/safari) on the continuous integration platform, CircleCI. Auto testing on Ci">
+<meta name="keywords" content="javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to Run SlimerJS and PhantomJS With CircleCI">
 <meta property="og:url" content="alyssaq.github.io/2014/how-to-run-slimerjs-and-phantomjs-with-circleci/index.html">
 <meta property="og:site_name" content="Alyssa">
-<meta property="og:description" content="GoalAutomatically run user-driven tests (BDD) with SlimerJS for testing on Gecko (firefox) and PhantomJS for WebKit (chrome/safari) on the continuous integration platform, CircleCI.
-Auto testing on Ci">
+<meta property="og:description" content="GoalAutomatically run user-driven tests (BDD) with SlimerJS for testing on Gecko (firefox) and PhantomJS for WebKit (chrome/safari) on the continuous integration platform, CircleCI. Auto testing on Ci">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/SlimerJS-circleCI.png">
 <meta property="og:updated_time" content="2018-04-28T10:36:06.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to Run SlimerJS and PhantomJS With CircleCI">
-<meta name="twitter:description" content="GoalAutomatically run user-driven tests (BDD) with SlimerJS for testing on Gecko (firefox) and PhantomJS for WebKit (chrome/safari) on the continuous integration platform, CircleCI.
-Auto testing on Ci">
+<meta name="twitter:description" content="GoalAutomatically run user-driven tests (BDD) with SlimerJS for testing on Gecko (firefox) and PhantomJS for WebKit (chrome/safari) on the continuous integration platform, CircleCI. Auto testing on Ci">
+<meta name="twitter:image" content="https://alyssaq.github.io/blog/images/SlimerJS-circleCI.png">
   
   
 
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
   
-    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+    <link rel="stylesheet" href="/scrollLoading/style.css">
   
   
 
@@ -52,7 +52,7 @@ Auto testing on Ci">
     <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -84,7 +84,7 @@ Auto testing on Ci">
             <nav id="sub-nav">
               <div id="search-form-wrap">
                 
-                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
                 
               </div>
             </nav>
@@ -124,8 +124,8 @@ Auto testing on Ci">
 </a>
       </p>
       <div class="article-entry" itemprop="articleBody">
-        <h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><p>Automatically run user-driven tests (BDD) with <a href="http://slimerjs.org/" target="_blank" rel="external">SlimerJS</a> for testing on Gecko (firefox) and <a href="http://phantomjs.org/" target="_blank" rel="external">PhantomJS</a> for WebKit (chrome/safari) on the continuous integration platform, <a href="https://circleci.com/" target="_blank" rel="external">CircleCI</a>.</p>
-<h3 id="Auto-testing-on-CircleCI"><a href="#Auto-testing-on-CircleCI" class="headerlink" title="Auto testing on CircleCI"></a>Auto testing on CircleCI</h3><p><a href="https://circleci.com/docs/environment#browsers" target="_blank" rel="external">CircleCI’s test environment</a> is preinstalled with CasperJS and PhantomJS but does not have SlimerJS installed. To get started, all you need is a <a href="https://circleci.com/docs/configuration" target="_blank" rel="external"><code>circle.yml</code></a> file in your repository, activate it in your CircleCI account and it’ll automatically run <code>npm test</code> if you’re using NodeJS. I also use it for my Python applications.</p>
+        <h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><p>Automatically run user-driven tests (BDD) with <a href="http://slimerjs.org/" target="_blank" rel="noopener">SlimerJS</a> for testing on Gecko (firefox) and <a href="http://phantomjs.org/" target="_blank" rel="noopener">PhantomJS</a> for WebKit (chrome/safari) on the continuous integration platform, <a href="https://circleci.com/" target="_blank" rel="noopener">CircleCI</a>.</p>
+<h3 id="Auto-testing-on-CircleCI"><a href="#Auto-testing-on-CircleCI" class="headerlink" title="Auto testing on CircleCI"></a>Auto testing on CircleCI</h3><p><a href="https://circleci.com/docs/environment#browsers" target="_blank" rel="noopener">CircleCI’s test environment</a> is preinstalled with CasperJS and PhantomJS but does not have SlimerJS installed. To get started, all you need is a <a href="https://circleci.com/docs/configuration" target="_blank" rel="noopener"><code>circle.yml</code></a> file in your repository, activate it in your CircleCI account and it’ll automatically run <code>npm test</code> if you’re using NodeJS. I also use it for my Python applications.</p>
 <p>Running unit tests and just PhantomJS tests is simple and documented on their site but getting SlimerJS working took a little more Googling and trial-and-error. Heres how I set it up.</p>
 <h3 id="Custom-commands-to-use-SlimerJS-on-CircleCI"><a href="#Custom-commands-to-use-SlimerJS-on-CircleCI" class="headerlink" title="Custom commands to use SlimerJS on CircleCI"></a>Custom commands to use SlimerJS on CircleCI</h3><p>Firstly, in the <code>circle.yml</code> file, specify custom commands  to download the SlimerJS standalone installer (currently at 0.9.1). Extract the files and move them to a known directory. Moving the files to a known directly is the key! </p>
 <pre><code>test:
@@ -167,7 +167,7 @@ notify:
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2014/how-to-run-slimerjs-and-phantomjs-with-circleci/" data-id="cjgj9eg80001lbfifmd4r7svk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2014/how-to-run-slimerjs-and-phantomjs-with-circleci/" data-id="cjgjagyp9000htoiftw01xowv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
@@ -339,46 +339,31 @@ notify:
 
 
 
-  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
-  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+  <script src="/scrollLoading/jquery.scrollLoading.js"></script>
+  <script src="/scrollLoading/main.js"></script>
 
 
 
 
-<script src="/js/html-patch.js" type="text/javascript"></script>
-<script src="/js/script.js" type="text/javascript"></script>
-<script src="/js/prism.js" type="text/javascript"></script>
+<script src="/js/html-patch.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/prism.js"></script>
 
   </div>
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
         }
     });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
 </script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

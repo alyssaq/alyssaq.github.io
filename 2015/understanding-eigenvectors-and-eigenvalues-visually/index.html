@@ -6,15 +6,17 @@
   <title>Understanding Eigenvectors and Eigenvalues Visually | Alyssa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="computer vision,linear algebra,python">
+  <meta name="keywords" content="python,computer vision,linear algebra">
   
 
   <meta name="description" content="Eigenvectors and eigenvalues are used in many engineering problems and have applications in object recognition, edge detection in diffusion MRI images, moments of inertia in motor calculations, bridge">
+<meta name="keywords" content="python,computer vision,linear algebra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Understanding Eigenvectors and Eigenvalues Visually">
 <meta property="og:url" content="alyssaq.github.io/2015/understanding-eigenvectors-and-eigenvalues-visually/index.html">
 <meta property="og:site_name" content="Alyssa">
 <meta property="og:description" content="Eigenvectors and eigenvalues are used in many engineering problems and have applications in object recognition, edge detection in diffusion MRI images, moments of inertia in motor calculations, bridge">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/eigens-transformation_matrix.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/eigens-eigenvector_plot.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/eigens-full_plot.png">
@@ -22,13 +24,14 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Understanding Eigenvectors and Eigenvalues Visually">
 <meta name="twitter:description" content="Eigenvectors and eigenvalues are used in many engineering problems and have applications in object recognition, edge detection in diffusion MRI images, moments of inertia in motor calculations, bridge">
+<meta name="twitter:image" content="https://alyssaq.github.io/blog/images/eigens-transformation_matrix.png">
   
   
 
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
   
-    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+    <link rel="stylesheet" href="/scrollLoading/style.css">
   
   
 
@@ -51,7 +54,7 @@
     <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -83,7 +86,7 @@
             <nav id="sub-nav">
               <div id="search-form-wrap">
                 
-                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
                 
               </div>
             </nav>
@@ -123,7 +126,7 @@
 </a>
       </p>
       <div class="article-entry" itemprop="articleBody">
-        <p>Eigenvectors and eigenvalues are used in many engineering problems and have applications in <a href="http://www.cipa.dcu.ie/papers/spie_97.pdf" target="_blank" rel="external">object recognition</a>, <a href="http://cg.cs.uni-bonn.de/fileadmin/Downloads/schultz/papers/schultz-evalder-2008.pdf" target="_blank" rel="external">edge detection in diffusion MRI images</a>, <a href="http://www2.eng.cam.ac.uk/~hemh/gyroscopes/momentinertia.html" target="_blank" rel="external">moments of inertia</a> in motor calculations, <a href="http://www.ma.utexas.edu/mp_arc/c/13/13-25.pdf" target="_blank" rel="external">bridge modelling</a>, <a href="http://www.rose-hulman.edu/~bryan/googleFinalVersionFixed.pdf" target="_blank" rel="external">Google’s PageRank algorithm</a> and more on <a href="http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors#Applications" target="_blank" rel="external">wikipedia</a>.</p>
+        <p>Eigenvectors and eigenvalues are used in many engineering problems and have applications in <a href="http://www.cipa.dcu.ie/papers/spie_97.pdf" target="_blank" rel="noopener">object recognition</a>, <a href="http://cg.cs.uni-bonn.de/fileadmin/Downloads/schultz/papers/schultz-evalder-2008.pdf" target="_blank" rel="noopener">edge detection in diffusion MRI images</a>, <a href="http://www2.eng.cam.ac.uk/~hemh/gyroscopes/momentinertia.html" target="_blank" rel="noopener">moments of inertia</a> in motor calculations, <a href="http://www.ma.utexas.edu/mp_arc/c/13/13-25.pdf" target="_blank" rel="noopener">bridge modelling</a>, <a href="http://www.rose-hulman.edu/~bryan/googleFinalVersionFixed.pdf" target="_blank" rel="noopener">Google’s PageRank algorithm</a> and more on <a href="http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors#Applications" target="_blank" rel="noopener">wikipedia</a>.</p>
 <p>Previously, I wrote about <a href="https://alyssaq.github.io/2015/visualising-matrices-and-affine-transformations-with-python">visualising matrices and affine transformations</a>. Here, we build on top of that and understand eigenvectors and eigenvalues visually.</p>
 <h2 id="Interpreting-eigens"><a href="#Interpreting-eigens" class="headerlink" title="Interpreting eigens"></a>Interpreting eigens</h2><p>Quick recap, a non-zero matrix $x$ can be transformed by multiplying it with a $n \times n$ square matrix, $A$. So, the transformed matrix can be represented by the equation:<br>$$ T(x) = Ax $$</p>
 <p>$x$ is called an <strong>eigenvector</strong> that when multiplied with $A$, yields a scalar value, $\lambda$, called the <strong>eigenvalue</strong>. The basic equation is:<br>$$ Ax = \lambda x $$</p>
@@ -131,12 +134,12 @@
 <p>Most libraries (including numpy) will return eigenvectors that have been scaled to have a length of 1 (called <em>unit vectors</em>).</p>
 <p>Eigenvalue $\lambda$ tells us how much $x$ is scaled, stretched, shrunk, reversed or untouched when multiplied by $A$. The number of eigenvalues is at most the number of dimensions, $n$. So, a set of 2D vectors will have at most 2 eigenvalues and corresponding eigenvectors.</p>
 <h2 id="Calculating-eigenvalues-eigenvectors"><a href="#Calculating-eigenvalues-eigenvectors" class="headerlink" title="Calculating eigenvalues, eigenvectors"></a>Calculating eigenvalues, eigenvectors</h2><p>Eigenvalue $\lambda$ and its corresponding eigenvector is found by solving the equation: $$det(\lambda I - A) = 0$$</p>
-<p><strong>What does determinant zero mean?</strong><br>Heres a nice <a href="http://www.math.harvard.edu/~elkies/M21b.08/det.html" target="_blank" rel="external">factsheet of determinant properties</a>. If the $det(M) = 0$, $M$ is not invertible (columns cannot be swapped) and the rows and columns of $M$ are linearly dependent (one of the vectors in the set can be represented by the others. E.g {[2, 3], [4, 6]} are dependent as the second vector is a scaled version of the first vector in the set.)</p>
-<p>You should watch Khan Academy’s <a href="https://www.khanacademy.org/math/linear-algebra/alternate_bases/eigen_everything/v/linear-algebra-example-solving-for-the-eigenvalues-of-a-2x2-matrix" target="_blank" rel="external">example solving eigenvalues</a> and the entire <em>Eigen-eveything</em> series if you want a step-by-step calculation and cement the maths. I also found these resources useful:</p>
+<p><strong>What does determinant zero mean?</strong><br>Heres a nice <a href="http://www.math.harvard.edu/~elkies/M21b.08/det.html" target="_blank" rel="noopener">factsheet of determinant properties</a>. If the $det(M) = 0$, $M$ is not invertible (columns cannot be swapped) and the rows and columns of $M$ are linearly dependent (one of the vectors in the set can be represented by the others. E.g {[2, 3], [4, 6]} are dependent as the second vector is a scaled version of the first vector in the set.)</p>
+<p>You should watch Khan Academy’s <a href="https://www.khanacademy.org/math/linear-algebra/alternate_bases/eigen_everything/v/linear-algebra-example-solving-for-the-eigenvalues-of-a-2x2-matrix" target="_blank" rel="noopener">example solving eigenvalues</a> and the entire <em>Eigen-eveything</em> series if you want a step-by-step calculation and cement the maths. I also found these resources useful:</p>
 <ul>
-<li><a href="http://www.math.msu.edu/~shapiro/Teaching/classes/311UH_05/Eigenvalues.pdf" target="_blank" rel="external">Coordinates, Eigenvalues, and Eigenvectors (Michigan State University)</a></li>
-<li><a href="http://math.mit.edu/~gs/linearalgebra/ila0601.pdf" target="_blank" rel="external">Introduction to Linear Algebra, 4th ed, Chapter 6</a>.</li>
-<li><a href="https://www.youtube.com/watch?v=lXNXrLcoerU" target="_blank" rel="external">Prof Gilbert Strang’s Eigenvalues and Eigenvectors lecture at MIT</a></li>
+<li><a href="http://www.math.msu.edu/~shapiro/Teaching/classes/311UH_05/Eigenvalues.pdf" target="_blank" rel="noopener">Coordinates, Eigenvalues, and Eigenvectors (Michigan State University)</a></li>
+<li><a href="http://math.mit.edu/~gs/linearalgebra/ila0601.pdf" target="_blank" rel="noopener">Introduction to Linear Algebra, 4th ed, Chapter 6</a>.</li>
+<li><a href="https://www.youtube.com/watch?v=lXNXrLcoerU" target="_blank" rel="noopener">Prof Gilbert Strang’s Eigenvalues and Eigenvectors lecture at MIT</a></li>
 </ul>
 <h2 id="Eigens-of-a-scaling-transformation-matrix"><a href="#Eigens-of-a-scaling-transformation-matrix" class="headerlink" title="Eigens of a scaling transformation matrix"></a>Eigens of a scaling transformation matrix</h2><p>Lets start with a simple transformation matrix, $A = \begin{bmatrix}<br>2 &amp; 0 \\<br>0 &amp; 3<br>\end{bmatrix}$.  </p>
 <pre><code class="language-python">
@@ -178,7 +181,7 @@ Out [2]: m1 = -0.936, m2 = 1.603  # Round to 3dp
 <p><strong>What does this eigen plot tell us?</strong><br>The point where the first eigenvector line $e1$ intercepts the original matrix is $p1 = (10.68, -10)$. Multiplying this point by the corresponding eigenvalue of 0.719 OR by the transformation matrix $A$, yields $T(p1) = (7.684, -7.192)$.</p>
 <p>$$ \begin{equation}<br>\begin{aligned}<br>A \times p1 \ &amp;=<br>\begin{bmatrix}<br>1 &amp; 0.3 \\<br>0.45 &amp; 1.2<br>\end{bmatrix} &amp; \times \begin{bmatrix}<br>10.68 \\<br>-10<br>\end{bmatrix} &amp;= \begin{bmatrix}<br>7.684 \\<br>-7.192<br>\end{bmatrix} \\<br>\lambda \times p1 \ &amp;=<br>0.719 &amp; \times \begin{bmatrix}<br>10.68 \\<br>-10<br>\end{bmatrix} &amp;=<br>\begin{bmatrix}<br>7.684 \\<br>-7.192<br>\end{bmatrix} \\<br>\end{aligned}<br>\end{equation} \\<br>\therefore Ax = \lambda x $$</p>
 <p>Doing this for $e2$ will show the same calculation. As this eigenvector is associated with the largest eigenvalue of 1.481, this is the maximum possible stretch when acted by the transformation matrix.</p>
-<p>To complete the visuals, we’ll plot $p1$ (the intercept with $e1$), $p2$ (the intercept with $e2$) and their transformed point $T(p1)$ and $T(p2)$.<br><a href="https://gist.github.com/alyssaq/f56ba93b4d3b3be76943" target="_blank" rel="external"><i class="fa fa-github-alt"></i> Gist for the full plot</a><br><img src="https://alyssaq.github.io/blog/images/eigens-full_plot.png" alt="full_plot"></p>
+<p>To complete the visuals, we’ll plot $p1$ (the intercept with $e1$), $p2$ (the intercept with $e2$) and their transformed point $T(p1)$ and $T(p2)$.<br><a href="https://gist.github.com/alyssaq/f56ba93b4d3b3be76943" target="_blank" rel="noopener"><i class="fa fa-github-alt"></i> Gist for the full plot</a><br><img src="https://alyssaq.github.io/blog/images/eigens-full_plot.png" alt="full_plot"></p>
 <h2 id="Eigendecomposition"><a href="#Eigendecomposition" class="headerlink" title="Eigendecomposition"></a><a href="#eigendecomposition">Eigendecomposition</a></h2><p>We can rearrange $Ax = \lambda x$ to represent $A$ as a product of its eigenvectors and eigenvalues by diagonalising the eigenvalues:<br>$$A = Q \Lambda Q^{-1}$$<br>with $Q$ as the eigenvectors and $\Lambda$ as the diagonalised eigenvalues. Using the values from the example above:</p>
 <p>$$ \begin{bmatrix}<br>1 &amp; 0.3 \\<br>0.45 &amp; 1.2<br>\end{bmatrix} =<br>\begin{bmatrix}<br>-0.730 &amp; -0.529 \\<br>0.683 &amp; -0.848<br>\end{bmatrix}<br>\begin{bmatrix}<br>0.719 &amp; 0 \\<br>0 &amp; 1.481<br>\end{bmatrix}<br>\begin{bmatrix}<br>-0.730 &amp; -0.529 \\<br>0.683 &amp; -0.848<br>\end{bmatrix}^{-1} $$</p>
 <p>To check this in Python:</p>
@@ -193,7 +196,7 @@ Out[3]: True
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2015/understanding-eigenvectors-and-eigenvalues-visually/" data-id="cjgj9eg7m000zbfifyg94mm7r" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2015/understanding-eigenvectors-and-eigenvalues-visually/" data-id="cjgjagypr000ytoif9eaoi7n1" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-algebra/">linear algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
@@ -365,46 +368,31 @@ Out[3]: True
 
 
 
-  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
-  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+  <script src="/scrollLoading/jquery.scrollLoading.js"></script>
+  <script src="/scrollLoading/main.js"></script>
 
 
 
 
-<script src="/js/html-patch.js" type="text/javascript"></script>
-<script src="/js/script.js" type="text/javascript"></script>
-<script src="/js/prism.js" type="text/javascript"></script>
+<script src="/js/html-patch.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/prism.js"></script>
 
   </div>
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
         }
     });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
 </script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

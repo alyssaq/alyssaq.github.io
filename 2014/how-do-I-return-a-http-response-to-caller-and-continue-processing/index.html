@@ -6,29 +6,28 @@
   <title>How Do I Return a HTTP Response to Caller and Continue Processing | Alyssa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="api,multithreading,python,queue">
+  <meta name="keywords" content="python,multithreading,api,queue">
   
 
-  <meta name="description" content="ScenarioI have an analysis service that is invoked by posting data via its API.Since the processing could be long-running, it is best to return a response to the caller and continue with the data.  
-G">
+  <meta name="description" content="ScenarioI have an analysis service that is invoked by posting data via its API.Since the processing could be long-running, it is best to return a response to the caller and continue with the data.   G">
+<meta name="keywords" content="python,multithreading,api,queue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How Do I Return a HTTP Response to Caller and Continue Processing">
 <meta property="og:url" content="alyssaq.github.io/2014/how-do-I-return-a-http-response-to-caller-and-continue-processing/index.html">
 <meta property="og:site_name" content="Alyssa">
-<meta property="og:description" content="ScenarioI have an analysis service that is invoked by posting data via its API.Since the processing could be long-running, it is best to return a response to the caller and continue with the data.  
-G">
+<meta property="og:description" content="ScenarioI have an analysis service that is invoked by posting data via its API.Since the processing could be long-running, it is best to return a response to the caller and continue with the data.   G">
+<meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-04-28T10:36:06.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How Do I Return a HTTP Response to Caller and Continue Processing">
-<meta name="twitter:description" content="ScenarioI have an analysis service that is invoked by posting data via its API.Since the processing could be long-running, it is best to return a response to the caller and continue with the data.  
-G">
+<meta name="twitter:description" content="ScenarioI have an analysis service that is invoked by posting data via its API.Since the processing could be long-running, it is best to return a response to the caller and continue with the data.   G">
   
   
 
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
   
-    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+    <link rel="stylesheet" href="/scrollLoading/style.css">
   
   
 
@@ -51,7 +50,7 @@ G">
     <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -83,7 +82,7 @@ G">
             <nav id="sub-nav">
               <div id="search-form-wrap">
                 
-                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
                 
               </div>
             </nav>
@@ -128,10 +127,10 @@ G">
 <h2 id="Potential-solutions"><a href="#Potential-solutions" class="headerlink" title="Potential solutions"></a>Potential solutions</h2><ul>
 <li>Multithreading</li>
 <li>Multiprocessing</li>
-<li>Message Queues such as <a href="http://www.celeryproject.org/" target="_blank" rel="external">celery</a>, <a href="http://python-rq.org/" target="_blank" rel="external">python-rq</a> or <a href="http://www.iron.io/mq" target="_blank" rel="external">ironMQ</a></li>
+<li>Message Queues such as <a href="http://www.celeryproject.org/" target="_blank" rel="noopener">celery</a>, <a href="http://python-rq.org/" target="_blank" rel="noopener">python-rq</a> or <a href="http://www.iron.io/mq" target="_blank" rel="noopener">ironMQ</a></li>
 </ul>
-<h2 id="Python-multithreading"><a href="#Python-multithreading" class="headerlink" title="Python multithreading"></a>Python multithreading</h2><p>Between <a href="#multithreading_multiprocessing">multithreading and multiprocessing</a>, using threads was sufficient for my requirements. I ended up using Python’s <a href="https://docs.python.org/2/library/threading.html" target="_blank" rel="external">threading</a> library.</p>
-<p>Below is the <a href="https://gist.github.com/alyssaq/9928442" target="_blank" rel="external">code gist</a> to handle POST requests and continue processing with threads.<br>Tested with <code>python 2.7</code> and <code>python 3.3</code> </p>
+<h2 id="Python-multithreading"><a href="#Python-multithreading" class="headerlink" title="Python multithreading"></a>Python multithreading</h2><p>Between <a href="#multithreading_multiprocessing">multithreading and multiprocessing</a>, using threads was sufficient for my requirements. I ended up using Python’s <a href="https://docs.python.org/2/library/threading.html" target="_blank" rel="noopener">threading</a> library.</p>
+<p>Below is the <a href="https://gist.github.com/alyssaq/9928442" target="_blank" rel="noopener">code gist</a> to handle POST requests and continue processing with threads.<br>Tested with <code>python 2.7</code> and <code>python 3.3</code> </p>
 <pre><code class="language-python">
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -222,7 +221,7 @@ if __name__ == '__main__':
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2014/how-do-I-return-a-http-response-to-caller-and-continue-processing/" data-id="cjgj9eg85001sbfif7v7epe3w" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2014/how-do-I-return-a-http-response-to-caller-and-continue-processing/" data-id="cjgjagyp5000ctoifgtotapps" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/api/">api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/multithreading/">multithreading</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/queue/">queue</a></li></ul>
@@ -394,16 +393,31 @@ if __name__ == '__main__':
 
 
 
-  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
-  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+  <script src="/scrollLoading/jquery.scrollLoading.js"></script>
+  <script src="/scrollLoading/main.js"></script>
 
 
 
 
-<script src="/js/html-patch.js" type="text/javascript"></script>
-<script src="/js/script.js" type="text/javascript"></script>
-<script src="/js/prism.js" type="text/javascript"></script>
+<script src="/js/html-patch.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/prism.js"></script>
 
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

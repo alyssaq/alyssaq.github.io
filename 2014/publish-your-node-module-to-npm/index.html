@@ -9,38 +9,25 @@
   <meta name="keywords" content="nodejs,npm">
   
 
-  <meta name="description" content="Goal:You have a node module and want in on npm registry for others to use by simply running: 
-npm install &amp;lt;your_module_name&amp;gt;
-Prerequisites
-Install nodejs
-At least the following 3 files:
-package.">
+  <meta name="description" content="Goal:You have a node module and want in on npm registry for others to use by simply running:  npm install &amp;lt;your_module_name&amp;gt; Prerequisites Install nodejs At least the following 3 files: package.">
+<meta name="keywords" content="nodejs,npm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Publish Your Node Module to NPM">
 <meta property="og:url" content="alyssaq.github.io/2014/publish-your-node-module-to-npm/index.html">
 <meta property="og:site_name" content="Alyssa">
-<meta property="og:description" content="Goal:You have a node module and want in on npm registry for others to use by simply running: 
-npm install &amp;lt;your_module_name&amp;gt;
-Prerequisites
-Install nodejs
-At least the following 3 files:
-package.">
+<meta property="og:description" content="Goal:You have a node module and want in on npm registry for others to use by simply running:  npm install &amp;lt;your_module_name&amp;gt; Prerequisites Install nodejs At least the following 3 files: package.">
+<meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-04-28T10:36:06.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Publish Your Node Module to NPM">
-<meta name="twitter:description" content="Goal:You have a node module and want in on npm registry for others to use by simply running: 
-npm install &amp;lt;your_module_name&amp;gt;
-Prerequisites
-Install nodejs
-At least the following 3 files:
-package.">
+<meta name="twitter:description" content="Goal:You have a node module and want in on npm registry for others to use by simply running:  npm install &amp;lt;your_module_name&amp;gt; Prerequisites Install nodejs At least the following 3 files: package.">
   
   
 
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
   
-    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+    <link rel="stylesheet" href="/scrollLoading/style.css">
   
   
 
@@ -63,7 +50,7 @@ package.">
     <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -95,7 +82,7 @@ package.">
             <nav id="sub-nav">
               <div id="search-form-wrap">
                 
-                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
                 
               </div>
             </nav>
@@ -138,16 +125,16 @@ package.">
         <h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal:"></a>Goal:</h2><p>You have a node module and want in on npm registry for others to use by simply running: </p>
 <pre><code>npm install &lt;your_module_name&gt;
 </code></pre><h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><ol>
-<li>Install <a href="http://nodejs.org" target="_blank" rel="external">nodejs</a></li>
+<li>Install <a href="http://nodejs.org" target="_blank" rel="noopener">nodejs</a></li>
 <li>At least the following 3 files:<ul>
 <li>package.json (run <code>npm init</code> to create one and follow the prompts)</li>
 <li>README.md</li>
 <li>&lt; module &gt;.js</li>
-<li>&lt; module-test &gt;.js (optional but recommended. <a href="http://visionmedia.github.io/mocha/" target="_blank" rel="external">mocha</a> or <a href="http://pivotal.github.io/jasmine/" target="_blank" rel="external">jasmine</a> is good)</li>
+<li>&lt; module-test &gt;.js (optional but recommended. <a href="http://visionmedia.github.io/mocha/" target="_blank" rel="noopener">mocha</a> or <a href="http://pivotal.github.io/jasmine/" target="_blank" rel="noopener">jasmine</a> is good)</li>
 </ul>
 </li>
 </ol>
-<h2 id="Steps"><a href="#Steps" class="headerlink" title="Steps:"></a>Steps:</h2><p>1) <strong>Register yourself on npm or login</strong><br>You can do this via the <a href="https://npmjs.org/signup" target="_blank" rel="external">npmjs</a> site or running</p>
+<h2 id="Steps"><a href="#Steps" class="headerlink" title="Steps:"></a>Steps:</h2><p>1) <strong>Register yourself on npm or login</strong><br>You can do this via the <a href="https://npmjs.org/signup" target="_blank" rel="noopener">npmjs</a> site or running</p>
 <pre><code>npm add-user
 </code></pre><p>and providing a username &amp; email.</p>
 <p>2) <strong>Publish your node module to npm</strong>      </p>
@@ -158,11 +145,11 @@ package.">
 <pre><code>npm publish 
 </code></pre><p>Your node module is now updated!</p>
 <h3 id="Uninstall-node-module"><a href="#Uninstall-node-module" class="headerlink" title="Uninstall node module"></a>Uninstall node module</h3><pre><code>npm uninstall &lt;module_name&gt;
-</code></pre><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>My mini stats node module: <a href="http://github.com/alyssaq/stats-analysis" target="_blank" rel="external">github.com/alyssaq/stats-analysis</a></p>
+</code></pre><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>My mini stats node module: <a href="http://github.com/alyssaq/stats-analysis" target="_blank" rel="noopener">github.com/alyssaq/stats-analysis</a></p>
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2014/publish-your-node-module-to-npm/" data-id="cjgj9eg8n002ubfifla1fifvw" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2014/publish-your-node-module-to-npm/" data-id="cjgjagyok0002toifht4bpher" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
@@ -334,16 +321,31 @@ package.">
 
 
 
-  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
-  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+  <script src="/scrollLoading/jquery.scrollLoading.js"></script>
+  <script src="/scrollLoading/main.js"></script>
 
 
 
 
-<script src="/js/html-patch.js" type="text/javascript"></script>
-<script src="/js/script.js" type="text/javascript"></script>
-<script src="/js/prism.js" type="text/javascript"></script>
+<script src="/js/html-patch.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/prism.js"></script>
 
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

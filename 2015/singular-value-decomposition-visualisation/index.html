@@ -6,17 +6,17 @@
   <title>Singular Value Decomposition (SVD) Visualisation | Alyssa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="computer vision,linear algebra,python">
+  <meta name="keywords" content="python,computer vision,linear algebra">
   
 
-  <meta name="description" content="“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre)
-This mathematical technique has been used across various industries and example applications include recommender syst">
+  <meta name="description" content="“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre) This mathematical technique has been used across various industries and example applications include recommender syst">
+<meta name="keywords" content="python,computer vision,linear algebra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Singular Value Decomposition (SVD) Visualisation">
 <meta property="og:url" content="alyssaq.github.io/2015/singular-value-decomposition-visualisation/index.html">
 <meta property="og:site_name" content="Alyssa">
-<meta property="og:description" content="“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre)
-This mathematical technique has been used across various industries and example applications include recommender syst">
+<meta property="og:description" content="“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre) This mathematical technique has been used across various industries and example applications include recommender syst">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/eigens-transformation_matrix.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/svd_Vx.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/svd_SVx.png">
@@ -24,15 +24,15 @@ This mathematical technique has been used across various industries and example 
 <meta property="og:updated_time" content="2018-04-28T10:36:06.846Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Singular Value Decomposition (SVD) Visualisation">
-<meta name="twitter:description" content="“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre)
-This mathematical technique has been used across various industries and example applications include recommender syst">
+<meta name="twitter:description" content="“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre) This mathematical technique has been used across various industries and example applications include recommender syst">
+<meta name="twitter:image" content="https://alyssaq.github.io/blog/images/eigens-transformation_matrix.png">
   
   
 
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
   
-    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+    <link rel="stylesheet" href="/scrollLoading/style.css">
   
   
 
@@ -55,7 +55,7 @@ This mathematical technique has been used across various industries and example 
     <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -87,7 +87,7 @@ This mathematical technique has been used across various industries and example 
             <nav id="sub-nav">
               <div id="search-form-wrap">
                 
-                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
                 
               </div>
             </nav>
@@ -127,15 +127,15 @@ This mathematical technique has been used across various industries and example 
 </a>
       </p>
       <div class="article-entry" itemprop="articleBody">
-        <p><a href="https://books.google.com.sg/books?id=MjNwWUY8jx4C&amp;pg=PA259" target="_blank" rel="external">“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre)</a></p>
-<p>This mathematical technique has been used across various industries and example applications include <a href="http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf" target="_blank" rel="external">recommender systems (Netflix prize)</a>, <a href="http://www.iaarc.org/publications/fulltext/isarc2007-4.5_4_035.pdf" target="_blank" rel="external">face and object recognition</a>, <a href="http://www.orie.cornell.edu/engineering2/customcf/iws_events_calendar/files/Marco_Avellaneda_Presentation_10_16_14.pdf" target="_blank" rel="external">risk modelling in equity options</a> and <a href="http://www.ncbi.nlm.nih.gov/pubmed/12045141" target="_blank" rel="external">identifying genes in brain imaging that make up Parkinson disease</a>.</p>
+        <p><a href="https://books.google.com.sg/books?id=MjNwWUY8jx4C&amp;pg=PA259" target="_blank" rel="noopener">“The SVD is absolutely a high point of linear algebra” (Gilbert Strang, Kai Borre)</a></p>
+<p>This mathematical technique has been used across various industries and example applications include <a href="http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf" target="_blank" rel="noopener">recommender systems (Netflix prize)</a>, <a href="http://www.iaarc.org/publications/fulltext/isarc2007-4.5_4_035.pdf" target="_blank" rel="noopener">face and object recognition</a>, <a href="http://www.orie.cornell.edu/engineering2/customcf/iws_events_calendar/files/Marco_Avellaneda_Presentation_10_16_14.pdf" target="_blank" rel="noopener">risk modelling in equity options</a> and <a href="http://www.ncbi.nlm.nih.gov/pubmed/12045141" target="_blank" rel="noopener">identifying genes in brain imaging that make up Parkinson disease</a>.</p>
 <h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>SVD is a matrix factorisation and decomposes a matrix of any size into a  product of 3 matrices:</p>
 <p>$$ A = U S V^T $$</p>
 <p>$A$ : $n \times m$ : number of records as rows and number of dimensions/features as columns.<br>$U$ : $n \times n$ : orthogonal matrix containing eigenvectors of $AA^T$.<br>$S$ : $n \times m$ : ordered singular values in the diagonal. Square root of eigenvalues associated with $AA^T$ or $A^TA$ (its the same).<br>$V$ : $m \times m$ : orthogonal matrix containing eigenvectors of $A^TA$.</p>
 <p><em>Orthogonal matrix</em>: square matrix where columns make $90^\circ$ angles between each other and its inner dot product is zero. $Q^TQ = QQ^T = I$ and $Q^T=Q^{-1}$.<br><em>Orthonormal matrix</em>: orthogonal matrix where columns are unit vectors.</p>
 <h2 id="Example-matrix"><a href="#Example-matrix" class="headerlink" title="Example matrix"></a>Example matrix</h2><p>For this post, Im going to use the same matrices from <a href="https://alyssaq.github.io/2015/understanding-eigenvectors-and-eigenvalues-visually">my post on eigenvectors and eigenvalues</a>. We have a matrix $x = \begin{bmatrix}<br>-10 &amp; -10 &amp; 20 &amp; 20\\<br>-10 &amp; 20 &amp; 20 &amp; -10<br>\end{bmatrix}$ and a transformation matrix $A = \begin{bmatrix}<br>1 &amp; 0.3 \\<br>0.45 &amp; 1.2<br>\end{bmatrix}$. In the plot below, the dashed square shows $x$ as the corners and the transformed matrix $Ax$ as the solid shape.</p>
 <p><img src="https://alyssaq.github.io/blog/images/eigens-transformation_matrix.png" alt="transformed_plot"></p>
-<p>Python’s numpy provides us with a handy <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.svd.html" target="_blank" rel="external"><code>svd</code></a> function:</p>
+<p>Python’s numpy provides us with a handy <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.svd.html" target="_blank" rel="noopener"><code>svd</code></a> function:</p>
 <pre><code class="language-python">
 In[1]:
 A = np.matrix([[1, 0.3], [0.45, 1.2]])
@@ -189,18 +189,18 @@ Out[5]: True
 <li>Column vectors in $Q$ are not always orthogonal so the change in basis is not a simple rotation. $U$ and $V$ are orthogonal and always represent rotations (and reflections).</li>
 <li>Singular values in $S$ are all real and non-negative. The eigenvalues in $\Lambda$ can be complex and have imaginary numbers.</li>
 </ul>
-<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><p>SVD ties together the core concepts of linear algebra — matrix transformations, projections, subspaces, change of basis, eigens, symmetric matrices, orthogonalisation and factorisation. For a complete proof and backgound, I highly recommend the entire <a href="http://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/" target="_blank" rel="external">MIT Linear Algebra lectures by Gilbert Strang</a>. I also found the examples and proofs for SVD and QR factorisation from the <a href="http://www.ulaff.net" target="_blank" rel="external">University of Texas’ MOOC</a> useful.</p>
+<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><p>SVD ties together the core concepts of linear algebra — matrix transformations, projections, subspaces, change of basis, eigens, symmetric matrices, orthogonalisation and factorisation. For a complete proof and backgound, I highly recommend the entire <a href="http://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/" target="_blank" rel="noopener">MIT Linear Algebra lectures by Gilbert Strang</a>. I also found the examples and proofs for SVD and QR factorisation from the <a href="http://www.ulaff.net" target="_blank" rel="noopener">University of Texas’ MOOC</a> useful.</p>
 <p>Other posts covering SVD visualisations and its applications:</p>
 <ul>
-<li><a href="http://www.ams.org/samplings/feature-column/fcarc-svd" target="_blank" rel="external">http://www.ams.org/samplings/feature-column/fcarc-svd</a></li>
-<li><a href="http://neurochannels.blogspot.sg/2008/02/visualizing-svd.html" target="_blank" rel="external">http://neurochannels.blogspot.sg/2008/02/visualizing-svd.html</a></li>
-<li><a href="http://www.math.umn.edu/~lerman/math5467/svd.pdf" target="_blank" rel="external">http://www.math.umn.edu/~lerman/math5467/svd.pdf</a></li>
-<li><a href="http://www.mathworks.com/company/newsletters/articles/professor-svd.html" target="_blank" rel="external">http://www.mathworks.com/company/newsletters/articles/professor-svd.html</a></li>
+<li><a href="http://www.ams.org/samplings/feature-column/fcarc-svd" target="_blank" rel="noopener">http://www.ams.org/samplings/feature-column/fcarc-svd</a></li>
+<li><a href="http://neurochannels.blogspot.sg/2008/02/visualizing-svd.html" target="_blank" rel="noopener">http://neurochannels.blogspot.sg/2008/02/visualizing-svd.html</a></li>
+<li><a href="http://www.math.umn.edu/~lerman/math5467/svd.pdf" target="_blank" rel="noopener">http://www.math.umn.edu/~lerman/math5467/svd.pdf</a></li>
+<li><a href="http://www.mathworks.com/company/newsletters/articles/professor-svd.html" target="_blank" rel="noopener">http://www.mathworks.com/company/newsletters/articles/professor-svd.html</a></li>
 </ul>
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2015/singular-value-decomposition-visualisation/" data-id="cjgj9eg7e000pbfif69wog43t" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2015/singular-value-decomposition-visualisation/" data-id="cjgjagypv0014toifedvvqbl4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-algebra/">linear algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
@@ -372,46 +372,31 @@ Out[5]: True
 
 
 
-  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
-  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+  <script src="/scrollLoading/jquery.scrollLoading.js"></script>
+  <script src="/scrollLoading/main.js"></script>
 
 
 
 
-<script src="/js/html-patch.js" type="text/javascript"></script>
-<script src="/js/script.js" type="text/javascript"></script>
-<script src="/js/prism.js" type="text/javascript"></script>
+<script src="/js/html-patch.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/prism.js"></script>
 
   </div>
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
         }
     });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
 </script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

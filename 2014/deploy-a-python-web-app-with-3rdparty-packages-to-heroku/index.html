@@ -6,35 +6,28 @@
   <title>Deploy a Python Web App With 3rd-Party Packages to Heroku | Alyssa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="automation,heroku,numpy,pandas,python">
+  <meta name="keywords" content="heroku,python,numpy,pandas,automation">
   
 
-  <meta name="description" content="GoalTo deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting platform-as-a-service.
-My required 3rd-party Python packages/modules:
-
-Numpy (fundamen">
+  <meta name="description" content="GoalTo deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting platform-as-a-service. My required 3rd-party Python packages/modules:  Numpy (fundamen">
+<meta name="keywords" content="heroku,python,numpy,pandas,automation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Deploy a Python Web App With 3rd-Party Packages to Heroku">
 <meta property="og:url" content="alyssaq.github.io/2014/deploy-a-python-web-app-with-3rdparty-packages-to-heroku/index.html">
 <meta property="og:site_name" content="Alyssa">
-<meta property="og:description" content="GoalTo deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting platform-as-a-service.
-My required 3rd-party Python packages/modules:
-
-Numpy (fundamen">
+<meta property="og:description" content="GoalTo deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting platform-as-a-service. My required 3rd-party Python packages/modules:  Numpy (fundamen">
+<meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-04-28T10:36:06.841Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deploy a Python Web App With 3rd-Party Packages to Heroku">
-<meta name="twitter:description" content="GoalTo deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting platform-as-a-service.
-My required 3rd-party Python packages/modules:
-
-Numpy (fundamen">
+<meta name="twitter:description" content="GoalTo deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting platform-as-a-service. My required 3rd-party Python packages/modules:  Numpy (fundamen">
   
   
 
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
   
-    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+    <link rel="stylesheet" href="/scrollLoading/style.css">
   
   
 
@@ -57,7 +50,7 @@ Numpy (fundamen">
     <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -89,7 +82,7 @@ Numpy (fundamen">
             <nav id="sub-nav">
               <div id="search-form-wrap">
                 
-                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
                 
               </div>
             </nav>
@@ -129,27 +122,27 @@ Numpy (fundamen">
 </a>
       </p>
       <div class="article-entry" itemprop="articleBody">
-        <h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><p>To deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting <a href="http://en.wikipedia.org/wiki/Platform_as_a_service" target="_blank" rel="external">platform-as-a-service</a>.</p>
+        <h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><p>To deploy a Python web app with various mathematical, scientific, text-processing packages to a cloud hosting <a href="http://en.wikipedia.org/wiki/Platform_as_a_service" target="_blank" rel="noopener">platform-as-a-service</a>.</p>
 <p>My required 3rd-party Python packages/modules:</p>
 <ul>
-<li><a href="http://numpy.org" target="_blank" rel="external">Numpy</a> (fundamental package for scientific computing with numbers)</li>
-<li><a href="http://scipy.org" target="_blank" rel="external">Scipy</a> (scientific computing tools)</li>
-<li><a href="http://pandas.pydata.org" target="_blank" rel="external">Pandas</a> (high-performance, easy-to-use data structures for data pre-processing and analytics)</li>
-<li><a href="http://scikit-learn.org" target="_blank" rel="external">Scikit-learn</a> (machine learning, data mining, data analysis) </li>
-<li><a href="textblob.readthedocs.org">Textblob</a> (simplified text-processing version of <a href="http://nltk.org" target="_blank" rel="external">nltk</a>)</li>
+<li><a href="http://numpy.org" target="_blank" rel="noopener">Numpy</a> (fundamental package for scientific computing with numbers)</li>
+<li><a href="http://scipy.org" target="_blank" rel="noopener">Scipy</a> (scientific computing tools)</li>
+<li><a href="http://pandas.pydata.org" target="_blank" rel="noopener">Pandas</a> (high-performance, easy-to-use data structures for data pre-processing and analytics)</li>
+<li><a href="http://scikit-learn.org" target="_blank" rel="noopener">Scikit-learn</a> (machine learning, data mining, data analysis) </li>
+<li><a href="textblob.readthedocs.org">Textblob</a> (simplified text-processing version of <a href="http://nltk.org" target="_blank" rel="noopener">nltk</a>)</li>
 </ul>
-<h3 id="What-I-tried-and-failed"><a href="#What-I-tried-and-failed" class="headerlink" title="What I tried and failed"></a>What I tried and failed</h3><p>I spent a few hours attempting to create a boilerplate web application with the required packages to be deployed on Google App Engine. Creating a restful API for GAE was easy (<a href="https://github.com/alyssaq/flask-restful-api-appengine" target="_blank" rel="external">heres mine on Github</a> using Flask). However, adding the scientific packages I needed was Hell. </p>
-<p>In summary, GAE does <a href="https://developers.google.com/appengine/kb/general#libraries" target="_blank" rel="external">NOT support a lot of C-based modules</a>. So, say goodbye to a handful of Python scientific packages which depend on compiling various C-based libraries.<br>While GAE does provide numpy, if you want pandas at some imaginary point in the future, you’ll have to <a href="https://code.google.com/p/googleappengine/issues/detail?id=8620" target="_blank" rel="external">vote on their thread</a>. </p>
+<h3 id="What-I-tried-and-failed"><a href="#What-I-tried-and-failed" class="headerlink" title="What I tried and failed"></a>What I tried and failed</h3><p>I spent a few hours attempting to create a boilerplate web application with the required packages to be deployed on Google App Engine. Creating a restful API for GAE was easy (<a href="https://github.com/alyssaq/flask-restful-api-appengine" target="_blank" rel="noopener">heres mine on Github</a> using Flask). However, adding the scientific packages I needed was Hell. </p>
+<p>In summary, GAE does <a href="https://developers.google.com/appengine/kb/general#libraries" target="_blank" rel="noopener">NOT support a lot of C-based modules</a>. So, say goodbye to a handful of Python scientific packages which depend on compiling various C-based libraries.<br>While GAE does provide numpy, if you want pandas at some imaginary point in the future, you’ll have to <a href="https://code.google.com/p/googleappengine/issues/detail?id=8620" target="_blank" rel="noopener">vote on their thread</a>. </p>
 <p>Next up, PiCloud. Oh, they joined Dropbox and no longer allow sign-ups. </p>
 <p>No, I do not want to bother with AWS. No, I do not want to merely run analytics up in the cloud with wakari or pythonanywhere.</p>
-<h2 id="Deploy-scientific-Python-with-Heroku-buildpack"><a href="#Deploy-scientific-Python-with-Heroku-buildpack" class="headerlink" title="Deploy scientific Python with Heroku buildpack"></a>Deploy scientific Python with Heroku buildpack</h2><p>Building numpy, scipy, pandas, etc over and over again with each deployment gets old VERY quick.<br><em>Solution:</em> Use a <a href="https://devcenter.heroku.com/articles/buildpacks" target="_blank" rel="external">buildpack</a> to prepare your dyno before your app executes. The custom buildpacks listed below uses the binary distributions of the required packages so this means not having to build numpy with each push to Heroku (joy!). </p>
+<h2 id="Deploy-scientific-Python-with-Heroku-buildpack"><a href="#Deploy-scientific-Python-with-Heroku-buildpack" class="headerlink" title="Deploy scientific Python with Heroku buildpack"></a>Deploy scientific Python with Heroku buildpack</h2><p>Building numpy, scipy, pandas, etc over and over again with each deployment gets old VERY quick.<br><em>Solution:</em> Use a <a href="https://devcenter.heroku.com/articles/buildpacks" target="_blank" rel="noopener">buildpack</a> to prepare your dyno before your app executes. The custom buildpacks listed below uses the binary distributions of the required packages so this means not having to build numpy with each push to Heroku (joy!). </p>
 <p>Useful Buildpacks:</p>
 <ul>
-<li><a href="https://github.com/heroku/heroku-buildpack-python" target="_blank" rel="external">Heroku’s python buildpack</a> - for simple python web apps</li>
-<li><a href="https://github.com/dbrgn/heroku-buildpack-python-sklearn" target="_blank" rel="external">Above buildpack + base scientific packages</a> - for python web apps with numpy, scipy and/or scikit-learn (only Python 2.7.4)</li>
-<li><a href="https://github.com/alyssaq/heroku-buildpack-python-sklearn" target="_blank" rel="external">Above buildpack + textblob with core nltk corpora</a> - this is my fork of the above buildpack with a script to download and cache core nltk corpora for textblob. </li>
+<li><a href="https://github.com/heroku/heroku-buildpack-python" target="_blank" rel="noopener">Heroku’s python buildpack</a> - for simple python web apps</li>
+<li><a href="https://github.com/dbrgn/heroku-buildpack-python-sklearn" target="_blank" rel="noopener">Above buildpack + base scientific packages</a> - for python web apps with numpy, scipy and/or scikit-learn (only Python 2.7.4)</li>
+<li><a href="https://github.com/alyssaq/heroku-buildpack-python-sklearn" target="_blank" rel="noopener">Above buildpack + textblob with core nltk corpora</a> - this is my fork of the above buildpack with a script to download and cache core nltk corpora for textblob. </li>
 </ul>
-<h3 id="How-to-deploy-with-a-Heroku-buildpack"><a href="#How-to-deploy-with-a-Heroku-buildpack" class="headerlink" title="How to deploy with a Heroku buildpack"></a>How to deploy with a Heroku buildpack</h3><p>1) Create a simple Python web app that imports some scientific packages. As an example, Im using <a href="https://github.com/alyssaq/bottle-heroku-skeleton" target="_blank" rel="external">my bottle-skeleton app</a></p>
+<h3 id="How-to-deploy-with-a-Heroku-buildpack"><a href="#How-to-deploy-with-a-Heroku-buildpack" class="headerlink" title="How to deploy with a Heroku buildpack"></a>How to deploy with a Heroku buildpack</h3><p>1) Create a simple Python web app that imports some scientific packages. As an example, Im using <a href="https://github.com/alyssaq/bottle-heroku-skeleton" target="_blank" rel="noopener">my bottle-skeleton app</a></p>
 <p>2) Clone the repo and add to git:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:alyssaq/bottle-heroku-skeleton.git</span><br><span class="line">$ git init</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">"init"</span></span><br></pre></td></tr></table></figure>
 <p>3) Add any additional dependencies in <code>requirements.txt</code> (the skeleton app already includes numpy, textblob and pandas)</p>
@@ -159,7 +152,7 @@ Numpy (fundamen">
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2014/deploy-a-python-web-app-with-3rdparty-packages-to-heroku/" data-id="cjgj9eg8d0027bfifeg5elf75" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2014/deploy-a-python-web-app-with-3rdparty-packages-to-heroku/" data-id="cjgjagyou0007toifyepk1au6" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/automation/">automation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/numpy/">numpy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pandas/">pandas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
@@ -331,46 +324,31 @@ Numpy (fundamen">
 
 
 
-  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
-  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+  <script src="/scrollLoading/jquery.scrollLoading.js"></script>
+  <script src="/scrollLoading/main.js"></script>
 
 
 
 
-<script src="/js/html-patch.js" type="text/javascript"></script>
-<script src="/js/script.js" type="text/javascript"></script>
-<script src="/js/prism.js" type="text/javascript"></script>
+<script src="/js/html-patch.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/prism.js"></script>
 
   </div>
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
         }
     });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
 </script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
