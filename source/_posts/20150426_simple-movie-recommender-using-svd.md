@@ -30,7 +30,7 @@ import numpy as np
 import pandas as pd
 </code></pre>
 
-We'll be using 2 files from the [MovieLens 1M dataset](http://grouplens.org/datasets/movielens): `ratings.dat` and `movies.dat`.
+We'll be using 2 files from the [MovieLens 1M dataset](https://grouplens.org/datasets/movielens/1m/): `ratings.dat` and `movies.dat`.
 
 1) Read the files with pandas
 <pre><code class="language-python">
@@ -57,7 +57,7 @@ normalised_mat = ratings_mat - np.asarray([(np.mean(ratings_mat, 1))]).T
 
 4) Compute SVD
 <pre><code class="language-python">
-A = normalised_mat.T / np.sqrt(num_movies - 1)
+A = normalised_mat.T / np.sqrt(ratings_mat.shape[0] - 1)
 U, S, V = np.linalg.svd(A)
 </code></pre>
 
@@ -76,7 +76,7 @@ def print_similar_movies(movie_data, movie_id, top_indexes):
     print('Recommendations for {0}: \n'.format(
     movie_data[movie_data.movie_id == movie_id].title.values[0]))
     for id in top_indexes + 1:
-        print movie_data[movie_data.movie_id == id].title.values[0]
+        print(movie_data[movie_data.movie_id == id].title.values[0])
 </code></pre>
 
 6) Select $k$ principal components to represent the movies, a `movie_id` to find recommendations and print the `top_n` results.
@@ -86,7 +86,7 @@ movie_id = 1 # Grab an id from movies.dat
 top_n = 10
 
 sliced = V.T[:, :k] # representative data
-indexes = top_cosine_similarity(sliced, movie_id - 1, top_n)
+indexes = top_cosine_similarity(sliced, movie_id, top_n)
 print_similar_movies(movie_data, movie_id, indexes)
 </code></pre>
 
