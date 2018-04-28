@@ -32,6 +32,19 @@
   <%- js('scrollLoading/main') %>
 <% } %>
 
+<% if (theme.use_mathjax) { %>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      processEscapes: true
+    }
+  })
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-AMS_HTML'></script>
+<% } %>
+
 <% if (config.swiftype_install_key) { %>
   <script type="text/javascript">
     (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){

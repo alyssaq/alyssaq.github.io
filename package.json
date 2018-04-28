@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.1.1"
+    "version": "3.7.1"
   },
   "scripts": {
     "dev": "hexo server",
@@ -11,22 +11,22 @@
     "deploy": "hexo clean && hexo generate --deploy"
   },
   "dependencies": {
-    "hexo": "^3.1.1",
-    "hexo-browsersync": "^0.2.0",
-    "hexo-deployer-git": "0.0.4",
-    "hexo-fs": "^0.1.5",
+    "hexo": "^3.7.1",
+    "hexo-browsersync": "^0.3.0",
+    "hexo-deployer-git": "^0.3.1",
+    "hexo-fs": "^0.2.3",
     "hexo-generator-archive": "^0.1.2",
     "hexo-generator-category": "^0.1.2",
-    "hexo-generator-feed": "^1.0.3",
+    "hexo-generator-feed": "^1.2.2",
     "hexo-generator-index": "^0.2.0",
-    "hexo-generator-tag": "^0.1.1",
-    "hexo-math": "^2.0.1",
-    "hexo-renderer-ejs": "^0.1.0",
-    "hexo-renderer-marked": "^0.2.6",
+    "hexo-generator-tag": "^0.2.0",
+    "hexo-renderer-ejs": "^0.3.1",
+    "hexo-renderer-marked": "^0.3.2",
     "hexo-renderer-stylus": "^0.3.0",
-    "hexo-server": "^0.1.2"
+    "hexo-server": "^0.3.1"
   },
   "devDependencies": {
-    "hexo-cli": "^0.1.9"
+    "hexo-cli": "^1.1.0",
+    "hexo-inject": "^1.0.0"
   }
 }

@@ -126,11 +126,9 @@ We can obtain the same axes and orientation of a blob with [raw image moments an
 
 The calculation of a raw image moment is given by the equation:
 
-{% math %}
 \begin{aligned}
 M_{ij}  = \sum\limits_{y=0}^{nrows}\sum\limits_{x=0}^{ncols} x^i \ y^j \ I(x, y)
 \end{aligned}
-{% endmath %}
 
 where $x$ and $y$ are indices to the data and $I(x, y)$ is the grey-level intensity value at that index. The codification of that equation:
 

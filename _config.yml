@@ -61,10 +61,16 @@ time_format: HH:mm
 per_page: 0
 pagination_dir: page
 
-# Extensions
-## Plugins: http://hexo.io/plugins/
-plugins:
-- hexo-renderer-mathjax
+# # Extensions
+# ## Plugins: http://hexo.io/plugins/
+# plugins:
+# - hexo-server
+# - hexo-renderer-marked
+# - hexo-math
+# - hexo-renderer-mathjax
+# - hexo-renderer-ejs
+# - hexo-renderer-stylus
+# - hexo-deployer-git
 
 ## Themes: http://hexo.io/themes/
 theme: hueman
@@ -122,6 +128,7 @@ widgets:
 
 # Don't Use Google APIs if you are in google-blocked areas
 use_google_apis: true
+use_mathjax: true
 
 feed:
   type: atom
