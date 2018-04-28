@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Simple Movie Recommender Using SVD | Alyssa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="computer vision,linear algebra,python">
+  
+
+  <meta name="description" content="Given a movie title, we’ll use Singular Value Decomposition (SVD) to recommend other movies based on user ratings.
+Filtering and recommending based on information given by other users is known as coll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simple Movie Recommender Using SVD">
+<meta property="og:url" content="alyssaq.github.io/2015/20150426-simple-movie-recommender-using-svd/index.html">
+<meta property="og:site_name" content="Alyssa">
+<meta property="og:description" content="Given a movie title, we’ll use Singular Value Decomposition (SVD) to recommend other movies based on user ratings.
+Filtering and recommending based on information given by other users is known as coll">
+<meta property="og:updated_time" content="2018-04-28T10:36:06.847Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Simple Movie Recommender Using SVD">
+<meta name="twitter:description" content="Given a movie title, we’ll use Singular Value Decomposition (SVD) to recommend other movies based on user ratings.
+Filtering and recommending based on information given by other users is known as coll">
+  
+  
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+  
+    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+  
+  
+
+
+  
+    
+      <style type="text/css">
+          .logo { background-image:url(https://s.gravatar.com/avatar/68dd6178c6868bff37f7c2e196201ff8?s=80);
+          
+          
+          
+          }
+
+        
+      </style>
+    
+  
+
+  
+    <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+</head>
+
+<body>
+  <div id="wrap">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div class="container">
+      <div class="container-inner">
+        <div id="header-title">
+          <h1 class="logo-wrap">
+            <a href="/" class="logo"></a>
+          </h1>
+          
+            <h2 class="subtitle-wrap">
+              <p class="subtitle">Alyssa Quek</p>
+            </h2>
+          
+        </div>
+        <div id="header-inner" class="nav-container">
+          <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+          <div class="nav-container-inner">
+            <ul id="main-nav">
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/">Home</a></li>
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/about/index.html">About</a></li>
+              
+            </ul>
+            <nav id="sub-nav">
+              <div id="search-form-wrap">
+                
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="alyssaq.github.io"></form>
+                
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="container">
+      <div class="main-body container-inner">
+        <div class="main-body-inner">
+          <section id="main">
+            <div class="main-body-header">
+
+              <h1 class="header"><a class="page-title-link" href="/categories/data-science/">data science</a></h1>
+            </div>
+            <div class="main-body-content">
+              
+  <article id="post-20150426-simple-movie-recommender-using-svd" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+      <!--  -->
+      
+        <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      Simple Movie Recommender Using SVD
+    </h1>
+  
+
+        </header>
+      
+      <p class="article-byline">
+        <a href="/2015/20150426-simple-movie-recommender-using-svd/" class="article-date">
+  <time datetime="2015-04-26T06:13:00.000Z" itemprop="datePublished">26-Apr-2015</time>
+</a>
+      </p>
+      <div class="article-entry" itemprop="articleBody">
+        <p>Given a movie title, we’ll use <a href="http://mathworld.wolfram.com/SingularValueDecomposition.html" target="_blank" rel="external">Singular Value Decomposition (SVD)</a> to recommend other movies based on user ratings.</p>
+<p>Filtering and recommending based on information given by other users is known as <a href="http://en.wikipedia.org/wiki/Collaborative_filtering" target="_blank" rel="external">collaborative filtering</a>. The assumption is that people with similar movie tastes are most likely to give similar movie ratings. So, if I’m looking for a new movie and I’ve watched The Matrix, this method will recommend movies that have a similar rating pattern to The Matrix across a set of users.</p>
+<h2 id="SVD-Concept"><a href="#SVD-Concept" class="headerlink" title="SVD Concept"></a>SVD Concept</h2><p>The essence of SVD is that it decomposes a matrix of any shape into a product of 3 matrices with nice mathematical properties: $A = U S V^T$. </p>
+<p>By lucid analogy, a number can decompose into 3 numbers to always have the smallest prime in the middle. E.g $24 = 3 \times 2 \times 4$ or $57 = 1 \times 3 \times 19$.</p>
+<p>For the interested, I previously wrote a post on <a href="https://alyssaq.github.io/2015/singular-value-decomposition-visualisation">SVD visualisation</a> to view the properties of the decomposition.</p>
+<p>The result of the decomposition leaves us with an ordered matrix of singular values which encompass the variance associated with every direction. We assume that larger variances means less redundancy and less correlation and encode more structure about the data. This allows us to use a representative subset of user rating directions or principal components to recommend movies.</p>
+<p>I highly recommend reading <a href="http://arxiv.org/pdf/1404.1100.pdf" target="_blank" rel="external">John Shlen’s tutorial on PCA and SVD (2014)</a> to fully understand the mathematical properties of the  two related methods.</p>
+<h2 id="Simple-Recommender"><a href="#Simple-Recommender" class="headerlink" title="Simple Recommender"></a>Simple Recommender</h2><p>Python libraries we’ll be using:</p>
+<pre><code class="language-python">
+import numpy as np
+import pandas as pd
+</code></pre>
+
+<p>We’ll be using 2 files from the <a href="https://grouplens.org/datasets/movielens/1m/" target="_blank" rel="external">MovieLens 1M dataset</a>: <code>ratings.dat</code> and <code>movies.dat</code>.</p>
+<p>1) Read the files with pandas</p>
+<pre><code class="language-python">
+data = pd.io.parsers.read_csv('data/ratings.dat', 
+    names=['user_id', 'movie_id', 'rating', 'time'],
+    engine='python', delimiter='::')
+movie_data = pd.io.parsers.read_csv('data/movies.dat',
+    names=['movie_id', 'title', 'genre'],
+    engine='python', delimiter='::')
+</code></pre>
+
+<p>2) Create the ratings matrix of shape ($m \times u$) with rows as movies and columns as users</p>
+<pre><code class="language-python">
+ratings_mat = np.ndarray(
+    shape=(np.max(data.movie_id.values), np.max(data.user_id.values)),
+    dtype=np.uint8)
+ratings_mat[data.movie_id.values-1, data.user_id.values-1] = data.rating.values
+</code></pre>
+
+<p>3) Normalise matrix (subtract mean off)</p>
+<pre><code class="language-python">
+normalised_mat = ratings_mat - np.asarray([(np.mean(ratings_mat, 1))]).T
+</code></pre>
+
+<p>4) Compute SVD</p>
+<pre><code class="language-python">
+A = normalised_mat.T / np.sqrt(ratings_mat.shape[0] - 1)
+U, S, V = np.linalg.svd(A)
+</code></pre>
+
+<p>5) Calculate <a href="http://en.wikipedia.org/wiki/Cosine_similarity" target="_blank" rel="external">cosine similarity</a>, sort by most similar and return the top N.</p>
+<pre><code class="language-python">
+def top_cosine_similarity(data, movie_id, top_n=10):
+    index = movie_id - 1 # Movie id starts from 1
+    movie_row = data[index, :]
+    magnitude = np.sqrt(np.einsum('ij, ij -> i', data, data))
+    similarity = np.dot(movie_row, data.T) / (magnitude[index] * magnitude)
+    sort_indexes = np.argsort(-similarity)
+    return sort_indexes[:top_n]
+
+# Helper function to print top N similar movies
+def print_similar_movies(movie_data, movie_id, top_indexes):
+    print('Recommendations for {0}: \n'.format(
+    movie_data[movie_data.movie_id == movie_id].title.values[0]))
+    for id in top_indexes + 1:
+        print(movie_data[movie_data.movie_id == id].title.values[0])
+</code></pre>
+
+<p>6) Select $k$ principal components to represent the movies, a <code>movie_id</code> to find recommendations and print the <code>top_n</code> results.</p>
+<pre><code class="language-python">
+k = 50
+movie_id = 1 # Grab an id from movies.dat
+top_n = 10
+
+sliced = V.T[:, :k] # representative data
+indexes = top_cosine_similarity(sliced, movie_id, top_n)
+print_similar_movies(movie_data, movie_id, indexes)
+</code></pre>
+
+<pre><code>Recommendations for Toy Story (1995): 
+
+Toy Story (1995)
+Toy Story 2 (1999)
+Babe (1995)
+Bug&apos;s Life, A (1998)
+Pleasantville (1998)
+Babe: Pig in the City (1998)
+Aladdin (1992)
+Stuart Little (1999)
+Secret Garden, The (1993)
+Tarzan (1999)
+</code></pre><p>We can change <code>k</code> and use different number of principal components to represent our dataset. This is essentially performing <a href="http://en.wikipedia.org/wiki/Dimensionality_reduction" target="_blank" rel="external">dimensionality reduction</a>. </p>
+<h2 id="SVD-and-PCA-relationship"><a href="#SVD-and-PCA-relationship" class="headerlink" title="SVD and PCA relationship"></a>SVD and PCA relationship</h2><p>Instead of computing SVD in step 4 above, the same results can be obtained by <a href="http://en.wikipedia.org/wiki/Principal_component_analysis#Computing_PCA_using_the_covariance_method" target="_blank" rel="external">computing PCA using the eigenvectors of the co-variance matrix</a>:</p>
+<pre><code class="language-python">
+normalised_mat = ratings_mat - np.matrix(np.mean(ratings_mat, 1)).T
+cov_mat = np.cov(normalised_mat)
+evals, evecs = np.linalg.eig(cov_mat)
+</code></pre>
+
+<p>We re-use the same cosine similarity calculation in step 5. Instead of the matrix <code>V</code> from SVD, we can use the eigenvectors computed from the co-variance matrix:</p>
+<pre><code class="language-python">
+k = 50
+movie_id = 1 # Grab an id from movies.dat
+top_n = 10
+
+sliced = evecs[:, :k] # representative data
+top_indexes = top_cosine_similarity(sliced, movie_id, top_n)
+print_similar_movies(movie_data, movie_id, top_indexes)
+</code></pre>
+
+<pre><code>Recommendations for Toy Story (1995): 
+
+Toy Story (1995)
+Toy Story 2 (1999)
+Babe (1995)
+Bug&apos;s Life, A (1998)
+Pleasantville (1998)
+Babe: Pig in the City (1998)
+Aladdin (1992)
+Stuart Little (1999)
+Secret Garden, The (1993)
+Tarzan (1999)
+</code></pre><p>Exactly the same results!<br>In step 4 above, our input matrix $A$ has shape $u \times m$. The computation of <code>V</code> from SVD is the result of the eigenvectors of $A^T A$. The columns of <code>V</code> are the eigenvectors that correspond to the sorted eigenvalues in the diagonal of $S$. </p>
+<p>By construction, $A^T A$ equals the covariance matrix of <code>normalised_mat</code>. Thus, the columns of $V$ are the principal components of <code>normalised_mat</code>. (Refer to section VI of <a href="http://arxiv.org/pdf/1404.1100.pdf" target="_blank" rel="external">John Shlen’s tutorial (2014)</a> for the full mathematical proof of this relationship).</p>
+<h3 id="Why-use-SVD-over-the-covariance-matrix"><a href="#Why-use-SVD-over-the-covariance-matrix" class="headerlink" title="Why use SVD over the covariance matrix?"></a>Why use SVD over the covariance matrix?</h3><ul>
+<li>Its faster (Facebook published a <a href="https://research.fb.com/fast-randomized-svd/" target="_blank" rel="external">fast randomized SVD</a>)</li>
+<li>Singular values from SVD are sorted (we have to sort the eigenvalues in ascending order)</li>
+</ul>
+
+      </div>
+      <footer class="article-footer">
+        <a data-url="alyssaq.github.io/2015/20150426-simple-movie-recommender-using-svd/" data-id="cjgj9eg750006bfifywr7zmdl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-algebra/">linear algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+      </footer>
+    </div>
+  </article>
+  
+  
+
+            </div>
+          </section>
+          <aside id="sidebar">
+  <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+  <div class="sidebar-top">
+    <p>follow:</p>
+    <ul class="social-links">
+      
+        <li><a class="social-tooltip" title="twitter" href="https://twitter.com/alyssaquek" target="_blank"><i class="icon fa fa-twitter"></i></a></li>
+      
+        <li><a class="social-tooltip" title="facebook" href="https://www.facebook.com/alyssaq" target="_blank"><i class="icon fa fa-facebook"></i></a></li>
+      
+        <li><a class="social-tooltip" title="linkedin" href="https://linkedin.com/in/alyssaq" target="_blank"><i class="icon fa fa-linkedin"></i></a></li>
+      
+        <li><a class="social-tooltip" title="github" href="https://github.com/alyssaq" target="_blank"><i class="icon fa fa-github"></i></a></li>
+      
+        <li><a class="social-tooltip" title="rss" href="/atom.xml" target="_blank"><i class="icon fa fa-rss"></i></a></li>
+      
+    </ul>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/deploy_gzip_site_s3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <p class="article-nav-title">Site Deployment With Gzipped Assets to AWS S3 Using CircleCI</p>
+      <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+    </a>
+  
+</nav>
+
+  
+  <div class="widgets-container">
+    
+      
+  <div class="widget-wrap">
+    <h3 class="widget-title">recents</h3>
+    <div class="widget">
+      <ul id="recent-post" class="no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/20150426-simple-movie-recommender-using-svd/" class="title">Simple Movie Recommender Using SVD</a></p>
+              <p class="item-date"><time datetime="2015-04-26T06:13:00.000Z" itemprop="datePublished">26-Apr-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/tech/">tech</a></p>
+              <p class="item-title"><a href="/2015/deploy_gzip_site_s3/" class="title">Site Deployment With Gzipped Assets to AWS S3 Using CircleCI</a></p>
+              <p class="item-date"><time datetime="2015-04-16T10:02:00.000Z" itemprop="datePublished">16-Apr-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/stuff/">stuff</a></p>
+              <p class="item-title"><a href="/2015/face-morpher-talk-at-foss-asia/" class="title">Face Morpher Talk at FOSS Asia</a></p>
+              <p class="item-date"><time datetime="2015-03-14T11:08:00.000Z" itemprop="datePublished">14-Mar-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/singular-value-decomposition-visualisation/" class="title">Singular Value Decomposition (SVD) Visualisation</a></p>
+              <p class="item-date"><time datetime="2015-02-23T19:03:00.000Z" itemprop="datePublished">24-Feb-2015</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
+              <p class="item-title"><a href="/2015/computing-the-axes-or-orientation-of-a-blob/" class="title">Computing the Axes or Orientation of a Blob</a></p>
+              <p class="item-date"><time datetime="2015-01-13T19:30:00.000Z" itemprop="datePublished">14-Jan-2015</time></p>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/data-science/">data science</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/stuff/">stuff</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/api/">api</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/automation/">automation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/">aws</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computer-vision/">computer vision</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dropbox/">dropbox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linear-algebra/">linear algebra</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multithreading/">multithreading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/numpy/">numpy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opencv/">opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/">pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/queue/">queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ready-player-one/">ready_player_one</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-float">
+    <h3 class="widget-title">tag cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/api/" style="font-size: 10px;">api</a> <a href="/tags/automation/" style="font-size: 12.5px;">automation</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/computer-vision/" style="font-size: 17.5px;">computer vision</a> <a href="/tags/dropbox/" style="font-size: 10px;">dropbox</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear algebra</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/markdown/" style="font-size: 12.5px;">markdown</a> <a href="/tags/math/" style="font-size: 12.5px;">math</a> <a href="/tags/multithreading/" style="font-size: 10px;">multithreading</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/numpy/" style="font-size: 10px;">numpy</a> <a href="/tags/opencv/" style="font-size: 10px;">opencv</a> <a href="/tags/pandas/" style="font-size: 10px;">pandas</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/ready-player-one/" style="font-size: 10px;">ready_player_one</a>
+    </div>
+  </div>
+
+
+    
+  </div>
+</aside>
+        </div>
+      </div>
+    </div>
+    <footer id="footer">
+  
+  <div class="container">
+    <div class="container-inner">
+      <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+      <div class="credit">
+        <h1 class="logo-wrap">
+          <a href="/" class="logo"></a>
+        </h1>
+        <p>&copy; 2018 Alyssa Quek</p>
+        <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+    
+
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+
+  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
+  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+
+
+
+
+<script src="/js/html-patch.js" type="text/javascript"></script>
+<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/prism.js" type="text/javascript"></script>
+
+  </div>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
