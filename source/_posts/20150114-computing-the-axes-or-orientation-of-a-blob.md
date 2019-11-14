@@ -107,7 +107,7 @@ To do this:
  2. Create the rotating transformation matrix
  3. Multiply the transformation matrix to the set of coordinates.
 <pre><code class="language-python">
-theta = np.tanh((x_v1)/(y_v1))  
+theta = np.arctan((x_v1)/(y_v1))  
 rotation_mat = np.matrix([[np.cos(theta), -np.sin(theta)],
                           [np.sin(theta), np.cos(theta)]])
 transformed_mat = rotation_mat * coords
