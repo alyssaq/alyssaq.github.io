@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-transformed_plot.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-moments_plot.png">
 <meta property="og:image" content="https://alyssaq.github.io/blog/images/blob_axes-three_plot.png">
-<meta property="og:updated_time" content="2018-04-28T11:49:12.293Z">
+<meta property="og:updated_time" content="2019-11-14T17:34:06.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Computing the Axes or Orientation of a Blob">
 <meta name="twitter:description" content="How do we find the major and minor axes of a blob?We look at using 2 popular methods to obtain the same result:  Covariance matrix and eigenvectors, eigenvalues (partial PCA). Raw image moments  1. Co">
@@ -124,7 +124,7 @@
       
       <p class="article-byline">
         <a href="/2015/computing-the-axes-or-orientation-of-a-blob/" class="article-date">
-  <time datetime="2015-01-13T19:30:00.000Z" itemprop="datePublished">14-Jan-2015</time>
+  <time datetime="2015-01-14T09:30:00.000Z" itemprop="datePublished">14-Jan-2015</time>
 </a>
       </p>
       <div class="article-entry" itemprop="articleBody">
@@ -204,7 +204,7 @@ plt.show()
 <li>Calculate $\theta$ using the eigenvector of the major axis to the y-axis</li>
 <li>Create the rotating transformation matrix</li>
 <li>Multiply the transformation matrix to the set of coordinates.<pre><code class="language-python">
-theta = np.tanh((x_v1)/(y_v1))  
+theta = np.arctan((x_v1)/(y_v1))  
 rotation_mat = np.matrix([[np.cos(theta), -np.sin(theta)],
                       [np.sin(theta), np.cos(theta)]])
 transformed_mat = rotation_mat * coords
@@ -262,7 +262,7 @@ evals, evecs = np.linalg.eig(cov)
 
       </div>
       <footer class="article-footer">
-        <a data-url="alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/" data-id="cjgjbw9nb0011i5ifhrh1jm38" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        <a data-url="alyssaq.github.io/2015/computing-the-axes-or-orientation-of-a-blob/" data-id="ck2yztyry0035t3yei46ekmjd" class="article-share-link"><i class="fa fa-share"></i>Share</a>
         
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-vision/">computer vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-algebra/">linear algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
@@ -330,7 +330,7 @@ evals, evecs = np.linalg.eig(cov)
             <div class="item-inner">
               <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
               <p class="item-title"><a href="/2015/20150426-simple-movie-recommender-using-svd/" class="title">Simple Movie Recommender Using SVD</a></p>
-              <p class="item-date"><time datetime="2015-04-26T06:13:00.000Z" itemprop="datePublished">26-Apr-2015</time></p>
+              <p class="item-date"><time datetime="2015-04-26T19:13:00.000Z" itemprop="datePublished">26-Apr-2015</time></p>
             </div>
           </li>
         
@@ -339,7 +339,7 @@ evals, evecs = np.linalg.eig(cov)
             <div class="item-inner">
               <p class="item-category"><a class="article-category-link" href="/categories/tech/">tech</a></p>
               <p class="item-title"><a href="/2015/deploy_gzip_site_s3/" class="title">Site Deployment With Gzipped Assets to AWS S3 Using CircleCI</a></p>
-              <p class="item-date"><time datetime="2015-04-16T10:02:00.000Z" itemprop="datePublished">16-Apr-2015</time></p>
+              <p class="item-date"><time datetime="2015-04-16T23:02:00.000Z" itemprop="datePublished">16-Apr-2015</time></p>
             </div>
           </li>
         
@@ -348,7 +348,7 @@ evals, evecs = np.linalg.eig(cov)
             <div class="item-inner">
               <p class="item-category"><a class="article-category-link" href="/categories/stuff/">stuff</a></p>
               <p class="item-title"><a href="/2015/face-morpher-talk-at-foss-asia/" class="title">Face Morpher Talk at FOSS Asia</a></p>
-              <p class="item-date"><time datetime="2015-03-14T11:08:00.000Z" itemprop="datePublished">14-Mar-2015</time></p>
+              <p class="item-date"><time datetime="2015-03-15T00:08:00.000Z" itemprop="datePublished">14-Mar-2015</time></p>
             </div>
           </li>
         
@@ -357,7 +357,7 @@ evals, evecs = np.linalg.eig(cov)
             <div class="item-inner">
               <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
               <p class="item-title"><a href="/2015/singular-value-decomposition-visualisation/" class="title">Singular Value Decomposition (SVD) Visualisation</a></p>
-              <p class="item-date"><time datetime="2015-02-23T19:03:00.000Z" itemprop="datePublished">24-Feb-2015</time></p>
+              <p class="item-date"><time datetime="2015-02-24T09:03:00.000Z" itemprop="datePublished">24-Feb-2015</time></p>
             </div>
           </li>
         
@@ -366,7 +366,7 @@ evals, evecs = np.linalg.eig(cov)
             <div class="item-inner">
               <p class="item-category"><a class="article-category-link" href="/categories/data-science/">data science</a></p>
               <p class="item-title"><a href="/2015/computing-the-axes-or-orientation-of-a-blob/" class="title">Computing the Axes or Orientation of a Blob</a></p>
-              <p class="item-date"><time datetime="2015-01-13T19:30:00.000Z" itemprop="datePublished">14-Jan-2015</time></p>
+              <p class="item-date"><time datetime="2015-01-14T09:30:00.000Z" itemprop="datePublished">14-Jan-2015</time></p>
             </div>
           </li>
         
@@ -419,7 +419,7 @@ evals, evecs = np.linalg.eig(cov)
         <h1 class="logo-wrap">
           <a href="/" class="logo"></a>
         </h1>
-        <p>&copy; 2018 Alyssa Quek</p>
+        <p>&copy; 2019 Alyssa Quek</p>
         <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
       </div>
     </div>
